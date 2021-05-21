@@ -8,7 +8,7 @@
                 <div class="panel-heading"><img src="{{ url('/images/logo.png') }}" alt="logo" height="" width="200" ></div>
 
                 <div class="panel-body">
-                    <h3>Computer Gurus Management Application (GAPP)</h3>
+                    <h3>Computer Gurus Management Application (GAPP CRM)</h3>
                     <a href="{{ url('/login') }}" class="btn btn-primary">Login </a>
 
                 </div>
