@@ -1,0 +1,1099 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Order;
+use App\Quote;
+use App\Qline;
+use App\Orline;
+use App\Customer;
+use App\User;
+use App\Device;
+use App\Make;
+use App\Setting;
+use App\Myfunctions\Myfunctions;
+use Auth;
+use Redirect;
+use Mail;
+use DB;
+use Session;
+use DateTime;
+use Carbon\Carbon;
+use App\Payment;
+use Spatie\GoogleCalendar\Event;
+
+class OrderController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+    public function confirmCompleteDate($id,$p)
+    {
+
+        $order = Order::with('customer')->where('id',$id)->first();
+
+        return view('order.orderCompleteDate',compact('order','p'));
+
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+
+
+        $search = $request->order_search;
+        $checked_state = $request->checked_state;
+        $exclude = ($request->checked_state == 'on')? false : true;
+        $sortby  = $request->sort_by;
+        
+        if( $search != NULL){
+
+            if($sortby == 'orderno'){
+
+                $orders = DB::table('orders')
+                                ->join('customers','orders.customer_id','=','customers.id')
+                                ->join('users','orders.worked_by','=','users.id')
+                                ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
+                                ->where('orders.id','LIKE','%'.$search.'%')
+                                ->orWhere('customers.first_name','LIKE','%'.$search.'%')
+                                ->orWhere('customers.last_name','LIKE','%'.$search.'%')
+                                ->orWhere('customers.postcode','LIKE','%'.$search.'%')
+                                ->orderby('id','desc')
+                                ->paginate(500);
+            } else {
+
+                $orders = DB::table('orders')
+                                ->join('customers','orders.customer_id','=','customers.id')
+                                ->join('users','orders.worked_by','=','users.id')
+                                ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
+                                ->where('orders.id','LIKE','%'.$search.'%')
+                                ->orWhere('customers.first_name','LIKE','%'.$search.'%')
+                                ->orWhere('customers.last_name','LIKE','%'.$search.'%')
+                                ->orWhere('customers.postcode','LIKE','%'.$search.'%')
+                                ->orderby('booking_date','desc')
+                                ->paginate(500);
+
+            }
+            
+        }else { 
+
+           if ($checked_state == 'on') { 
+
+
+                if ($sortby == 'orderno') {
+
+                    $orders = DB::table('orders')
+                            ->join('customers','orders.customer_id','=','customers.id')
+                            ->join('users','orders.worked_by','=','users.id')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            ->orderby('id','desc')
+                            ->paginate(500);
+                    
+                } else {
+
+                    $orders = DB::table('orders')
+                            ->join('customers','orders.customer_id','=','customers.id')
+                            ->join('users','orders.worked_by','=','users.id')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            ->orderby('booking_date','desc')
+                            ->paginate(500);
+                }
+
+            }
+            else {
+
+                if ($sortby == 'orderno') {
+                    
+            
+                        $orders = DB::table('orders')
+                            ->join('customers','orders.customer_id','=','customers.id')
+                            ->join('users','orders.worked_by','=','users.id')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            /*->when($exclude,function($query,$exclude_closed){return $query->where('order_status','!=','Closed');})*/
+                            ->where('order_status','!=','Closed')
+                            ->orderby('id','desc')
+                            ->paginate(500);
+                } else {
+
+                        $orders = DB::table('orders')
+                            ->join('customers','orders.customer_id','=','customers.id')
+                            ->join('users','orders.worked_by','=','users.id')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            /*->when($exclude,function($query,$exclude_closed){return $query->where('order_status','!=','Closed');})*/
+                            ->where('order_status','!=','Closed')
+                            ->orderby('booking_date','desc')
+                            ->paginate(500);
+
+
+                        }
+
+            }
+         }
+             
+        return view('order.orders',compact('orders','checked_state','sortby'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        
+        
+
+    }
+    public function neworder($custid)
+    {
+
+        $cust = Customer::findorfail($custid);
+        $engineers = User::all();
+        $devices = Device::orderby('device_type')->get();
+        $makes = Make::all();
+        
+        return view('order.orderCreate',compact('cust','engineers','devices','makes'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request,$custid)
+    {
+
+        $this->validate($request,[
+
+            'booking_date' => 'required',
+            'booking_time' => 'required',
+            'location'  => 'required',
+            'device_id'   => 'required',
+            /*'make_id'       => 'required', */
+            'model'   => 'required',
+            'serial_no'   => 'required',
+            'password'   => 'required',
+            'data_backup'   => 'required',
+            'order_notes' => 'required',
+            //'signature' => 'required',
+        ]);
+
+    
+        //double check here in case javaScript validation faild 
+        if($request->ignore_signature != 'on' && ($request->signature == NULL || $request->signature == '' || 
+           strpos($request->signature , 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAADICAYAAADGFbfiAAAHFklEQVR4X') === 0)){
+
+            return "Signature required!";
+        }
+
+        $myfuncs = New Myfunctions;
+        $booking_date = $myfuncs->usDate($request->booking_date);
+
+        $settings = Setting::findorfail(1);
+
+        $cust = Customer::findorfail($custid);
+
+        $order = New Order;
+
+        $order->booking_date = $booking_date;
+        $order->complete_date = $booking_date;
+        $order->booking_time = $request->booking_time;
+        $order->location = $request->location;
+        $order->device_id = $request->device_id;
+        $order->make_id =  /*$request->make_id;*/ 1;
+        $order->model = $request->model;
+        $order->serial_no = $request->serial_no;
+        $order->password = $request->password;
+        $order->data_backup = $request->data_backup;
+        $order->order_notes = $request->order_notes;
+        $order->private_notes = $request->private_notes;
+        $order->taken_by = Auth::user()->id;
+        $order->updated_by = Auth::user()->id;
+        $order->worked_by = $request->worked_by;
+        $order->order_status = "Booked";
+        $order->customer_id = $cust->id;
+        $order->discount_percent = $cust->discount;
+        $order->vat_rate = $settings->vat_rate;
+        $order->send_email = 1;
+        $order->save();
+
+        //If Customer one off discount applied then clear that in customer 
+        if($cust->discount != 0){
+            $cust->discount = 0;
+            $cust->save();
+        }
+
+        $order->order_ref = $order->id;
+        $order->save();
+
+        //Now save the customer signature in /storage/app/signatures flder with order no
+        // example /Users/Nasir/code/gapp/storage/signatures/12345.png 
+        // Then store the full path of signature file into orders.signature field 
+        // so that we can retrieve it later for prinitng etc
+        if($request->ignore_signature != 'on') {
+
+            $signatureFile = $myfuncs->storeSignature($order->id,$request->signature);
+            $order->signature = $signatureFile;
+            $order->save();
+
+        }
+        /*
+
+        //send an email to customer
+
+        $user = Auth::user();
+        Mail::send('emails.bookingCustConfirmation', ['customer' => $cust], function ($m) use ($user,$cust) {
+            $m->from($user->email, $user->name);
+            $m->to($cust->email, $cust->first_name.' '.$cust->last_name)->subject('Booking Confirmation with Computer Gurus');
+        });
+
+        //send an email to assigned engineer
+
+        $eng = User::findorfail($order->worked_by) ;
+        Mail::send('emails.bookingEngNotification', ['order' => $order,'engineer' => $eng], function ($m) use ($user,$eng,$order) {
+            $m->from($user->email, $user->name);
+            $m->to($eng->email, $eng->name)->subject('New Booking Confirmation No '.$order->id);
+        });
+
+        */
+
+        //If the order is onsite then create an event in Google Calendar
+        if($order->location == 1) {
+            //Create new event 
+            $event = new Event;
+            //Assign values including Name, date , time and location
+            $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
+            $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
+            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/london')->addHour(2);
+            $event->location = $order->customer->address1.','.$order->customer->postcode;
+            $event = $event->save();
+
+            $order->event_id = $event->id;
+            $order->save();
+        }
+
+
+        //return redirect('order');
+
+        return redirect()->route('emailPreview', ['orderid' => $order->id]);
+
+
+
+    }
+
+    // Convert a quote into order 
+
+    public function createOrderFromQuote (Request $request, $quoteid){
+
+        $this->validate($request,[
+
+            'booking_date' => 'required',
+            'booking_time' => 'required',
+            'location'  => 'required',
+            'device_id'   => 'required',
+            'model'   => 'required',
+            'password'   => 'required',
+            'data_backup'   => 'required',
+            'order_notes' => 'required',
+        ]);
+
+        //convert the input booking date in to a database store format 
+        $myfuncs = New Myfunctions;
+        $booking_date = $myfuncs->usDate($request->booking_date);
+        //Find quote 
+        $quote = Quote::findorfail($quoteid);
+        //Find customer from quote 
+        $cust = Customer::findorfail($quote->customer_id);
+        //Find first settings for VAT rate etc 
+        $settings = Setting::findorfail(1);  
+        //Create New order 
+        $order = New Order;
+        //store data from the input form 
+        $order->quote_id = $quote->id;
+        $order->booking_date = $booking_date;
+        $order->complete_date = $booking_date;
+        $order->booking_time = $request->booking_time;
+        $order->location = $request->location;
+        $order->device_id = $request->device_id;
+        $order->make_id =   1;
+        $order->model = $request->model;
+        $order->password = $request->password;
+        $order->data_backup = $request->data_backup;
+        $order->order_notes = $request->order_notes;
+        $order->private_notes = $request->private_notes;
+        $order->taken_by = Auth::user()->id;
+        $order->updated_by = Auth::user()->id;
+        $order->worked_by = $request->worked_by;
+        $order->order_status = "Booked";
+        $order->customer_id = $cust->id;
+        $order->discount_percent = $cust->discount;
+        $order->vat_rate = $settings->vat_rate;
+        $order->send_email = 1;
+        $order->save();
+        
+        $order->order_ref = $order->id;
+
+        //update cross refrence of orde rno to quote as well
+
+        $quote->order_id = $order->id;
+        $quote->quote_status = "ordered";
+        $quote->save();
+
+        //If Customer one off discount applied then clear that in customer 
+        if($cust->discount != 0){
+            $cust->discount = 0;
+            $cust->save();
+        }
+
+        //Now create order lines from quote lines 
+        $qlines = Qline::where('quote_id',$quote->id)->get();
+
+        foreach ($qlines as $ql) {
+             
+            $orline = New Orline;  //Create new order-line
+
+            $orline->order_id = $order->id;
+            $orline->item_notes = $ql->item_type;  //parts or labour
+            $orline->item_detail = $ql->item_detail;
+            $orline->quantity = $ql->quantity;
+            $orline->price = $ql->price;
+            $orline->cost = $ql->cost;
+            $orline->value = $ql->value;
+            $orline->commission = $ql->commission;
+            $orline->updated_by = Auth::user()->id;
+
+            $orline->save();
+        }
+
+        $myfunctions = New Myfunctions;
+        $myfunctions->updateOrderTotals($order->id);
+
+
+        //If the order is onsite then create an event in Google Calendar
+        if($order->location == 1) {
+            //Create new event 
+            $event = new Event;
+            //Assign values including Name, date , time and location
+            $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
+            $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
+            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/london')->addHour(2);
+            $event->location = $order->customer->address1.','.$order->customer->postcode;
+            $event = $event->save();
+
+            $order->event_id = $event->id;
+            $order->save();
+        }
+
+        //Redirect to named router defined in route file
+        //which willshow the edit order screen 
+        //return redirect()->route('orderedit', ['order' => $order->id]);
+        return redirect('order/'.$order->id.'/edit/1');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id,$from)
+    {
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $orlines = Orline::where('order_id',$id)->get();
+        $payments = Payment::where('order_id',$id)->get();
+        $devices = Device::all();
+        $makes = Make::all();
+        $engineers = User::all();
+        
+        $services = 0;
+        foreach ($orlines as $ol) {
+            if ($ol->item_notes == 'labour') {
+                $services = $services + $ol->line_value;
+            }
+        }
+        
+        $from = $from;
+        return view('order.orderEdit',compact('order','orlines','payments','devices','makes','engineers','services','from'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        
+        $this->validate($request, [
+
+            'order_status' => 'required',
+            'booking_date' => 'required',
+            'booking_time' => 'required',
+            'location'  => 'required',
+            'order_notes' => 'required',
+            'device_id'   => 'required',
+            'make_id'       => 'required',
+            'model'   => 'required',
+            /*'serial_no'   => 'required',*/
+            'password'   => 'required',
+            'data_backup'   => 'required',
+            'worked_by' => 'required'
+        ]);
+
+        $order = Order::findorfail($id);
+        
+        $myfuncs = New Myfunctions;
+        $booking_date = $myfuncs->usDate($request->booking_date);
+        $settings = Setting::findorfail(1);
+
+        $complete_date = Null;
+        $collection_date = Null;
+        $followup_date = Null;
+        $payment_date = Null;
+
+        if($request->complete_date != Null)
+           $complete_date = $myfuncs->usDate($request->complete_date);
+
+        if($request->collection_date != null)
+           $collection_date = $myfuncs->usDate($request->collection_date);
+        if($request->followup_date != null)
+           $followup_date = $myfuncs->usDate($request->followup_date);
+
+        if($request->payment_date != null)
+            $payment_date = $myfuncs->usDate($request->payment_date);
+
+        $order->order_status = $request->order_status;
+        $order->booking_date = $booking_date;
+        $order->booking_time = $request->booking_time;
+        $order->location = $request->location;
+        $order->complete_date = $booking_date;
+        $order->collection_date = $collection_date;
+        $order->collection_time = $request->collection_time;
+        $order->followup_date = $followup_date;
+        $order->followup_time = $request->followup_time;
+        $order->order_notes = $request->order_notes;
+        $order->private_notes = $request->private_notes;
+        $order->recommendations = $request->recommendations;
+        $order->device_id = $request->device_id;
+        $order->make_id = $request->make_id;
+        $order->model = $request->model;
+        $order->serial_no = $request->serial_no;
+        $order->operating_system = $request->operating_system;
+        $order->condition = $request->condition;
+        $order->colour = $request->colour;
+        $order->data_backup = $request->data_backup;
+        $order->username = $request->username;
+        $order->password = $request->password;
+        $order->discount_percent = $request->discount_percent;
+        $order->vat_rate = $settings->vat_rate;
+        $order->worked_by = $request->worked_by;
+        $order->updated_by = Auth::user()->id;
+
+        $order->save();
+
+        $myfunctions = New Myfunctions;
+        $myfunctions->updateOrderTotals($id);
+
+
+        //If the order is onsite then create an event in Google Calendar
+        if($order->location == 1) {
+
+            //check if the calendar event already exist 
+            if($order->event_id != NULL){
+
+                //find that event in the Google calendar
+                $event = Event::find($order->event_id);
+
+                //Now check if there is no event or event is cancelled then create a new event
+                if($event == NULL || $event->status == 'cancelled' ){
+
+                    $event = new Event();
+                }
+
+            }
+            else {
+
+                $event = New Event();
+            }
+
+            //At this stage event will be available so assign values including Name, date , time and location
+            $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
+            $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
+            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/london')->addHour(2);
+            $event->location = $order->customer->address1.','.$order->customer->postcode;
+            $event = $event->save();
+
+            $order->event_id = $event->id;
+            $order->save();
+        } else 
+            {
+
+                if($order->event_id != NULL)
+                {
+                    try { 
+
+                       $event =  Event::find($order->event_id); 
+
+                    } catch (\Google_Service_Exception $e) { 
+
+                       echo $e->getErrors()[0]['reason']; //notFound
+                    }
+
+                    //If the event is available and status is not cancelled then delete
+                    if($event != NULL && $event->status != 'cancelled'){
+                        $event->delete();
+                    }
+                    
+                    //In all cases assign order->event_id to NULL
+                    $order->event_id = NULL;
+                    $order->save();
+
+                }
+            }
+
+         
+        //return redirect::back()->with('status','Order details was saved successfully!');
+
+            return redirect('order/'.$order->id.'/edit/0')->with('status','Order details was saved successfully!');
+
+
+    }
+
+    public function updateCompleteDate(Request $request,$id,$p)
+    {
+
+        $this->validate($request,[
+
+            'complete_date' => 'required',
+             
+        ]);
+
+        $order = Order::findorfail($id);
+        $myfuncs = New Myfunctions;
+        $complete_date = $myfuncs->usDate($request->complete_date);
+        
+        $order->complete_date = $complete_date;
+        $order->save();
+
+        //return view('order.orderCompleteDateConfirm',compact('order'));
+
+        //return redirect('invpreview/'.$order->id));
+
+        //return redirect()->route('invpreview/', ['id' => $order->id]);
+
+        if($p == 1)
+            return redirect('invprint/'.$order->id);
+        else
+           return redirect('invpreview/'.$order->id);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    //Email Invoice
+
+    public function invPreview($id){
+
+        $order = Order::findorfail($id);
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        //$inv_date = New DateTime();
+        $inv_date = $order->complete_date;
+        //$inv_date = $inv_date->format('j M Y');
+        $settings = Setting::findorfail(1);
+
+        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings'));
+
+    }
+
+    //Print Preview an Email without buttons 
+
+     public function invPrint($id){
+
+        $order = Order::findorfail($id);
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        //$inv_date = New DateTime();
+        $inv_date = $order->complete_date;
+        //$inv_date = $inv_date->format('j M Y');
+        $settings = Setting::findorfail(1);
+
+        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings'));
+
+    }
+
+
+    public function invEmail($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        $user = Auth::user();
+        //$inv_date = New DateTime();
+        $inv_date = $order->complete_date;
+        //$inv_date = $inv_date->format('j M Y');
+        $settings = Setting::findorfail(1);
+
+        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Invoice# '.$order->id);
+           if ($user->bcc != null)
+               $m->bcc($user->bcc, $name = 'Invoice to Customer');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+
+        $order->order_status = "Invoiced";
+        $order->save();
+
+        Session::flash('status','Invoice emailed to customer successfully!');
+        return redirect::back();
+
+    }
+
+    //Email Payment Receipt
+
+    public function recPreview($id){
+
+        $order = Order::findorfail($id);
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        $inv_date =  $order->payment_date;
+        $settings = Setting::findorfail(1);
+
+        return view('emails.recpreview',compact('order','orlines','payments','inv_date','settings'));
+
+    }
+
+     //Print Payment Receipt
+
+    public function recPrint($id){
+
+        $order = Order::findorfail($id);
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        $inv_date =  $order->payment_date;
+        $settings = Setting::findorfail(1);
+
+        return view('emails.recprint',compact('order','orlines','payments','inv_date','settings'));
+
+    }
+
+    public function recEmail($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $user = Auth::user();
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        $inv_date =  $order->payment_date;
+        $settings = Setting::findorfail(1);
+
+        Mail::send('emails.receipt', ['order' => $order,'orlines' => $orlines,'payments' => $payments,'inv_date' => $inv_date,'settings' => $settings], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Payment Receipt# '.$order->id);
+           if ($user->bcc != null)
+              $m->bcc($user->bcc, $name = 'Receipt to Customer');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+
+        $order->order_status = "Payment Receipt Sent";
+        $order->save();
+
+        Session::flash('status','Receipt emailed to customer successfully!');
+        return redirect::back();
+
+    }
+    // Prinitng and Print Preview and Email etc 
+    //Print
+    public function print($orderid){
+
+        $order = Order::findorfail($orderid);
+        $settings = Setting::findorfail(1);
+        $user = Auth::user();
+        $olines = Orline::where('order_id','=',$order->id)->get();
+
+        return view('order.print',compact('order','settings','olines','user'));
+
+    }
+
+
+    // Signature later on , if order is placed while client is not present,
+    // for example taking order over phone and visit home later on
+    // then take signature when you see client 
+
+    public function signature($orderid){
+
+        //display a print copy of the booking confirmation to take signature
+
+        $order = Order::findorfail($orderid);
+        $settings = Setting::findorfail(1);
+        $user = Auth::user();
+        $olines = Orline::where('order_id','=',$order->id)->get();
+
+        return view('order.signature',compact('order','settings','olines','user'));
+
+    }
+
+    public function storeSignature(Request $request,$orderid){
+
+        $this->validate($request,[
+            'signature' => 'required',
+        ]);
+
+         //double check here in case javaScript validation faild 
+        if(($request->signature == NULL || $request->signature == '' || 
+           strpos($request->signature , 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAADICAYAAADGFbfiAAAHFklEQVR4X') === 0)){
+            return "Signature required!";
+        }
+
+
+        $order = Order::findorfail($orderid);
+
+        $myfuncs = New Myfunctions;
+
+        $signatureFile = $myfuncs->storeSignature($order->id,$request->signature);
+
+        $order->signature = $signatureFile;
+        $order->save();
+
+
+        return redirect()->route('emailPreview', ['orderid' => $order->id]);
+    }
+
+
+    public function emailPreview($orderid){
+
+        $order = Order::findorfail($orderid);
+        $settings = Setting::findorfail(1);
+        $user = Auth::user();
+        $olines = Orline::where('order_id','=',$order->id)->get();
+
+        return view('order.emailpreview',compact('order','settings','olines','user'));
+
+    }
+
+
+    public function email($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $olines = Orline::where('order_id','=',$id)->get();
+        $user = Auth::user();
+        $settings = Setting::findorfail(1);
+
+        Mail::send('order.email', ['order' => $order,'settings' => $settings,'olines' => $olines], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Booking# '.$order->id);
+           if ($user->bcc != null)
+               $m->bcc($user->bcc, $name = 'Booking Confirmation');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+
+        $order->order_status = "emailed";
+        $order->email_sent = Carbon::now();
+        $order->save();
+
+        Session::flash('status','Booking emailed to customer successfully!');
+        return redirect::back();
+
+    }
+    // Printng Finished here -----------------
+
+    //Reports Funtions
+
+    public function OrderReport(){
+
+        return view('order.orderreport');
+    }
+
+
+    public function OrderReportSummary(Request $request){
+        $myfuncs = New Myfunctions;
+        $booking_date_from = $myfuncs->usDate($request->booking_date_from);
+        $booking_date_to = $myfuncs->usDate($request->booking_date_to);
+
+        $orders = DB::table('orders')
+                      ->join('orlines','orlines.order_id','=','orders.id')
+                      ->where('orders.booking_date','>=',$booking_date_from)
+                      ->where('orders.booking_date','<=',$booking_date_to)
+                      ->where('orlines.item_notes','!=','advance')
+                      ->get();
+
+        $total_income = 0;
+        $total_parts = 0;
+        $total_labour = 0;
+        $total_cost = 0;
+        $total_commission = 0;
+
+        foreach ($orders as $ord) {
+
+             $total_income = $total_income + $ord->value;
+             $total_cost = $total_cost + $ord->cost;
+             $total_commission = $total_commission + $ord->commission;
+
+             if($ord->item_notes == "parts"){
+                $total_parts = $total_parts + $ord->value;
+             }
+             else{
+                $total_labour = $total_labour + $ord->value;
+             }
+
+        }
+
+        return view('order.orderreportsummary',compact('orders','total_income','total_cost','total_parts','total_labour','booking_date_from','booking_date_to','total_commission'));
+    }
+
+
+    public function OrderReportExport($booking_date_from,$booking_date_to){
+         
+    
+
+        /*
+        $myfuncs = New Myfunctions;
+        $booking_date_from = $myfuncs->usDate($booking_date_from);
+        $booking_date_to = $myfuncs->usDate($booking_date_to);*/
+
+        $pathToFile = 'Orders.csv';
+        $name = "Orders.csv";
+        $headers = array('content-type' => 'text/csv',);
+        $file_handle = fOpen($pathToFile,'w+');
+        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','ORDERVALUE','COST','TYPE','ORDERSTATUS','ENGINEER','COMM']);
+
+        /*
+        $orders =  DB::table('orlines')
+                       ->join('orders',function($join) use($booking_date_from, $booking_date_to) {
+                          
+                          $join->on('orlines.order_id' , '=','orders.id')
+                               ->where('orders.booking_date','>=',$booking_date_from)
+                               ->Where('orders.booking_date','<=',$booking_date_to);
+                               
+                            })
+                       ->join('users','users.id','=','orders.worked_by')
+                       ->join('customers','orders.customer_id','=','customers.id')
+                       ->get();
+
+        */
+        /*$orders = DB::table('orlines')
+        
+                  ->join('orders','orders.id','=','orlines.order_id')
+                  ->join('users','users.id','=','orders.worked_by')
+                  ->where('orlines.order_id','=','1279')
+                  ->get();  */
+
+        $orders = DB::table('orders')
+                    ->join('users','orders.worked_by','=','users.id')
+                    ->join('customers','orders.customer_id','=','customers.id')
+                    ->join('orlines','orlines.order_id','=','orders.id')
+                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                    ->where('orders.booking_date','>=',$booking_date_from)
+                    ->where('orders.booking_date','<=',$booking_date_to)
+                    ->where('orlines.item_notes','!=','advance')
+                    ->orderBy('orders.id','desc')
+                    ->get();
+
+          foreach ($orders as $o) {
+              
+            fputcsv($file_handle, [
+                $o->order_id,
+                DateTime::createFromFormat('Y-m-d H:i:s',$o->booking_date)->format('d.m.Y'),
+                $o->first_name.' '.$o->last_name,
+                $o->value,
+                $o->cost,
+                $o->item_notes,
+                $o->order_status,
+                $o->user_first_name,
+                $o->commission
+            ]);
+          }
+
+          fclose($file_handle);
+
+          return response()->download($pathToFile, $name, $headers);
+
+    }
+
+    //Convert Quote To Order 
+    public function ConvertQuoteToOrder ($id) {
+
+    
+        $quote = Quote::findorfail($id);
+        $cust = Customer::findorfail($quote->customer_id);
+        $qlines = Qline::where('quote_id','=',$quote->id)->get();
+
+
+         dd("I am in ConvertQuoteToOrder function in Order controller qote id ".$id );
+    }
+
+
+
+    //Commission Report dislay date range 
+    public function CommissionReport() {
+
+      return view('commission.reportdaterange');
+
+    }
+    
+    //This will display list of all order lines between the date range
+    //also display the profit chart 
+    public function CommissionReportExtract(Request $request){
+
+
+
+//dd($request->order_date_to);
+
+        $myfuncs = New Myfunctions;
+        $order_date_from = $myfuncs->usDate($request->order_date_from);
+        $order_date_to = $myfuncs->usDate($request->order_date_to);
+        $order_date_to = $order_date_to.' 23:59:59';
+
+//dd($order_date_to);
+
+
+       $xyz = DB::table('orders')
+                    ->join('users','orders.worked_by','=','users.id')
+                    ->join('customers','orders.customer_id','=','customers.id')
+                    ->join('orlines','orlines.order_id','=','orders.id')
+                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                    ->where('orders.created_at','>=',$order_date_from)
+                    ->where('orders.created_at','<=',$order_date_to)
+                    ->where('orlines.item_notes','!=','advance')
+                    ->orderBy('orders.id','desc')
+                    ->get();
+
+
+        /*$xyz = DB::table('orders')
+                      ->join('orlines','orlines.order_id','=','orders.id')
+                      ->join('users','users.id','=','orders.worked_by')
+                      ->join('customers','orders.customer_id','=','customers.id')
+                      ->where('orders.booking_date','>=',$order_date_from)
+                      ->where('orders.booking_date','<=',$order_date_to)
+                      ->where('orlines.item_notes','!=','advance')
+                      ->get();*/
+
+
+        /*$xyz = DB::table('orders')
+                      ->join('orlines','orlines.order_id','=','orders.id')
+                      ->where('orders.booking_date','>=',$order_date_from)
+                      ->where('orders.booking_date','<=',$order_date_to)
+                      ->where('orlines.item_notes','!=','advance')
+                      ->get();  */
+
+
+        
+        /*$xyz =  DB::table('orlines')
+                       ->join('orders',function($join) use($order_date_from, $order_date_to) {
+                          
+                          $join->on('orlines.order_id' , '=','orders.id')
+                               ->where('orders.booking_date','>=',$order_date_from)
+                               ->Where('orders.booking_date','<=',$order_date_to);
+                               
+                            })
+                       ->join('users','users.id','=','orders.worked_by')
+                       ->join('customers','orders.customer_id','=','customers.id') 
+                       ->get();  */
+         
+
+       /*$xyz = Orline::where('created_at','>=',$order_date_from)->get(); */
+
+        
+ 
+        $parts_cost = 0;
+        $parts_commission = 0;
+        $parts_charge = 0;
+        $parts_profit = 0;
+
+        $services_cost = 0;
+        $services_commission = 0;
+        $services_charge = 0;
+        $services_profit = 0;
+
+
+
+        foreach ($xyz as $orl) {
+            
+            if ($orl->item_notes == 'parts') {
+                $parts_cost = $parts_cost + $orl->cost;
+                $parts_commission = $parts_commission + $orl->commission;
+                $parts_charge = $parts_charge + $orl->value;
+            } else {
+                $services_cost = $services_cost + $orl->cost;
+                $services_commission = $services_commission + $orl->commission;
+                $services_charge = $services_charge + $orl->value;
+            }
+        }
+
+
+        
+        $parts_profit = $parts_charge - $parts_cost - $parts_commission;
+        $services_profit = $services_charge - $services_cost - $services_commission;
+
+        
+        return view('commission.report',compact('xyz','order_date_from','order_date_to','parts_cost','parts_commission','parts_charge',
+                 'parts_profit','services_cost','services_commission','services_charge','services_profit'));
+
+    } // end of public function CommissionReportExtract
+
+
+    //oneoff
+    public function OneOffCompleteDate() {
+
+
+        $orders = Order::where('id','<>',0)->get();
+
+        $myfuncs = New Myfunctions;
+        //$booking_date = $myfuncs->usDate($request->booking_date);
+
+        foreach ($orders as $ord) {
+            
+            $o = Order::findorfail($ord->id);
+
+            $o->complete_date = $myfuncs->usDate($o->booking_date);
+
+            $o->save();
+        }
+
+
+    }
+
+}
