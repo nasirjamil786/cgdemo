@@ -2,9 +2,8 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-google-calendar.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-google-calendar)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-google-calendar/run-tests?label=tests)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-google-calendar.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-google-calendar)
-[![StyleCI](https://styleci.io/repos/58305903/shield?branch=master)](https://styleci.io/repos/58305903)
+![Test Status](https://img.shields.io/github/workflow/status/spatie/laravel-google-calendar/run-tests?label=tests)
+![Code Style Status](https://img.shields.io/github/workflow/status/spatie/laravel-google-calendar/Check%20&%20fix%20styling?label=code%20style)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-google-calendar.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-google-calendar)
 
 This package makes working with a Google Calendar a breeze. Once it has been set up you can do these things:
@@ -16,9 +15,14 @@ use Spatie\GoogleCalendar\Event;
 $event = new Event;
 
 $event->name = 'A new event';
+$event->description = 'Event description';
 $event->startDateTime = Carbon\Carbon::now();
 $event->endDateTime = Carbon\Carbon::now()->addHour();
-$event->addAttendee(['email' => 'youremail@gmail.com']);
+$event->addAttendee([
+    'email' => 'john@example.com'
+    'name' => 'John Doe',
+    'comment' => 'Lorum ipsum',
+]);
 $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
 
 $event->save();
@@ -48,9 +52,7 @@ Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview 
 
 ## Support us
 
-Learn how to create a package like this one, by watching our premium video course:
-
-[![Laravel Package training](https://spatie.be/github/package-training.jpg)](https://laravelpackage.training)
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-google-calendar.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-google-calendar)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
@@ -73,10 +75,36 @@ php artisan vendor:publish --provider="Spatie\GoogleCalendar\GoogleCalendarServi
 This will publish a file called `google-calendar.php` in your config-directory with these contents:
 ```
 return [
-    /*
-     * Path to the json file containing the credentials.
-     */
-    'service_account_credentials_json' => storage_path('app/google-calendar/service-account-credentials.json'),
+
+    'default_auth_profile' => env('GOOGLE_CALENDAR_AUTH_PROFILE', 'service_account'),
+
+    'auth_profiles' => [
+
+        /*
+         * Authenticate using a service account.
+         */
+        'service_account' => [
+            /*
+             * Path to the json file containing the credentials.
+             */
+            'credentials_json' => storage_path('app/google-calendar/service-account-credentials.json'),
+        ],
+
+        /*
+         * Authenticate with actual google user account.
+         */
+        'oauth' => [
+            /*
+             * Path to the json file containing the oauth2 credentials.
+             */
+            'credentials_json' => storage_path('app/google-calendar/oauth-credentials.json'),
+
+            /*
+             * Path to the json file containing the oauth2 token.
+             */
+            'token_json' => storage_path('app/google-calendar/oauth-token.json'),
+        ],
+    ],
 
     /*
      *  The id of the Google Calendar that will be used by default.
@@ -127,6 +155,26 @@ Now that everything is set up on the API site, we’ll need to configure some th
 Scroll down to the "Integrate calendar" section to see the id of the calendar. You need to specify that id in the config file.
 
 ![10](./docs/v2/10.png)
+
+### Authentication with OAuth2
+
+This package supports OAuth2 authentication. This allows you to authenticate with an actual Google account, and to create and manage events with your own Google account.
+
+OAuth2 authentication requires a token file, in addition to the credentials file. The easiest way to generate both of these files is by using the [php quickstart tool](https://developers.google.com/calendar/quickstart/php). Following this guide will generate two files, `credentials.json` and `token.json`. They must be saved to your project as `oauth-credentials.json` and `oauth-token.json`, respectively. Check the config file in this package for exact details on where to save these files.
+
+To use OAuth2, you must also set a new environment variable in your .env file:
+
+```php
+GOOGLE_CALENDAR_AUTH_PROFILE=oauth
+```
+
+If you are upgrading from an older version of this package, you will need to force a publish of the configuration:
+
+```bash
+php artisan vendor:publish --provider="Spatie\GoogleCalendar\GoogleCalendarServiceProvider" --force
+```
+
+Finally, for a more seamless experience in your application, instead of using the quickstart tool you can set up a consent screen in the [Google API console](https://console.developers.google.com/apis). This would allow non-technical users of your application to easily generate their own tokens. This is completely optional.
 
 ## Usage
 
@@ -243,6 +291,17 @@ $event = Event::find($eventId);
 
 $event->delete();
 ```
+
+## Setting a source
+
+You can set source urls in your events, which are only visible to the creator of the event (see [docs](https://developers.google.com/calendar/v3/reference/events) for more on the source property). This function only works when authenticated via OAuth.
+
+```php
+$yourEvent->source = [
+   'title' => 'Test Source Title',
+   'url' => 'http://testsource.url',
+ ];
+ ```
 
 ### Limitations
 

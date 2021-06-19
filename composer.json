@@ -5,20 +5,22 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.2.5",
-        "laravel/framework": "^7.0",
-        "guzzlehttp/guzzle": "~5.3|~6.0",
+        "php": ">=7.3.0",
+        "laravel/framework": "^8.0",
+        "guzzlehttp/guzzle": "~5.3|~7.0.1",
+        "facade/ignition": "^2.3.6",
         "nesbot/carbon": "2.35.0",
         "google/apiclient": "^2.2",
-        "laravel/ui": "^2.0",
+        "laravel/ui": "^3.0",
+        "nunomaduro/collision": "^5.0",
         "doctrine/dbal": "^2.10",
-        "spatie/laravel-google-calendar": "^2.6"
+        "spatie/laravel-google-calendar": "^3.3.1"
     },
 
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "^8.5",
+        "phpunit/phpunit": "^9.0",
         "symfony/css-selector": "2.8.*|3.1.*",
         "symfony/dom-crawler": "2.8.*|3.1.*",
         "filp/whoops":"~2.0"
