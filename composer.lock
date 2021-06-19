@@ -1195,16 +1195,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "9b8cd7e3f234f15a25204e1e875571af7cc3dc8b"
+                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/9b8cd7e3f234f15a25204e1e875571af7cc3dc8b",
-                "reference": "9b8cd7e3f234f15a25204e1e875571af7cc3dc8b",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c3c8b7217c52572fb42aaf84211abccf75a151b2",
+                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2",
                 "shasum": ""
             },
             "require": {
@@ -1260,7 +1260,7 @@
                 "md",
                 "parser"
             ],
-            "time": "2021-06-19T15:03:35+00:00"
+            "time": "2021-06-19T20:08:14+00:00"
         },
         {
             "name": "league/flysystem",
