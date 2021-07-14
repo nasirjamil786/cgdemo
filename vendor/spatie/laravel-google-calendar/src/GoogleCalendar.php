@@ -83,22 +83,22 @@ class GoogleCalendar
         return $this->calendarService->events->quickAdd($this->calendarId, $event);
     }
 
-    public function updateEvent($event): Google_Service_Calendar_Event
+    public function updateEvent($event, $optParams = []): Google_Service_Calendar_Event
     {
         if ($event instanceof Event) {
             $event = $event->googleEvent;
         }
 
-        return $this->calendarService->events->update($this->calendarId, $event->id, $event);
+        return $this->calendarService->events->update($this->calendarId, $event->id, $event, $optParams);
     }
 
-    public function deleteEvent($eventId)
+    public function deleteEvent($eventId, $optParams = [])
     {
         if ($eventId instanceof Event) {
             $eventId = $eventId->id;
         }
 
-        $this->calendarService->events->delete($this->calendarId, $eventId);
+        $this->calendarService->events->delete($this->calendarId, $eventId, $optParams);
     }
 
     public function getService(): Google_Service_Calendar

@@ -2,6 +2,30 @@
 
 All notable changes to `laravel-google-calendar` will be documented in this file
 
+## 3.3.1 - 2021-04-13
+
+- allow optional parameters on delete (#200)
+
+## 3.3.0 - 2021-04-13
+
+- allow user to pass in optional parameters to `updateEvent` (#199)
+
+## 3.2.1 - 2020-12-07
+
+- add support PHP 8
+
+## 3.2.0 - 2020-11-19
+
+- add support for adding attendees to events (#178)
+
+## 3.1.0 - 2020-09-08
+
+- add support for Laravel 8
+
+## 3.0.0 - 2020-08-24
+
+- add support for OAuth2 authentication, source property on events (#163)
+
 ## 2.6.2 - 2020-07-19
 
 - allow `CarbonImmutable` date (#160)

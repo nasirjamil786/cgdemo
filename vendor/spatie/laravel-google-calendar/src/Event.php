@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTime;
 use Google_Service_Calendar_Event;
+use Google_Service_Calendar_EventAttendee;
 use Google_Service_Calendar_EventDateTime;
+use Google_Service_Calendar_EventSource;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -121,6 +123,13 @@ class Event
             return $this->getSortDate();
         }
 
+        if ($name === 'source') {
+            return [
+                'title' => $this->googleEvent->getSource()->title,
+                'url' => $this->googleEvent->getSource()->url,
+            ];
+        }
+
         $value = Arr::get($this->googleEvent, $name);
 
         if (in_array($name, ['start.date', 'end.date']) && $value) {
@@ -144,6 +153,12 @@ class Event
             return;
         }
 
+        if ($name == 'source') {
+            $this->setSourceProperty($value);
+
+            return;
+        }
+
         Arr::set($this->googleEvent, $name, $value);
     }
 
@@ -162,8 +177,6 @@ class Event
         $method = $method ?? ($this->exists() ? 'updateEvent' : 'insertEvent');
 
         $googleCalendar = $this->getGoogleCalendar($this->calendarId);
-
-        $this->googleEvent->setAttendees($this->attendees);
 
         $googleEvent = $googleCalendar->$method($this, $optParams);
 
@@ -188,14 +201,20 @@ class Event
         return $this->save('updateEvent', $optParams);
     }
 
-    public function delete(string $eventId = null)
+    public function delete(string $eventId = null, $optParams = [])
     {
-        $this->getGoogleCalendar($this->calendarId)->deleteEvent($eventId ?? $this->id);
+        $this->getGoogleCalendar($this->calendarId)->deleteEvent($eventId ?? $this->id, $optParams);
     }
 
-    public function addAttendee(array $attendees)
+    public function addAttendee(array $attendee)
     {
-        $this->attendees[] = $attendees;
+        $this->attendees[] = new Google_Service_Calendar_EventAttendee([
+            'email' => $attendee['email'],
+            'comment' => $attendee['comment'] ?? null,
+            'displayName' => $attendee['name'] ?? null,
+        ]);
+
+        $this->googleEvent->setAttendees($this->attendees);
     }
 
     public function getSortDate(): string
@@ -246,11 +265,20 @@ class Event
         }
     }
 
+    protected function setSourceProperty(array $value)
+    {
+        $source = new Google_Service_Calendar_EventSource([
+            'title' => $value['title'],
+            'url' => $value['url'],
+        ]);
+
+        $this->googleEvent->setSource($source);
+    }
+
     protected function getFieldName(string $name): string
     {
         return [
             'name' => 'summary',
-            'description' => 'description',
             'startDate' => 'start.date',
             'endDate' => 'end.date',
             'startDateTime' => 'start.dateTime',
