@@ -12,4 +12,5 @@
      <li>We do not provide warranty for water damaged after repair.</li>
      <li>You accept that this repair may void your manufacturer warranty.</li>
      <li>We guarantee our service, including replacement parts for 90 days or the manufacturer warranty which ever is longer.
+     <li>We are not responsible for the loss of computer in the transit if sent to the third parrty for logic board repair.</li>
 </ol>
