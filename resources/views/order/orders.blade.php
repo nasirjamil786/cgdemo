@@ -58,6 +58,7 @@
                                 <tr>
                                     <th>Order#</th>
                                     <th>Customer</th>
+                                    
                                     <th>Job Date</th>
                                     <th>Location</th>
                                     <th>Engineer</th>
@@ -100,14 +101,17 @@
                                           
                                         </td>
                                         
+                                        
                                         <td>
 
-                                            {{DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('l')}} <br>
+                                            {{DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('l')}} 
                                             <small>
                                             {{DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('j M Y')}}
 
                                             {{DateTime::createFromFormat('H:i:s',$order->booking_time)->format('H:i')}}
                                             </small> 
+                                            <br>
+                                            <small>{{$order->model}}</small>
 
                                         </td>
                                         <td>
