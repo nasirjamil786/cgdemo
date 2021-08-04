@@ -238,8 +238,8 @@
                                             <th>Parts/Services</th>
                                             <th>Price</th>
                                             <th>Type</th>
-                                            <th>Cost</th>
-                                            <th>Comm</th>
+                                            {{-- <th>Cost</th> --}}
+                                            {{-- <th>Comm</th> --}}
 
                                         </tr>
                                         @foreach($orlines AS $ol)
@@ -248,8 +248,8 @@
                                                 <td>{{$ol->item_detail}}</td>
                                                 <td>{{$ol->value}}</td>
                                                 <td>{{$ol->item_notes}}</td>
-                                                <td><small>{{$ol->cost}}</small></td>
-                                                <td><small>{{$ol->commission}}</small></td>
+                                                {{-- <td><small>{{$ol->cost}}</small></td> --}}
+                                                {{-- <td><small>{{$ol->commission}}</small></td> --}}
                                             </tr>
                                         @endforeach
                                     </table>
