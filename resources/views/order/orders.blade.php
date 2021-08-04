@@ -58,7 +58,6 @@
                                 <tr>
                                     <th>Order#</th>
                                     <th>Customer</th>
-                                    
                                     <th>Job Date</th>
                                     <th>Location</th>
                                     <th>Engineer</th>
@@ -111,7 +110,7 @@
                                             {{DateTime::createFromFormat('H:i:s',$order->booking_time)->format('H:i')}}
                                             </small> 
                                             <br>
-                                            <small>{{$order->model}}</small>
+                                            <small>{{$order->model}}: {{$order->serial_no}}</small>
 
                                         </td>
                                         <td>
