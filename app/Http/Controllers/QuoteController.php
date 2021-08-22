@@ -327,6 +327,26 @@ class QuoteController extends Controller
 
     public function copy($quoteid){
 
+        $quote = Quote::findorfail($quoteid);
+        
+        $customers = Customer::where('status','=','active')
+                     ->orderBy('first_name')
+                     ->orderBy('last_name')
+                     ->get();
+        return view('quote.quotecopy',compact('quote','customers'));
+
+    }
+
+    public function saveCopy(Request $request,$quoteid){
+
+        
+            $this->validate($request,[
+
+                'custid' => 'required',
+            ]);
+
+        $customer = Customer::findorfail($request->custid);
+
         //Find the quote which needs to be copied
         $qt = Quote::findorfail($quoteid);
         //Also find all the quote lines associated with this quote to be copied 
@@ -335,7 +355,7 @@ class QuoteController extends Controller
         
         //Now create a new quote with new ID automatically created 
         $quote = new Quote;
-        $quote->customer_id = $qt->customer_id;
+        $quote->customer_id = $customer->id;
         $quote->quote_date = Carbon::now();
         $quote->valid_date = Carbon::now();
         $quote->quote_status = "current";

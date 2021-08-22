@@ -239,6 +239,7 @@ Route::get('quote/{quoteid}/deleteconfirm','QuoteController@deleteConfirm');
 Route::post('quote/{quoteid}/delete','QuoteController@delete');
 Route::get('quote/{quoteid}/convorder','QuoteController@convertToOrder');
 Route::get('quote/{quoteid}/copy','QuoteController@copy');
+Route::post('quote/{quoteid}/savecopy','QuoteController@saveCopy');
 
 
 //Quote Line Routes
