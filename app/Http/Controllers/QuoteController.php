@@ -333,7 +333,7 @@ class QuoteController extends Controller
                      ->orderBy('first_name')
                      ->orderBy('last_name')
                      ->get();
-        return view('quote.quotecopy',compact('quote','customers'));
+        return view('quote.quoteCopy',compact('quote','customers'));
 
     }
 
