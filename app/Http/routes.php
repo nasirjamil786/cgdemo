@@ -123,8 +123,6 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-
-
 //Route::get('/home', 'HomeController@index');
 Route::get('/home', 'OrderController@index');
 Route::get('/settings', 'SettingController@index');
@@ -166,15 +164,22 @@ Route::get('/order/{order}/edit/{from}','OrderController@edit')->name('orderedit
 Route::put('/order/{order}','OrderController@update');
 Route::delete('/order/{order}','OrderController@destroy');
 
-
-//Route::resource('order', 'OrderController');
-
 Route::get('/order/{custid}/neworder','OrderController@neworder');
 Route::post('/order/{custid}/store','OrderController@store');
 Route::post('/order/{quoteid}/createfromquote','OrderController@createOrderFromQuote');
 Route::get('ordreport','OrderController@OrderReport'); 
 Route::post('ordreport','OrderController@OrderReportSummary');
 Route::get('/orderreportexport/{booking_date_from}/{booking_date_to}','OrderController@OrderReportExport');
+
+//Device Testing Routes
+
+Route::get('/devicetest/{orderid}/view','OrderController@testView');
+Route::get('/devicetest/{orderid}/create','OrderController@testCreate');
+Route::post('/devicetest/{orderid}/update','OrderController@testUpdate');
+Route::get('devicetest/{orderid}/preview','OrderController@testPreview');
+Route::get('devicetest/{orderid}/email','OrderController@testEmail');
+Route::get('devicetest/{orderid}/print','OrderController@testPrint');
+
 
 //Commission Report 
 //This link will display date range to extract orline table

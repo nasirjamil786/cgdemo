@@ -13,7 +13,7 @@ class Order extends Model
 'make','model','serial_no','operating_system','condition','colour','data_backup','username','password',
 'device_notes','estimate_parts','estimate_services','order_notes','work_detail','recommendations','payment_date',
 'payment','payment_method','worked_by','taken_by','updated_by', 'line_total','discount_percent','discount',
-'delivery_charges','total_beforevat', 'vat_rate','vat','order_total','payment_date','payment','payment_method','payment_ref','send_email','email_sent','quote_id','event_id'
+'delivery_charges','total_beforevat', 'vat_rate','vat','order_total','payment_date','payment','payment_method','payment_ref','send_email','email_sent','quote_id','event_id','test_startup','test_startup_comm','test_sound','test_sound_comm','test_camera','test_camera_comm','test_wifi','test_wifi_comm','test_ethernet','test_ethernet_comm','test_keyboard','test_keyboard_comm','test_trackpad','test_trackpad_comm','test_headphone','test_headphone_comm','test_display','test_display_comm','test_homebutton','test_homebutton_comm','test_microphone','test_microphone_comm','test_fan','test_fan_comm','test_battery','test_battery_comm','test_chport','test_chport_comm','test_shutdown','test_shutdown_comm','test_earphone','test_earphone_comm','test_others','test_others_comm','test_date','tested_by'
     ];
     
     public function customer()

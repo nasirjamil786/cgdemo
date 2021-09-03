@@ -1,7 +1,6 @@
-@extends('emails.invlayout')
+@extends('devicetest.layout')
 
 @section('sendbutton')
-  <div></div>
 @endsection
 
 @section('logo')

@@ -516,6 +516,46 @@ class OrderController extends Controller
         $order->worked_by = $request->worked_by;
         $order->updated_by = Auth::user()->id;
 
+        // store device testing result 
+
+        $order->test_startup = ($request->test_startup == 'NA') ? NULL : $request->test_startup ;
+        $order->test_startup_comm = $request->test_startup_comm;
+        $order->test_sound = ($request->test_sound == 'NA') ? NULL : $request->test_sound ;
+        $order->test_sound_comm = $request->test_sound_comm;
+        $order->test_camera = ($request->test_camera == 'NA') ? NULL : $request->test_camera ;
+        $order->test_camera_comm = $request->test_camera_comm;
+        $order->test_wifi = ($request->test_wifi == 'NA') ? NULL : $request->test_wifi ;
+        $order->test_wifi_comm = $request->test_wifi_comm;
+        $order->test_ethernet = ($request->test_ethernet == 'NA') ? NULL : $request->test_ethernet ;
+        $order->test_ethernet_comm = $request->test_ethernet_comm;
+        $order->test_keyboard = ($request->test_keyboard == 'NA') ? NULL : $request->test_keyboard ;
+        $order->test_keyboard_comm = $request->test_keyboard_comm;
+        $order->test_trackpad = ($request->test_trackpad == 'NA') ? NULL : $request->test_trackpad ;
+        $order->test_trackpad_comm = $request->test_trackpad_comm;
+        $order->test_headphone = ($request->test_headphone == 'NA') ? NULL : $request->test_headphone ;
+        $order->test_headphone_comm = $request->test_headphone_comm;
+        $order->test_display = ($request->test_display == 'NA') ? NULL : $request->test_display ;
+        $order->test_display_comm = $request->test_display_comm;
+        $order->test_homebutton = ($request->test_homebutton == 'NA') ? NULL : $request->test_homebutton ;
+        $order->test_homebutton_comm = $request->test_homebutton_comm;
+        $order->test_microphone = ($request->test_microphone == 'NA') ? NULL : $request->test_microphone ;
+        $order->test_microphone_comm = $request->test_microphone_comm;
+        $order->test_fan = ($request->test_fan == 'NA') ? NULL : $request->test_fan ;
+        $order->test_fan_comm = $request->test_fan_comm;
+        $order->test_battery = ($request->test_battery == 'NA') ? NULL : $request->test_battery ;
+        $order->test_battery_comm = $request->test_battery_comm;
+        $order->test_chport = ($request->test_chport == 'NA') ? NULL : $request->test_chport ;
+        $order->test_chport_comm = $request->test_chport_comm;
+        $order->test_shutdown = ($request->test_shutdown == 'NA') ? NULL : $request->test_shutdown ;
+        $order->test_shutdown_comm = $request->test_shutdown_comm;
+        $order->test_earphone = ($request->test_earphone == 'NA') ? NULL : $request->test_earphone ;
+        $order->test_earphone_comm = $request->test_earphone_comm;
+        $order->test_others = ($request->test_others == 'NA') ? NULL : $request->test_others ;
+        $order->test_others_comm = $request->test_others_comm;
+        $order->test_date = Carbon::now();
+        $order->tested_by = Auth::user()->first_name.' '.Auth::user()->last_name;
+        
+
         $order->save();
 
         $myfunctions = New Myfunctions;
@@ -1075,6 +1115,108 @@ class OrderController extends Controller
                  'parts_profit','services_cost','services_commission','services_charge','services_profit'));
 
     } // end of public function CommissionReportExtract
+
+
+    // Device Testing Functions 
+
+    public function testView($id){
+
+        $order = Order::findorfail($id);
+
+        return view('devicetest.view',compact('order'));
+    }
+
+    public function testCreate($id) {
+
+        $order = Order::findorfail($id);
+
+        return view('devicetest.create',compact('order'));
+    }
+
+    public function testUpdate(Request $request,$id){
+
+        $order = Order::findorfail($id);
+        $user = Auth::user();
+
+        $order->test_startup = $request->test_startup;
+        $order->test_startup_comm = $request->test_startup_comm;
+        $order->test_sound = $request->test_sound;
+        $order->test_sound_comm = $request->test_sound_comm;
+        $order->test_camera = $request->test_camera;
+        $order->test_camera_comm = $request->test_camera_comm ;
+        $order->test_wifi = $request->test_wifi;
+        $order->test_wifi_comm = $request->test_wifi_comm;
+        $order->test_ethernet = $request->test_ethernet;
+        $order->test_ethernet_comm = $request->test_ethernet_comm;
+        $order->test_keyboard = $request->test_keyboard;
+        $order->test_keyboard_comm = $request->test_keyboard_comm;
+        $order->test_trackpad = $request->test_trackpad;
+        $order->test_trackpad_comm = $request->test_trackpad_comm;
+        $order->test_headphone = $request->test_headphone;
+        $order->test_headphone_comm = $request->test_headphone_comm;
+        $order->test_display = $request->test_display;
+        $order->test_display_comm = $request->test_display_comm;
+        $order->test_homebutton = $request->test_homebutton;
+        $order->test_homebutton_comm = $request->test_homebutton_comm;
+        $order->test_microphone = $request->test_microphone;
+        $order->test_microphone_comm = $request->test_microphone_comm;
+        $order->test_fan = $request->test_fan;
+        $order->test_fan_comm = $request->test_fan_comm;
+        $order->test_battery = $request->test_battery;
+        $order->test_battery_comm = $request->test_battery_comm;
+        $order->test_chport = $request->test_chport;
+        $order->test_chport_comm = $request->test_chport_comm;
+        $order->test_shutdown = $request->test_shutdown;
+        $order->test_shutdown_comm = $request->test_shutdown_comm;
+        $torder->test_date = Carbon::now();
+        $order->tested_by = $user->first_name. ' '. $user->last_name;
+
+        $order->save();
+
+        return view('devicetest.preview',compact('order'));
+    }
+
+    public function testPreview($id){
+
+        $order = Order::findorfail($id);
+        $settings = Setting::findorfail(1);
+
+        return view('devicetest.preview',compact('order','settings'));
+
+    }
+
+     public function testPrint($id){
+
+        $order = Order::findorfail($id);
+        $settings = Setting::findorfail(1);
+
+        return view('devicetest.print',compact('order','settings'));
+
+    }
+
+    public function testEmail($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $user = Auth::user();
+        $settings = Setting::findorfail(1);
+
+        Mail::send('devicetest.email', ['order' => $order,'settings' => $settings], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Device Test Report#'.$order->id);
+           if ($user->bcc != null)
+               $m->bcc($user->bcc, $name = 'Device Test Report');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+        $order->test_emailed = Carbon::now();
+        $order->save();
+
+        Session::flash('status','Result emailed to customer successfully!');
+        return redirect::back();
+    }
+
 
 
     //oneoff

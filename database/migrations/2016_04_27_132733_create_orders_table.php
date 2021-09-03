@@ -63,6 +63,46 @@ class CreateOrdersTable extends Migration
             $table->string('signature')->nullable();
             $table->boolean('send_email');
             $table->string('event_id')->nullable();
+
+            $table->string('test_startup')->nullable();
+            $table->text('test_startup_comm')->nullable();
+            $table->string('test_sound')->nullable();
+            $table->text('test_sound_comm')->nullable();
+            $table->string('test_camera')->nullable();
+            $table->text('test_camera_comm')->nullable();
+            $table->string('test_wifi')->nullable();
+            $table->text('test_wifi_comm')->nullable();
+            $table->string('test_ethernet')->nullable();
+            $table->text('test_ethernet_comm')->nullable();
+            $table->string('test_keyboard')->nullable();
+            $table->text('test_keyboard_comm')->nullable();
+            $table->string('test_trackpad')->nullable();
+            $table->text('test_trackpad_comm')->nullable();
+            $table->string('test_headphone')->nullable();
+            $table->text('test_headphone_comm')->nullable();
+            $table->string('test_display')->nullable();
+            $table->text('test_display_comm')->nullable();
+            $table->string('test_homebutton')->nullable();
+            $table->text('test_homebutton_comm')->nullable();
+            $table->string('test_microphone')->nullable();
+            $table->text('test_microphone_comm')->nullable();
+            $table->string('test_fan')->nullable();
+            $table->text('test_fan_comm')->nullable();
+            $table->string('test_battery')->nullable();
+            $table->text('test_battery_comm')->nullable();
+            $table->string('test_chport')->nullable();
+            $table->text('test_chport_comm')->nullable();
+            $table->string('test_shutdown')->nullable();
+            $table->text('test_shutdown_comm')->nullable();
+            $table->string('test_earphone')->nullable();
+            $table->text('test_earphone_comm')->nullable();
+            $table->string('test_others')->nullable();
+            $table->text('test_others_comm')->nullable();
+            $table->date('test_date')->nullable();
+            $table->string('tested_by')->nullable();
+            $table->date('test_emailed')->nullable();
+
+
             $table->unsignedInteger('worked_by');
             $table->unsignedInteger('taken_by');
             $table->unsignedInteger('updated_by');

@@ -42,6 +42,7 @@
                             <ul class="nav nav-tabs" id="myTab">
                                 <li class="active"><a data-toggle="tab" href="#booking">Booking</a></li>
                                 <li><a data-toggle="tab" href="#device">Device</a></li>
+                                <li><a data-toggle="tab" href="#devicetest">Device Test</a></li>
                                 <li><a data-toggle="tab" href="#parts">Parts/Services</a></li>
                                 <li><a data-toggle="tab" href="#payment">Payment</a></li>
                             </ul>
@@ -146,6 +147,10 @@
                                             <textarea class="form-control" name="private_notes" rows="10" >{{$order->private_notes}}</textarea>
                                         </div>
                                     </div>
+
+
+                                    <button type="submit" class="btn btn-primary"  >Save</button>
+                                    <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
                                     
 
                                 </div>
@@ -219,6 +224,413 @@
 
                                      </div>
 
+                                     <button type="submit" class="btn btn-primary"  >Save</button>
+                                     <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
+
+                                </div>
+
+                                <!-- Device test -->
+
+
+                                <div id="devicetest" class="tab-pane fade">
+                                        <hr/>
+                                        <!-- startup test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Startup</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_startup" value="NA" @if($order->test_startup == NULL) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_startup" value="Pass" @if($order->test_startup == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_startup" value="Fail" @if($order->test_startup == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_startup_comm" value="{{$order->test_startup_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <!-- Sound test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label> Sound</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_sound" value="NA" @if($order->test_sound   == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_sound" value="Pass" @if($order->test_sound == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_sound" value="Fail" @if($order->test_sound == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_sound_comm" value="{{$order->test_sound_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Headphone test -->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Headphone</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_headphone" value="NA" @if($order->test_headphone  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_headphone" value="Pass" @if($order->test_headphone == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_headphone" value="Fail" @if($order->test_headphone == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_headphone_comm" value="{{$order->test_headphone_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!-- microphone test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Microphone</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_microphone" value="NA" @if($order->test_microphone  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_microphone" value="Pass" @if($order->test_microphone == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_microphone" value="Fail" @if($order->test_microphone == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_microphone_comm" value="{{$order->test_microphone_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- earphone test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Earphone</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_earphone" value="NA" @if($order->test_earphone  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_earphone" value="Pass" @if($order->test_earphone == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_earphone" value="Fail" @if($order->test_earphone == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_earphone_comm" value="{{$order->test_earphone_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- camera test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Camera</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_camera" value="NA" @if($order->test_camera  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_camera" value="Pass" @if($order->test_camera == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_camera" value="Fail" @if($order->test_camera == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_camera_comm" value="{{$order->test_camera_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <!-- wifi test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Wireless</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_wifi" value="NA" @if($order->test_wifi  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_wifi" value="Pass" @if($order->test_wifi == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_wifi" value="Fail" @if($order->test_wifi == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_wifi_comm" value="{{$order->test_wifi_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- ethernet test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Ethernet Port</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_ethernet" value="NA" @if($order->test_ethernet  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_ethernet" value="Pass" @if($order->test_ethernet == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_ethernet" value="Fail" @if($order->test_ethernet == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_ethernet_comm" value="{{$order->test_ethernet_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- keyboard test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>keyboard</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_keyboard" value="NA" @if($order->test_keyboard  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_keyboard" value="Pass" @if($order->test_keyboard == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_keyboard" value="Fail" @if($order->test_keyboard == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_keyboard_comm" value="{{$order->test_keyboard_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- trackpad test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Trackpad/Mouse</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_trackpad" value="NA" @if($order->test_trackpad  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_trackpad" value="Pass" @if($order->test_trackpad == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_trackpad" value="Fail" @if($order->test_trackpad == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_trackpad_comm" value="{{$order->test_trackpad_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- display test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Display</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_display" value="NA" @if($order->test_display  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_display" value="Pass" @if($order->test_display == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_display" value="Fail" @if($order->test_display == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_display_comm" value="{{$order->test_display_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- homebutton test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Homebutton</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_homebutton" value="NA" @if($order->test_homebutton  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_homebutton" value="Pass" @if($order->test_homebutton == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_homebutton" value="Fail" @if($order->test_homebutton == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_homebutton_comm" value="{{$order->test_homebutton_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- fan test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Cooling Fan</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_fan" value="NA" @if($order->test_fan  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_fan" value="Pass" @if($order->test_fan == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_fan" value="Fail" @if($order->test_fan == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_fan_comm" value="{{$order->test_fan_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- battery test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Battery</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_battery" value="NA" @if($order->test_battery  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_battery" value="Pass" @if($order->test_battery == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_battery" value="Fail" @if($order->test_battery == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_battery_comm" value="{{$order->test_battery_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- chport test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Charging Port</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_chport" value="NA" @if($order->test_chport  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_chport" value="Pass" @if($order->test_chport == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_chport" value="Fail" @if($order->test_chport == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_chport_comm" value="{{$order->test_chport_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- shutdown test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Shutdown</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_shutdown" value="NA" @if($order->test_shutdown  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_shutdown" value="Pass" @if($order->test_shutdown == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_shutdown" value="Fail" @if($order->test_shutdown == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_shutdown_comm" value="{{$order->test_shutdown_comm}}" >
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- others test-->
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label>Others</label> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_others" value="NA" @if($order->test_others  == NULL ) checked @endif >N/A
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_others" value="Pass" @if($order->test_others == 'Pass') checked @endif>Pass
+                                                </label>
+                                                <label class="radio-inline">
+                                                  <input type="radio" name="test_others" value="Fail" @if($order->test_others == 'Fail') checked @endif>Fail
+                                                </label>
+                                            </div>
+                                            <div class="col-md-7"> 
+                                                <label class="radio-inline">
+                                                    Comments <input type="text"  style="width: 400px"  name="test_others_comm" value="{{$order->test_others_comm}}" >
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                             
+                                        <p style="color: red;">Important: Please don't forget to press save button before printing</p>
+                                        <button type="submit" class="btn btn-primary"  >Save</button>
+                                        <a href="{{url('devicetest/'.$order->id.'/preview')}}" class="btn btn-primary">Print/Email This Test</a>
+                                             
                                 </div>
 
 
@@ -349,10 +761,13 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 style="color: red">Balance Due £{{$order->order_total - $order->payment}}</h4>
+
+                                            <!--
                                              @if($order->payment != 0)  
                                                 <a href="{{url('recpreview/'.$order->id)}}" class="btn btn-primary">Email/Print Receipt</a>
                                              @endif
-                                             
+                                             -->
+
                                             <!--This button will open a Modal dialogue with form to enter payments -->
                                             <!--Model is defined below the page -->
                                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal" data-backdrop="static">
@@ -388,15 +803,18 @@
                                         </div>
 
                                     </div>
+                                    @if($order->payment != 0)  
+                                        <a href="{{url('recpreview/'.$order->id)}}" class="btn btn-primary">Email/Print Receipt</a>
+                                    @endif
 
                                 </div>
                             </div> {{-- Tab Content --}}
 
                     </div>  <!--end of panel body-->
                     <div class="panel-footer">
-                        <button type="submit" class="btn btn-primary"  >Save</button>
+                        <!-- <button type="submit" class="btn btn-primary"  >Save Changes</button>  -->
                         
-                        <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
+                        <!-- <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email Order Confirmation</a> -->
 
                     </div>
 
