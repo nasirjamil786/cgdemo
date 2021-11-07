@@ -44,7 +44,7 @@
                                             <td style="padding: 0px 0 0px 0;">
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                     <tr>
-                                                        <td align="left" style="font-family: Arial, sans-serif; color: #333333; font-size: 14px;">{{$comments}}</td>
+                                                        <td align="left" style="font-family: Arial, sans-serif; color: #333333; font-size: 12px;">{{$comments}}</td>
                                                     </tr>
                                                 </table>
                                             </td>

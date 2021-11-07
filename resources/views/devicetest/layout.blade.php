@@ -172,11 +172,12 @@
                             <tr>
                                 <td align="left" style="padding: 20px 0 0 0; font-size: 12px; line-height: 20px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
                                  
-                                <b>Device: </b> {{$order->model}} <br>
-                                <b>Customer: </b> {{$order->customer->first_name}}<br>
-                                <b>Test Date:</b> {{$order->test_date}} <br>
-                                <b>Order No</b> {{$order->id}} <br>
-                                <b>Tested By</b> {{$order->tested_by}} <br>
+                                <b>Device: </b> {{$order->make->make}}:{{$order->model}} <br>
+                                <b>Serial No: </b>{{$order->serial_no}} <br>
+                                <b>Customer: </b> {{$order->customer->first_name}} {{$order->customer->last_name}}<br>
+                                <b>Test Date: </b> {{$order->test_date}} <br>
+                                <b>Order No: </b> {{$order->id}} <br>
+                                <b>Tested By: </b> {{$order->tested_by}} <br>
                                 </td>
                             </tr>
                         </table>

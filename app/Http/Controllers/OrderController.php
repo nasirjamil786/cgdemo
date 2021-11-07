@@ -22,6 +22,7 @@ use DateTime;
 use Carbon\Carbon;
 use App\Payment;
 use Spatie\GoogleCalendar\Event;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -684,7 +685,7 @@ class OrderController extends Controller
 
     //Print Preview an Email without buttons 
 
-     public function invPrint($id){
+    public function invPrint($id){
 
         $order = Order::findorfail($id);
         $orlines = Orline::where('order_id','=',$id)->get();
@@ -695,7 +696,6 @@ class OrderController extends Controller
         $settings = Setting::findorfail(1);
 
         return view('emails.invprint',compact('order','orlines','payments','inv_date','settings'));
-
     }
 
 
@@ -727,6 +727,22 @@ class OrderController extends Controller
         Session::flash('status','Invoice emailed to customer successfully!');
         return redirect::back();
 
+    }
+
+    //Download invoice as pdf 
+
+    public function invPdf($id){
+
+        $order = Order::findorfail($id);
+        $orlines = Orline::where('order_id','=',$id)->get();
+        $payments = Payment::where('order_id','=',$id)->get();
+        $inv_date = $order->complete_date;
+        $settings = Setting::findorfail(1);
+
+        $pdf = PDF::loadView('emails.pdftest',compact('order','orlines','payments','inv_date','settings'));
+
+        //return $pdf->download('pdf_file.pdf');
+        return $pdf->stream('pdf_file.pdf');
     }
 
     //Email Payment Receipt

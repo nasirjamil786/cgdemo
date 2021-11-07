@@ -656,13 +656,18 @@
                                         </tr>
                                         @foreach($orlines AS $ol)
                                             <tr>
-                                                <td><a href="{{url('orline/'.$ol->id.'/delete')}}">Delete</a></td>
+                                                <td>
+                                                    <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete</a>
+                                                    <!-- <a href="#" data-toggle="modal" data-target="#amendModal">Amend</a> -->
+
+                                                </td>
                                                 <td>{{$ol->item_detail}}</td>
                                                 <td>{{$ol->value}}</td>
                                                 <td>{{$ol->item_notes}}</td>
                                                 {{-- <td><small>{{$ol->cost}}</small></td> --}}
                                                 {{-- <td><small>{{$ol->commission}}</small></td> --}}
                                             </tr>
+                                            
                                         @endforeach
                                     </table>
 
@@ -888,6 +893,71 @@
                         </div>
 
                         {{-- End of Order line Modal--}}
+                        {{-- start of line change modal --}}
+                                       <!-- Modal -->
+                                        <div class="modal fade" id="amendModal" tabindex="-1" role="dialog" aria-labelledby="amendModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Amend Order Line</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <form   role="form" name="amendline" method="POST" action="{{url('saveorline/'.$order->id)}}">
+
+                                                            {!! csrf_field() !!}
+
+                                                            <div class="form-group">
+                                                                <label for="item_notes">Item type</label>
+                                                                <select class="form-control" name="item_notes" id="item_notes" required>
+                                                                    <option value=""></option>
+                                                                    <option value="labour" @if($ol->item_notes == 'labour') selected @endif >Labour</option>
+                                                                    <option value="parts" @if($ol->item_notes == 'parts' ) selected @endif>Parts</option>
+                                                                    <option value="advance" @if($ol->item_notes == 'advance') selected @endif>Advance</option>
+                                                                </select>
+
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="item_detail" class="control-label">Item Detail</label>
+                                                                <input type="text" class="form-control" name="item_detail"  id="item_detail"  value="{{$ol->item_detail}}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="value" class="control-label">Price</label>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="value" id="value"  value="{{$ol->value}}" placeholder="£0.00" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="cost" class="control-label">Cost</label>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value="{{$ol->cost}}"placeholder="£0.00" required>
+                                                            </div>
+                                                             <div class="form-group">
+                                                                <label for="commission" class="control-label">Commission</label>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="{{$ol->commission}}" placeholder="£0.00" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+
+                                                    {{--
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                                        <button type="button" class="btn btn-primary" @if($order->order_status == 'Paid') disabled @endif>Save changes</button>
+
+                                                    </div>
+                                                    --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- end of line change modal --}}
+
+                        
 
                         <!-- Payment Modal code start here -->
                         <!-- Modal -->

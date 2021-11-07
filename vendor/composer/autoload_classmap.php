@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Dompdf\\Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
     'Google_AccessToken_Revoke' => $vendorDir . '/google/apiclient/src/aliases.php',
     'Google_AccessToken_Verify' => $vendorDir . '/google/apiclient/src/aliases.php',
     'Google_AuthHandler_AuthHandlerFactory' => $vendorDir . '/google/apiclient/src/aliases.php',
@@ -28,6 +30,11 @@ return array(
     'Google_Task_Retryable' => $vendorDir . '/google/apiclient/src/aliases.php',
     'Google_Task_Runner' => $vendorDir . '/google/apiclient/src/aliases.php',
     'Google_Utils_UriTemplate' => $vendorDir . '/google/apiclient/src/aliases.php',
+    'HTML5_Data' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Data.php',
+    'HTML5_InputStream' => $vendorDir . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+    'HTML5_Parser' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Parser.php',
+    'HTML5_Tokenizer' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+    'HTML5_TreeBuilder' => $vendorDir . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
     'Hamcrest\\Arrays\\IsArray' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
     'Hamcrest\\Arrays\\IsArrayContaining' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
     'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',
@@ -514,6 +521,7 @@ return array(
     'PharIo\\Version\\VersionConstraintParser' => $vendorDir . '/phar-io/version/src/VersionConstraintParser.php',
     'PharIo\\Version\\VersionConstraintValue' => $vendorDir . '/phar-io/version/src/VersionConstraintValue.php',
     'PharIo\\Version\\VersionNumber' => $vendorDir . '/phar-io/version/src/VersionNumber.php',
+    'ReturnTypeWillChange' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
     'SebastianBergmann\\CliParser\\AmbiguousOptionException' => $vendorDir . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
     'SebastianBergmann\\CliParser\\Exception' => $vendorDir . '/sebastian/cli-parser/src/exceptions/Exception.php',
     'SebastianBergmann\\CliParser\\OptionDoesNotAllowArgumentException' => $vendorDir . '/sebastian/cli-parser/src/exceptions/OptionDoesNotAllowArgumentException.php',

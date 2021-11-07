@@ -106,6 +106,7 @@ Route::get('email','UserController@sendEmailReminder');
 Route::get('/invpreview/{id}','OrderController@invPreview');
 Route::get('/invprint/{id}','OrderController@invPrint');
 Route::get('/invemail/{id}','OrderController@invEmail');
+Route::get('/invpdf/{id}','OrderController@invPdf');
 
 //Receipt preview and receipt email
 
@@ -256,8 +257,6 @@ Route::get('qline/{qlineid}/delete','QlineController@delete');
 Route::get('qline/{qlineid}/image','QlineController@image');
 Route::post('qline/{qlineid}/imageupload','QlineController@imageUpload');
 Route::get('qline/{qlineid}/removeimage','QlineController@removeImage');
-
-
 
 
 //Payment 

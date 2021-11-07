@@ -35,11 +35,12 @@ use Google\Client;
  */
 class OSConfig extends \Google\Service
 {
-  /** See, edit, configure, and delete your Google Cloud Platform data. */
+  /** See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.. */
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
 
-  public $operations;
+  public $projects_locations_instances_inventories;
+  public $projects_locations_instances_vulnerabilityReports;
   public $projects_patchDeployments;
   public $projects_patchJobs;
   public $projects_patchJobs_instanceDetails;
@@ -60,15 +61,65 @@ class OSConfig extends \Google\Service
     $this->version = 'v1';
     $this->serviceName = 'osconfig';
 
-    $this->operations = new OSConfig\Resource\Operations(
+    $this->projects_locations_instances_inventories = new OSConfig\Resource\ProjectsLocationsInstancesInventories(
         $this,
         $this->serviceName,
-        'operations',
+        'inventories',
         [
           'methods' => [
-            'delete' => [
+            'get' => [
               'path' => 'v1/{+name}',
-              'httpMethod' => 'DELETE',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'view' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/inventories',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'view' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_instances_vulnerabilityReports = new OSConfig\Resource\ProjectsLocationsInstancesVulnerabilityReports(
+        $this,
+        $this->serviceName,
+        'vulnerabilityReports',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
               'parameters' => [
                 'name' => [
                   'location' => 'path',
@@ -77,10 +128,10 @@ class OSConfig extends \Google\Service
                 ],
               ],
             ],'list' => [
-              'path' => 'v1/{+name}',
+              'path' => 'v1/{+parent}/vulnerabilityReports',
               'httpMethod' => 'GET',
               'parameters' => [
-                'name' => [
+                'parent' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,

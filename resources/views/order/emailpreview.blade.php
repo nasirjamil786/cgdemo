@@ -10,6 +10,7 @@
         <div>
            <a href="{{url('order/'.$order->id.'/print')}}" class="button">Print</a>
            <a href="{{url('order/'.$order->id.'/email')}}" class="button">Email to Customers</a>
+
            <a href="{{url('order/'.$order->id.'/edit/0')}}" class="button">Go Back</a>
         </div>
          <div class="divclear"></div>

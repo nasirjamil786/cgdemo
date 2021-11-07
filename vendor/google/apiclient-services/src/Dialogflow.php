@@ -35,13 +35,14 @@ use Google\Client;
  */
 class Dialogflow extends \Google\Service
 {
-  /** See, edit, configure, and delete your Google Cloud Platform data. */
+  /** See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.. */
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
   /** View, manage and query your Dialogflow agents. */
   const DIALOGFLOW =
       "https://www.googleapis.com/auth/dialogflow";
 
+  public $projects_locations;
   public $projects_locations_agents;
   public $projects_locations_agents_entityTypes;
   public $projects_locations_agents_environments;
@@ -79,6 +80,48 @@ class Dialogflow extends \Google\Service
     $this->version = 'v3';
     $this->serviceName = 'dialogflow';
 
+    $this->projects_locations = new Dialogflow\Resource\ProjectsLocations(
+        $this,
+        $this->serviceName,
+        'locations',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'v3/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v3/{+name}/locations',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->projects_locations_agents = new Dialogflow\Resource\ProjectsLocationsAgents(
         $this,
         $this->serviceName,
