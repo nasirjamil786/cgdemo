@@ -79,8 +79,37 @@ class OrlineController extends Controller
         $myfunctions = New Myfunctions;
         $myfunctions->updateOrderTotals($orderid);
 
-
         return redirect('order/'.$orderid.'/edit/0')->with('status','Order details was saved successfully!');
+
+    }
+
+    public function update(Request $request, $lineid)
+    {
+        $this->validate($request,[
+
+            'item_notes' => 'required',
+            'item_detail' => 'required',
+            'value' => 'required'
+        ]);
+
+        $orline = Orline::findorfail($lineid);
+
+        $orderid = $orline->order_id;
+
+        $orline->item_notes = $request->item_notes;
+        $orline->item_detail = $request->item_detail;
+        $orline->price = $request->value;
+        $orline->value = $request->value;
+        $orline->cost = $request->cost;
+        $orline->commission = $request->commission;
+        $orline->updated_by = Auth::user()->id;
+
+        $orline->save();
+
+        $myfunctions = New Myfunctions;
+        $myfunctions->updateOrderTotals($orderid);
+
+        return redirect('order/'.$orderid.'/edit/0')->with('status','Order line was saved successfully!');
 
     }
 
@@ -113,7 +142,7 @@ class OrlineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /*public function update(Request $request, $id)
     {
         $orline = Orline::findorfail($id);
 
@@ -127,6 +156,7 @@ class OrlineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
 

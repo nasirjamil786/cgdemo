@@ -201,7 +201,7 @@ Route::get('order/{orderid}/print','OrderController@print');
 
 Route::post('/orline/{orderid}','OrlineController@store');
 Route::get('/orline/{id}/delete','OrlineController@destroy');
-
+Route::post('/orline/{id}/update','OrlineController@update');
 
 //users
 Route::resource('user', 'UserController');

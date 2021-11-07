@@ -657,8 +657,8 @@
                                         @foreach($orlines AS $ol)
                                             <tr>
                                                 <td>
-                                                    <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete</a>
-                                                    <!-- <a href="#" data-toggle="modal" data-target="#amendModal">Amend</a> -->
+                                                    <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
+                                                    <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}">Amend</a> 
 
                                                 </td>
                                                 <td>{{$ol->item_detail}}</td>
@@ -904,7 +904,7 @@
                                                     </div>
                                                     <div class="modal-body">
 
-                                                        <form   role="form" name="amendline" method="POST" action="{{url('saveorline/'.$order->id)}}">
+                                                        <form   role="form" name="amendline" id="formamendline" method="POST" action="">
 
                                                             {!! csrf_field() !!}
 
@@ -912,28 +912,28 @@
                                                                 <label for="item_notes">Item type</label>
                                                                 <select class="form-control" name="item_notes" id="item_notes" required>
                                                                     <option value=""></option>
-                                                                    <option value="labour" @if($ol->item_notes == 'labour') selected @endif >Labour</option>
-                                                                    <option value="parts" @if($ol->item_notes == 'parts' ) selected @endif>Parts</option>
-                                                                    <option value="advance" @if($ol->item_notes == 'advance') selected @endif>Advance</option>
+                                                                    <option value="labour" >Labour</option>
+                                                                    <option value="parts" >Parts</option>
+                                                                    <option value="advance">Advance</option>
                                                                 </select>
 
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="item_detail" class="control-label">Item Detail</label>
-                                                                <input type="text" class="form-control" name="item_detail"  id="item_detail"  value="{{$ol->item_detail}}" required>
+                                                                <input type="text" class="form-control" name="item_detail"  id="item_detail"  value="" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="value" class="control-label">Price</label>
-                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="value" id="value"  value="{{$ol->value}}" placeholder="£0.00" required>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="value" id="value"  value="" placeholder="£0.00" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="cost" class="control-label">Cost</label>
-                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value="{{$ol->cost}}"placeholder="£0.00" required>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value=""placeholder="£0.00" required>
                                                             </div>
                                                              <div class="form-group">
                                                                 <label for="commission" class="control-label">Commission</label>
-                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="{{$ol->commission}}" placeholder="£0.00" required>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="" placeholder="£0.00" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <button type="submit" class="btn btn-primary">Save</button>
@@ -1040,5 +1040,29 @@
             }
         });
     </script>
+
+    <script type="text/javascript">
+        $('#amendModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id') // Extract info from data-* attributes
+            var item_notes = button.data('item_notes')
+            var item_detail = button.data('item_detail')
+            var value = button.data('value')
+            var cost = button.data('cost')
+            var commission = button.data('commission')
+
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+                //modal.find('.modal-title').text('New message to ' + recipient)
+                modal.find('.modal-body #formamendline').attr('action','/orline/' + id + '/update')
+                modal.find('.modal-body #item_detail').val(item_detail)
+                modal.find('.modal-body #item_notes').val(item_notes)
+                modal.find('.modal-body #value').val(value)
+                modal.find('.modal-body #cost').val(cost)
+                modal.find('.modal-body #commission').val(commission)
+        })
+    </script>
+
 
 @endsection
