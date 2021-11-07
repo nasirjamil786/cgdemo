@@ -658,7 +658,7 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
-                                                    <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}">Amend</a> 
+                                                    <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}">Edit</a> 
 
                                                 </td>
                                                 <td>{{$ol->item_detail}}</td>
