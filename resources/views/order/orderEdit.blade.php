@@ -23,11 +23,24 @@
                             <small>Order No</small> {{$order->id}}  <small> for </small>
                            <a href="{{url('customer/'.$order->customer->id)}}">{{$order->customer->first_name}} {{$order->customer->last_name}} </a>
                            <span class="label label-info">{{$order->order_status}}</span>
+                           @if($order->fixednotif_emailed != NULL)
+                                <small>Collection Notification Sent on {{$order->fixednotif_emailed}} </small>
+                           @endif
+                           
+
                            @if ($order->quote_id != NULL) <span> <small> Quote Ref: {{$order->quote_id}} </small> </span> @endif
                         </h4>
                         <button type="submit" class="btn btn-primary"  >Save</button>
                         <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
-                        <a href="{{url('/order/'.$order->id.'/deviceFixedNotifPreview')}}" class="btn btn-primary">Send Fixd Notification</a>
+                        
+
+                        <a href="{{url('/order/'.$order->id.'/deviceFixedNotifPreview')}}" class="btn btn-primary">
+                            @if($order->fixednotif_emailed == NULL) 
+                                Send Fixed Notification 
+                            @else 
+                                Remind Fixed Notification
+                            @endif 
+                        </a>
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         
                     </div>

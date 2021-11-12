@@ -101,7 +101,7 @@ class CreateOrdersTable extends Migration
             $table->date('test_date')->nullable();
             $table->string('tested_by')->nullable();
             $table->date('test_emailed')->nullable();
-
+            $table->dateTime('fixednotif_emailed')->nullable();
 
             $table->unsignedInteger('worked_by');
             $table->unsignedInteger('taken_by');

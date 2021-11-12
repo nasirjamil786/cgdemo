@@ -1259,8 +1259,7 @@ class OrderController extends Controller
            }
         });
 
-        $order->order_status = "emailed";
-        $order->email_sent = Carbon::now();
+        $order->fixednotif_emailed = Carbon::now();
         $order->save();
 
         Session::flash('status','Notification emailed to customer successfully!');
