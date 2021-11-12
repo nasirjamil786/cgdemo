@@ -127,7 +127,7 @@
                 <p>
                     We are pleased to let you know that your <strong>{{$order->make->make}} {{$order->model}}</strong> has been fixed and ready for collection. </p>
 
-                <p>Please call us 01892 529999 before comming to let us know roughly what time you are comming </p>
+                <p>Please call us <strong>01892 529999 </strong> before comming to let us know roughly what time you are comming to collect.</p>
                 
                 <p> Thank you</p>
                 <p> Computer Gurus Team</p>
@@ -142,12 +142,12 @@
         <footer>
             <!-- Since this is a transactional email, you aren't required to include opt-out language. -->
             <p style="font-size: 16px; font-weight: 400; line-height: 24px; margin-top: 48px;">
-                You received this email because you care about creating more accessible experiences for people.
+                You received this email because you gave us a verbal permission to send you the notifications about your device. If you wish to unsubscribe please reply to this email with UNSUBSCRIBE subject.
             </p>
     
             <!-- The address element does exactly what it says. By default, it is block-level and italicizes text. You can override this behavior inline. -->
-            <address style="font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px;">
-                <strong>{{$settings->company_name}}:</strong> {{$settings->address1}}, @if($settings->address2 != NULL) {{$settings->address2}}, @endif , {{$settings->town}}, {{$settings->postcode}} <br>
+            <address style="font-size: 14px; font-style: normal; font-weight: 400; line-height: 24px;">
+                {{$settings->company_name}}: {{$settings->address1}}, @if($settings->address2 != NULL) {{$settings->address2}}, @endif {{$settings->town}}, {{$settings->postcode}} <br>
                 Phone: {{$settings->phone}}: @if($settings->web != NULL)| <a href="http://{{$settings->web}}">{{$settings->web}}</a> @endif
             </address>
         </footer>
