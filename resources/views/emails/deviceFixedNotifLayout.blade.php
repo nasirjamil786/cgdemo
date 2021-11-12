@@ -148,7 +148,7 @@
             <!-- The address element does exactly what it says. By default, it is block-level and italicizes text. You can override this behavior inline. -->
             <address style="font-size: 14px; font-style: normal; font-weight: 400; line-height: 24px;">
                 {{$settings->company_name}}: {{$settings->address1}}, @if($settings->address2 != NULL) {{$settings->address2}}, @endif {{$settings->town}}, {{$settings->postcode}} <br>
-                Phone: {{$settings->phone}}: @if($settings->web != NULL)| <a href="http://{{$settings->web}}">{{$settings->web}}</a> @endif
+                Phone: {{$settings->phone}}: @if($settings->web != NULL) <a href="http://{{$settings->web}}">{{$settings->web}}</a> @endif
             </address>
         </footer>
 
