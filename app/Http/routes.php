@@ -171,6 +171,8 @@ Route::post('/order/{quoteid}/createfromquote','OrderController@createOrderFromQ
 Route::get('ordreport','OrderController@OrderReport'); 
 Route::post('ordreport','OrderController@OrderReportSummary');
 Route::get('/orderreportexport/{booking_date_from}/{booking_date_to}','OrderController@OrderReportExport');
+Route::get('/order/{order}/deviceFixedNotifPreview','OrderController@DeviceFixedNotifPreview');
+Route::get('/order/{order}/deviceFixedNotifEmail','OrderController@DeviceFixedNotifEmail');
 
 //Device Testing Routes
 

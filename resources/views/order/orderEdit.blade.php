@@ -27,6 +27,7 @@
                         </h4>
                         <button type="submit" class="btn btn-primary"  >Save</button>
                         <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
+                        <a href="{{url('/order/'.$order->id.'/deviceFixedNotifPreview')}}" class="btn btn-primary">Send Fixd Notification</a>
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         
                     </div>

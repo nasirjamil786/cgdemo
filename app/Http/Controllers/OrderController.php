@@ -1233,6 +1233,40 @@ class OrderController extends Controller
         return redirect::back();
     }
 
+    public function DeviceFixedNotifPreview($id){
+
+        $order = Order::findorfail($id);
+        $settings = Setting::findorfail(1);
+
+        return view('emails.DeviceFixedNotifPreview',compact('order','settings'));
+
+    }
+
+    public function DeviceFixedNotifEmail($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $user = Auth::user();
+        $settings = Setting::findorfail(1);
+
+        Mail::send('emails.DeviceFixedNotifEmail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Your device has been fixed order# '.$order->id);
+           if ($user->bcc != null)
+               $m->bcc($user->bcc, $name = 'Device Fixed Notification');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+
+        $order->order_status = "emailed";
+        $order->email_sent = Carbon::now();
+        $order->save();
+
+        Session::flash('status','Notification emailed to customer successfully!');
+        return redirect::back();
+
+    }
 
 
     //oneoff
