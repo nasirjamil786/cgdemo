@@ -72,8 +72,9 @@ class CustomerController extends Controller
     {
 
         if($request->keyword != NULL){
-            $customers = Customer::where('first_name','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('last_name','LIKE','%'.$request->keyword.'%')->
+
+            $customers = Customer::wherein('first_name','LIKE','%'.$request->keyword.'%')->
+                                    orWherein('last_name','LIKE','%'.$request->keyword.'%')->
                                     orWhere('address1','LIKE','%'.$request->keyword.'%')->
                                     orWhere('address2','LIKE','%'.$request->keyword.'%')->
                                     orWhere('town','LIKE','%'.$request->keyword.'%')->
@@ -81,7 +82,9 @@ class CustomerController extends Controller
                                     orWhere('phone','LIKE','%'.$request->keyword.'%')->
                                     orWhere('id','LIKE','%'.$request->keyword.'%')->
                                     orWhere('email','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('ccemail','LIKE','%'.$request->keyword.'%')->paginate(200);
+                                    orWhere('ccemail','LIKE','%'.$request->keyword.'%')->
+                                    orWhere('recommended_name','LIKE','%'.$request->keyword.'%')
+                                    ->paginate(200); 
 
 
         }else $customers = App\Customer::orderBy('id','desc')->paginate(200);

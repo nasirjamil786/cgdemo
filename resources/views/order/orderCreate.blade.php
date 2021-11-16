@@ -156,11 +156,10 @@
 
                             
                             <div class="clearfix"></div>
-                            
+
                             <hr class="my-4">
 
                             <div id="terms">
-
 
 
                                 @include('partials.terms')

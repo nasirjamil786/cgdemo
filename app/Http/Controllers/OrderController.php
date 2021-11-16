@@ -70,6 +70,8 @@ class OrderController extends Controller
                                 ->orWhere('customers.first_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.last_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.postcode','LIKE','%'.$search.'%')
+                                ->orWhere('customers.recommended_by','LIKE','%'.$search.'%')
+                                ->orWhere('customers.recommended_name','LIKE','%'.$search.'%')
                                 ->orderby('id','desc')
                                 ->paginate(500);
             } else {
@@ -83,6 +85,8 @@ class OrderController extends Controller
                                 ->orWhere('customers.first_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.last_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.postcode','LIKE','%'.$search.'%')
+                                ->orWhere('customers.recommended_by','LIKE','%'.$search.'%')
+                                ->orWhere('customers.recommended_name','LIKE','%'.$search.'%')
                                 ->orderby('booking_date','desc')
                                 ->paginate(500);
 
