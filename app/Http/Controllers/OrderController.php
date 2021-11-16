@@ -183,7 +183,7 @@ class OrderController extends Controller
             'booking_time' => 'required',
             'location'  => 'required',
             'device_id'   => 'required',
-            /*'make_id'       => 'required', */
+            'make_id'       => 'required', 
             'model'   => 'required',
             'serial_no'   => 'required',
             'password'   => 'required',
@@ -214,7 +214,7 @@ class OrderController extends Controller
         $order->booking_time = $request->booking_time;
         $order->location = $request->location;
         $order->device_id = $request->device_id;
-        $order->make_id =  /*$request->make_id;*/ 1;
+        $order->make_id =  $request->make_id;
         $order->model = $request->model;
         $order->serial_no = $request->serial_no;
         $order->password = $request->password;
@@ -1238,7 +1238,7 @@ class OrderController extends Controller
         $order = Order::findorfail($id);
         $settings = Setting::findorfail(1);
 
-        return view('emails.DeviceFixedNotifPreview',compact('order','settings'));
+        return view('emails.deviceFixedNotifPreview',compact('order','settings'));
 
     }
 
@@ -1248,7 +1248,7 @@ class OrderController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('emails.DeviceFixedNotifEmail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+        Mail::send('emails.deviceFixedNotifEmail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
            
            $m->from($user->email, $user->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Your device has been fixed order# '.$order->id);

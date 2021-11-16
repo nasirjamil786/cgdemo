@@ -21,7 +21,7 @@
 
                         <form method="POST" action="{{url('order/'.$cust->id.'/store')}}" onsubmit="return submitForm();">
                             {!! csrf_field() !!}
-                             <!-- Lafet panel -->
+                             <!-- Left panel -->
                             <div class="col-md-6">
 
                                 <div class="form-group">
@@ -90,7 +90,7 @@
                                 </div>
 
                                 
-                                <!--
+                                
                                 <div class="form-group">
                                     <label for="make_id">Make</label>
                                     <select class="form-control" name="make_id" required>
@@ -102,10 +102,10 @@
 
                                     </select>
                                 </div>
-                                -->
+                                
 
                                 <div class="form-group">
-                                    <label for="model">Make/Model</label>
+                                    <label for="model">Model</label>
                                     <input type="text" class="form-control" name="model" value="{{ old('model') }}" required>
                                 </div>
 
@@ -154,7 +154,14 @@
 
                             <!-- Terms & Conditions -->
 
+                            
+                            <div class="clearfix"></div>
+                            
+                            <hr class="my-4">
+
                             <div id="terms">
+
+
 
                                 @include('partials.terms')
 
