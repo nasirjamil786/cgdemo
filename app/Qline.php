@@ -32,6 +32,7 @@ class Qline extends Model
              'quantity',
              'cost', 
              'commission',
+             'supp_ref',
              'price', 
              'value',
              'updated_by',

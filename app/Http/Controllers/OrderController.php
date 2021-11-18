@@ -51,7 +51,6 @@ class OrderController extends Controller
     public function index(Request $request)
     {
 
-
         $search = $request->order_search;
         $checked_state = $request->checked_state;
         $exclude = ($request->checked_state == 'on')? false : true;
@@ -67,6 +66,7 @@ class OrderController extends Controller
                                 ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
                                 ->where('orders.id','LIKE','%'.$search.'%')
                                 ->orwhere('orders.serial_no','LIKE','%'.$search.'%')
+                                ->orwhere('orders.private_notes','LIKE','%'.$search.'%')
                                 ->orWhere('customers.first_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.last_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.postcode','LIKE','%'.$search.'%')
@@ -79,9 +79,11 @@ class OrderController extends Controller
                 $orders = DB::table('orders')
                                 ->join('customers','orders.customer_id','=','customers.id')
                                 ->join('users','orders.worked_by','=','users.id')
+                                
                                 ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
                                 ->where('orders.id','LIKE','%'.$search.'%')
                                 ->orwhere('orders.serial_no','LIKE','%'.$search.'%')
+                                ->orwhere('orders.private_notes','LIKE','%'.$search.'%')
                                 ->orWhere('customers.first_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.last_name','LIKE','%'.$search.'%')
                                 ->orWhere('customers.postcode','LIKE','%'.$search.'%')
@@ -288,6 +290,9 @@ class OrderController extends Controller
 
             $order->event_id = $event->id;
             $order->save();
+
+            //send email to Engineer to remind about appointment 
+            
         }
 
 
@@ -378,6 +383,7 @@ class OrderController extends Controller
             $orline->cost = $ql->cost;
             $orline->value = $ql->value;
             $orline->commission = $ql->commission;
+            $orline->supp_ref = $ql->supp_ref;
             $orline->updated_by = Auth::user()->id;
 
             $orline->save();

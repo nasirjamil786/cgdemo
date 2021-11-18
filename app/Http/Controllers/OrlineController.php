@@ -9,6 +9,7 @@ use App\Order;
 use App\Orline;
 use Auth;
 use Redirect;
+use DB;
 class OrlineController extends Controller
 {
     /**
@@ -27,9 +28,50 @@ class OrlineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $supp_ref = $request->supp_ref;
+
+
+
+        if($supp_ref != NULL){
+            $orlines = DB::table('orders')
+                        ->join('users','orders.worked_by','=','users.id')
+                        ->join('customers','orders.customer_id','=','customers.id')
+                        ->join('orlines','orlines.order_id','=','orders.id')
+                        ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                        ->where('orlines.item_notes','!=','advance')
+                        ->where('orlines.supp_ref','LIKE','%'.$supp_ref.'%')
+                        ->orWhere('orders.private_notes','LIKE','%'.$supp_ref.'%')
+                        ->orderBy('orders.id','desc')
+                        ->get();
+        }
+        else {
+
+            $orlines = DB::table('orders')
+                        ->join('users','orders.worked_by','=','users.id')
+                        ->join('customers','orders.customer_id','=','customers.id')
+                        ->join('orlines','orlines.order_id','=','orders.id')
+                        ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                        ->where('orlines.item_notes','!=','advance')
+                        ->orderBy('orders.id','desc')
+                        ->get();
+        }
+
+
+        return view('orlines.list',compact('orlines'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+
+        return view('orlines.search');
     }
 
     /**
@@ -39,7 +81,7 @@ class OrlineController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -71,6 +113,7 @@ class OrlineController extends Controller
         $orline->cost = $request->cost;
         $orline->value = $request->value;
         $orline->commission = $request->commission;
+        $orline->supp_ref = $request->supp_ref;
         $orline->updated_by = Auth::user()->id;
 
         $orline->save();
@@ -102,6 +145,7 @@ class OrlineController extends Controller
         $orline->value = $request->value;
         $orline->cost = $request->cost;
         $orline->commission = $request->commission;
+        $orline->supp_ref = $request->supp_ref;
         $orline->updated_by = Auth::user()->id;
 
         $orline->save();

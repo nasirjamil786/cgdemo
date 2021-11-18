@@ -18,6 +18,7 @@ class Orline extends Model
         'cost',
         'value',
         'commission',
+        'supp_ref',
         'updated_by'
     ];
 

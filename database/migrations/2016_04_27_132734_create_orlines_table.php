@@ -24,6 +24,7 @@ class CreateOrlinesTable extends Migration
             $table->decimal('price',10,2)->nullable();
             $table->decimal('cost',10,2)->nullable();
             $table->decimal('value',10,2)->nullable();
+            $table->string('supp_ref')->nullable();
             $table->decimal('commission',10,2)->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

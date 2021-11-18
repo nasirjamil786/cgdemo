@@ -201,6 +201,8 @@ Route::get('order/{orderid}/print','OrderController@print');
 
 //Order Lines orlines
 
+Route::get('orlinesSearch','OrlineController@search');
+Route::post('orlinesSearch','OrlineController@index');
 Route::post('/orline/{orderid}','OrlineController@store');
 Route::get('/orline/{id}/delete','OrlineController@destroy');
 Route::post('/orline/{id}/update','OrlineController@update');

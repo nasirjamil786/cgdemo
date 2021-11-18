@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->string('ipaddress')->nullable();
             $table->string('login_device')->nulable();
             $table->string('email')->unique();
+            $table->string('personal_email')->nullable();
             $table->string('cc')->nullable();
             $table->string('bcc')->nullable();
             $table->string('password');

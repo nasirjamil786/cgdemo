@@ -58,6 +58,10 @@
                                         <label for="Cost">Commission</label>
                                         <input type="number" class="form-control" step="0.01" name="commission" value="{{ $qline->commission }}" required>
                                     </div>
+                                    <div class="form-group col-md-3">
+                                         <label for="supp_ref">Supplier Reference</label>
+                                         <input type="text" class="form-control" name="supp_ref" value="{{ $qline->supp_ref }}">
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                                  <h4>Specifications</h4>

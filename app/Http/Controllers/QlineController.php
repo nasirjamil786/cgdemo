@@ -62,6 +62,7 @@ class QlineController extends Controller
        $qline->vat = 0.0;
        $qline->item_notes = $request->item_notes;
        $qline->item_type = $request->item_type;
+       $qline->supp_ref = $request->supp_ref;
 
        $qline->save();
     
@@ -111,6 +112,7 @@ class QlineController extends Controller
        $qline->price = $request->value;
        $qline->cost = $request->cost;
        $qline->commission = $request->commission;
+       $qline->supp_ref = $request->supp_ref;
        $qline->value = $request->value;
        $qline->vat_rate = 0.0;
        $qline->vat = 0.0;

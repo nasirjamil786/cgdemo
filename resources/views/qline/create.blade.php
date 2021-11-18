@@ -56,6 +56,10 @@
                                          <label for="cost">Commission</label>
                                          <input type="number" class="form-control" step="0.01" name="commission" value="{{ old('commission') }}" required>
                                     </div>
+                                    <div class="form-group col-md-3">
+                                         <label for="supp_ref">Supplier Reference</label>
+                                         <input type="text" class="form-control" name="supp_ref" value="{{ old('supp_ref') }}">
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-row">

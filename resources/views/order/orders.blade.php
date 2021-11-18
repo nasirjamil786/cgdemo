@@ -62,6 +62,7 @@
                                     <th>Location</th>
                                     <th>Engineer</th>
                                     <th>Total</th>
+                                    
 
                                 </tr>
 
@@ -126,6 +127,7 @@
                                         
                                         <td>{{$order->user_first_name}}</td>
                                         <td>£{{$order->order_total}}</td>
+
 
                                     </tr>
                                     

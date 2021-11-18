@@ -66,15 +66,13 @@ class CustomerController extends Controller
 
     }
 
-
-
     public function index(Request $request)
     {
 
         if($request->keyword != NULL){
 
-            $customers = Customer::wherein('first_name','LIKE','%'.$request->keyword.'%')->
-                                    orWherein('last_name','LIKE','%'.$request->keyword.'%')->
+            $customers = Customer::where('first_name','LIKE','%'.$request->keyword.'%')->
+                                    orWhere('last_name','LIKE','%'.$request->keyword.'%')->
                                     orWhere('address1','LIKE','%'.$request->keyword.'%')->
                                     orWhere('address2','LIKE','%'.$request->keyword.'%')->
                                     orWhere('town','LIKE','%'.$request->keyword.'%')->
@@ -83,6 +81,7 @@ class CustomerController extends Controller
                                     orWhere('id','LIKE','%'.$request->keyword.'%')->
                                     orWhere('email','LIKE','%'.$request->keyword.'%')->
                                     orWhere('ccemail','LIKE','%'.$request->keyword.'%')->
+                                    orWhere('recommended_by','LIKE','%'.$request->keyword.'%')->
                                     orWhere('recommended_name','LIKE','%'.$request->keyword.'%')
                                     ->paginate(200); 
 

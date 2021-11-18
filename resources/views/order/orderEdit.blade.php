@@ -664,6 +664,7 @@
                                             <th>Parts/Services</th>
                                             <th>Price</th>
                                             <th>Type</th>
+                                            <th>Supp</th>
                                             {{-- <th>Cost</th> --}}
                                             {{-- <th>Comm</th> --}}
 
@@ -678,6 +679,7 @@
                                                 <td>{{$ol->item_detail}}</td>
                                                 <td>{{$ol->value}}</td>
                                                 <td>{{$ol->item_notes}}</td>
+                                                <td>{{$ol->supp_ref}}</td>
                                                 {{-- <td><small>{{$ol->cost}}</small></td> --}}
                                                 {{-- <td><small>{{$ol->commission}}</small></td> --}}
                                             </tr>
@@ -886,6 +888,11 @@
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" placeholder="£0.00" required>
                                             </div>
                                             <div class="form-group">
+                                                <label for="supp_ref" class="control-label">Supplier Reference</label>
+                                                <input type="text" class="form-control" name="supp_ref"   id="supp_ref">
+                                            </div>
+
+                                            <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
@@ -949,6 +956,10 @@
                                                                 <label for="commission" class="control-label">Commission</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="" placeholder="£0.00" required>
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="supp_ref" class="control-label">Supplier Reference</label>
+                                                                <input type="text" class="form-control" name="supp_ref"  id="supp_ref">
+                                                                </div>
                                                             <div class="form-group">
                                                                 <button type="submit" class="btn btn-primary">Save</button>
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1075,6 +1086,7 @@
                 modal.find('.modal-body #value').val(value)
                 modal.find('.modal-body #cost').val(cost)
                 modal.find('.modal-body #commission').val(commission)
+                modal.find('.modal-body #sup_ref').val(supp_ref)
         })
     </script>
 
