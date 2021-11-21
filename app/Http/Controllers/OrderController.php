@@ -732,6 +732,7 @@ class OrderController extends Controller
         });
 
         $order->order_status = "Invoiced";
+        $order->inv_emailed = Carbon::now();
         $order->save();
 
         Session::flash('status','Invoice emailed to customer successfully!');

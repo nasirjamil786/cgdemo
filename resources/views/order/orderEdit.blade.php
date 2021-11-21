@@ -22,7 +22,7 @@
                         <h4>  
                             <small>Order No</small> {{$order->id}}  <small> for </small>
                            <a href="{{url('customer/'.$order->customer->id)}}">{{$order->customer->first_name}} {{$order->customer->last_name}} </a>
-                           <span class="label label-info">{{$order->order_status}}</span>
+                           <span class="label label-info">{{$order->order_status}} @if($order->order_status == 'Invoiced' && $order->inv_emailed != NULL) <small> {{$order->inv_emailed}} </small> <a class=""  href="">Send Reminder</a>  @endif</span>
                            @if($order->fixednotif_emailed != NULL)
                                 <small>Collection Notification Sent on {{$order->fixednotif_emailed}} </small>
                            @endif

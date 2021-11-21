@@ -16,12 +16,9 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('customer_id');
             $table->unsignedInteger('device_id');
-
             $table->unsignedInteger('make_id');
-
             $table->unsignedInteger('order_ref');
             $table->unsignedInteger('quote_id')->nullable();
-
             $table->dateTime('booking_date'); //Actual work date 
             $table->time('booking_time');
             $table->dateTime('complete_date')->nullable();  //invoice date 
@@ -29,10 +26,8 @@ class CreateOrdersTable extends Migration
             $table->time('collection_time')->nullable();
             $table->dateTime('followup_date')->nullable();
             $table->time('followup_time')->nullable();
-
             $table->text('location');
             $table->string('order_status');
-            
             $table->string('model')->nullable();
             $table->string('serial_no')->nullable();
             $table->string('operating_system')->nullable();
@@ -63,7 +58,6 @@ class CreateOrdersTable extends Migration
             $table->string('signature')->nullable();
             $table->boolean('send_email');
             $table->string('event_id')->nullable();
-
             $table->string('test_startup')->nullable();
             $table->text('test_startup_comm')->nullable();
             $table->string('test_sound')->nullable();
@@ -102,7 +96,7 @@ class CreateOrdersTable extends Migration
             $table->string('tested_by')->nullable();
             $table->date('test_emailed')->nullable();
             $table->dateTime('fixednotif_emailed')->nullable();
-
+            $table->dateTime('inv_emailed')->nullable();
             $table->unsignedInteger('worked_by');
             $table->unsignedInteger('taken_by');
             $table->unsignedInteger('updated_by');

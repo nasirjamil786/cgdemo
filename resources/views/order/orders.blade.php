@@ -78,25 +78,36 @@
                                                 <br> <small style="color: red">{{$order->discount_percent}}% Discount</small>
                                             @endif
                                             <br>
-                                            @if($order->order_status == 'Invoiced') 
-                                                <span class="label label-danger" > {{$order->order_status}} {{DateTime::createFromFormat('Y-m-d H:i:s',$order->complete_date)->format('d/m/Y')}}</span>
-                                              @elseif ($order->order_status == 'Waiting for Parts')
-                                                   <span class="label label-info" > {{$order->order_status}} </span>
-                                                 @elseif($order->order_status == 'Parts Required')
-                                                      <span class="label label-info" > {{$order->order_status}} </span>
-                                                    @elseif($order->order_status == 'Payment Receipt Sent')
-                                                        <span class="label label-success" > {{$order->order_status}} </span>
-                                                        @elseif($order->order_status == 'emailed')
-                                                            <span class="label label-primary" > {{$order->order_status}} </span>
-                                                            @elseif($order->order_status == 'Booked')
-                                                                <span class="label label-primary" > {{$order->order_status}} </span>
-                                                                @elseif($order->order_status == 'Courtsey Call Required')
-                                                                    <span class="label label-warning" > {{$order->order_status}} </span>
-                                                                    @elseif($order->order_status == 'Call To Arrange Collection')
-                                                                        <span class="label label-warning" > {{$order->order_status}} </span>
-                                                                        @else
-                                                                            <span class="label label-default"></span>{{$order->order_status}}
-                                            @endif
+
+                                            @switch($order->order_status)
+                                                @case('Invoiced')
+                                                    <span class="label label-danger" > {{$order->order_status}} @if($order->inv_emailed != NULL) {{DateTime::createFromFormat('Y-m-d H:i:s',$order->inv_emailed)->format('d/m/Y')}} @endif</span>
+                                                @break
+                                                @case('Waiting for Parts')
+                                                    <span class="label label-info" > {{$order->order_status}} </span>
+                                                @break
+                                                @case('Parts Required')
+                                                    <span class="label label-info" > {{$order->order_status}} </span>
+                                                @break
+                                                @case('Payment Receipt Sent')
+                                                    <span class="label label-success" > {{$order->order_status}} </span>
+                                                @break
+                                                @case('emailed')
+                                                    <span class="label label-primary" > {{$order->order_status}} </span>
+                                                @break
+                                                @case('Booked')
+                                                    <span class="label label-primary" > {{$order->order_status}} </span>
+                                                @break
+                                                @case('Courtsey Call Required')
+                                                    <span class="label label-warning" > {{$order->order_status}} </span>
+                                                @break
+                                                @case('Call to Arrange Collection')
+                                                    <span class="label label-warning" > {{$order->order_status}} </span>
+                                                @break
+                                                @default
+                                                    <span class="label label-default" > {{$order->order_status}} </span>
+
+                                            @endswitch
                                             <br><small>{{$order->email}}</small>
                                           
                                         </td>
