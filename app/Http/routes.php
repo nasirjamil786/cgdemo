@@ -103,9 +103,9 @@ Route::get('email','UserController@sendEmailReminder');
 
 //Invoice preview and Invoice Email
 
-Route::get('/invpreview/{id}','OrderController@invPreview');
-Route::get('/invprint/{id}','OrderController@invPrint');
-Route::get('/invemail/{id}','OrderController@invEmail');
+Route::get('/invpreview/{id}/{reminder}','OrderController@invPreview');
+Route::get('/invprint/{id}/{reminder}','OrderController@invPrint');
+Route::get('/invemail/{id}/{reminder}','OrderController@invEmail');
 Route::get('/invpdf/{id}','OrderController@invPdf');
 
 //Receipt preview and receipt email

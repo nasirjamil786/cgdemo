@@ -6,7 +6,7 @@
 
 <div>
     <div>
-	   <a href="{{url('invemail/'.$order->id)}}" class="button">Email to Customers</a>
+	   <a href="{{url('invemail/'.$order->id.'/'.$reminder)}}" class="button">Email to Customers</a>
       <a href="{{url('invpdf/'.$order->id)}}" class="button">Download</a>
 	   <a href="{{url('order/'.$order->id.'/edit/1')}}" class="button">Go Back</a>
     </div>

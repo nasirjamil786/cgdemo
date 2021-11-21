@@ -163,7 +163,8 @@
                                     @if($order->order_total - $order->payment < 0)
                                                 CREDIT NOTE
                                     @else
-                                                INVOICE
+                                                INVOICE  <br>
+                                                @if($reminder > 0) <span style="color:red;"><small>Reminder</small></span>@endif
                                     @endif
                     </td>
                 </tr>

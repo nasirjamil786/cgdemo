@@ -18,22 +18,21 @@
                                   <h4>Customer's signature required - please press the button to get signature</h4>
                                   <a href="{{url('signature/'.$order->id)}}" class="btn btn-danger">Get Signature</a>
                            </div>
-                       @endif
+                        @endif
                         <h4>  
                             <small>Order No</small> {{$order->id}}  <small> for </small>
                            <a href="{{url('customer/'.$order->customer->id)}}">{{$order->customer->first_name}} {{$order->customer->last_name}} </a>
-                           <span class="label label-info">{{$order->order_status}} @if($order->order_status == 'Invoiced' && $order->inv_emailed != NULL) <small> {{$order->inv_emailed}} </small> <a class=""  href="">Send Reminder</a>  @endif</span>
+                           <span class="label label-info">{{$order->order_status}} @if($order->order_status == 'Invoiced' && $order->inv_emailed != NULL) <small> {{DateTime::createFromFormat('Y-m-d H:i:s',$order->inv_emailed)->format('d/m/Y')}} </small>@endif</span>
                            @if($order->fixednotif_emailed != NULL)
-                                <small>Collection Notification Sent on {{$order->fixednotif_emailed}} </small>
+                                <small>Collection Notification Sent on {{DateTime::createFromFormat('Y-m-d H:i:s',$order->fixednotif_emailed)->format('d/m/Y')}} </small>
                            @endif
-                           
-
-                           @if ($order->quote_id != NULL) <span> <small> Quote Ref: {{$order->quote_id}} </small> </span> @endif
+                           @if ($order->quote_id != NULL) 
+                                <span> <small> Quote Ref: {{$order->quote_id}} </small> </span> 
+                           @endif
                         </h4>
                         <button type="submit" class="btn btn-primary"  >Save</button>
                         <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
                         
-
                         <a href="{{url('/order/'.$order->id.'/deviceFixedNotifPreview')}}" class="btn btn-primary">
                             @if($order->fixednotif_emailed == NULL) 
                                 Send Fixed Notification 
@@ -41,6 +40,10 @@
                                 Remind Fixed Notification
                             @endif 
                         </a>
+                        @if($order->order_status == 'Invoiced' && $order->inv_emailed != NULL) 
+                            <a href="{{url('invpreview/'.$order->id.'/1')}}" class="btn btn-primary">Send Invoice Reminder</a>
+                        @endif
+
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         
                     </div>
@@ -693,85 +696,74 @@
                                         </div>
                                         <div class="col-md-4">
                                             <table class="table">
-                                              <tr>
-                                                  <td>Line Total</td>
-                                                  <td>{{$order->line_total}}</td>
-                                              </tr>
+                                                <tr>
+                                                    <td>Line Total</td>
+                                                    <td>{{$order->line_total}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <label for="discount_percent">Services Discount% </label>
+                                                            <select class="form-control" name="discount_percent" id="discount_percent">
+                                                                <option value="0" @if($order->discount_percent == "0") selected @endif>0</option>
+                                                                <option value="5" @if($order->discount_percent == '5') selected @endif>5</option>
+                                                                <option value="10"@if($order->discount_percent == '10') selected @endif>10</option>
+                                                                <option value="15"@if($order->discount_percent == '15') selected @endif>15</option>
+                                                                <option value="20"@if($order->discount_percent == '20') selected @endif>20</option>
+                                                                <option value="25"@if($order->discount_percent == '25') selected @endif>25</option>
+                                                                <option value="30"@if($order->discount_percent == '30') selected @endif>30</option>
+                                                                <option value="35"@if($order->discount_percent == '35') selected @endif>35</option>
+                                                                <option value="40"@if($order->discount_percent == '40') selected @endif>40</option>
+                                                                <option value="45"@if($order->discount_percent == '45') selected @endif>45</option>
+                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>50</option>
+                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>60</option>
+                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>70</option>
+                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>80</option>
+                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>100</option>
+                                                            </select>
+                                                        </div></td>
+                                                    <td>{{$order->discount}}</td>
+                                                </tr>
+                                                @if($order->vat != 0)
+                                                  <tr>
+                                                    <td>Total before VAT</td>
+                                                    <td>{{$order->total_beforevat}}</td>
+                                                   </tr>
+                                                   <tr>
+                                                     <td>VAT @ {{$order->vat_rate}}%</td>
+                                                     <td>{{$order->vat}}</td>
+                                                   </tr>
+                                                  @endif
+                                                <tr>
+                                                    <td><h4>Order Total</h4></td>
+                                                    <td><h4>{{$order->order_total}}</h4></td>
+                                                </tr>
+                                                <tr> 
+                                                    <td>
+                                                       @if($order->complete_date <> NULL)
+                                                         <a href="{{url('invprint/'.$order->id.'/0')}}" class="btn btn-primary"
+                                                          @if($order->order_total == 0) disabled @endif>Print Invoice</a>
+                                                       @endif
 
-                                            <tr>
+                                                       @if($order->complete_date == NULL)
+                                                         <a href="{{url('/order/'.$order->id.'/1/confirmCompleteDate')}}" class="btn btn-primary"
+                                                         @if($order->order_total == 0) disabled @endif>Print Invoice</a>
+                                                       @endif
+                                                    </td>
+                                                    <td>
+                                                       @if($order->complete_date <> NULL)
+                                                         <a href="{{url('invpreview/'.$order->id.'/0')}}" class="btn btn-primary"
+                                                          @if($order->order_total == 0) disabled @endif>Email Invoice</a>
+                                                       @endif
 
-                                                <td>
-
-                                                    <div class="form-group">
-                                                        <label for="discount_percent">Services Discount% </label>
-                                                        <select class="form-control" name="discount_percent" id="discount_percent">
-                                                            <option value="0" @if($order->discount_percent == "0") selected @endif>0</option>
-                                                            <option value="5" @if($order->discount_percent == '5') selected @endif>5</option>
-                                                            <option value="10"@if($order->discount_percent == '10') selected @endif>10</option>
-                                                            <option value="15"@if($order->discount_percent == '15') selected @endif>15</option>
-                                                            <option value="20"@if($order->discount_percent == '20') selected @endif>20</option>
-                                                            <option value="25"@if($order->discount_percent == '25') selected @endif>25</option>
-                                                            <option value="30"@if($order->discount_percent == '30') selected @endif>30</option>
-                                                            <option value="35"@if($order->discount_percent == '35') selected @endif>35</option>
-                                                            <option value="40"@if($order->discount_percent == '40') selected @endif>40</option>
-                                                            <option value="45"@if($order->discount_percent == '45') selected @endif>45</option>
-                                                            <option value="50"@if($order->discount_percent == '50') selected @endif>50</option>
-                                                            <option value="50"@if($order->discount_percent == '50') selected @endif>60</option>
-                                                            <option value="50"@if($order->discount_percent == '50') selected @endif>70</option>
-                                                            <option value="50"@if($order->discount_percent == '50') selected @endif>80</option>
-                                                            <option value="50"@if($order->discount_percent == '50') selected @endif>100</option>
-                                                        </select>
-
-                                                    </div></td>
-                                                <td>{{$order->discount}}</td>
-                                            </tr>
-
-                                            @if($order->vat != 0)
-                                              <tr>
-                                                <td>Total before VAT</td>
-                                                <td>{{$order->total_beforevat}}</td>
-                                               </tr>
-                                               <tr>
-                                                 <td>VAT @ {{$order->vat_rate}}%</td>
-                                                 <td>{{$order->vat}}</td>
-                                               </tr>
-                                              @endif
-
-                                            <tr>
-                                                <td><h4>Order Total</h4></td>
-                                                <td><h4>{{$order->order_total}}</h4></td>
-                                            </tr>
-                                            <tr>
-                                                 
-                                                <td>
-                                                   @if($order->complete_date <> NULL)
-                                                     <a href="{{url('invprint/'.$order->id)}}" class="btn btn-primary"
-                                                      @if($order->order_total == 0) disabled @endif>Print Invoice</a>
-                                                   @endif
-
-                                                   @if($order->complete_date == NULL)
-                                                     <a href="{{url('/order/'.$order->id.'/1/confirmCompleteDate')}}" class="btn btn-primary"
-                                                     @if($order->order_total == 0) disabled @endif>Print Invoice</a>
-                                                   @endif
-                                                </td>
-                                                <td>
-                                                   @if($order->complete_date <> NULL)
-                                                     <a href="{{url('invpreview/'.$order->id)}}" class="btn btn-primary"
-                                                      @if($order->order_total == 0) disabled @endif>Email Invoice</a>
-                                                   @endif
-
-                                                   @if($order->complete_date == NULL)
-                                                     <a href="{{url('/order/'.$order->id.'/2/confirmCompleteDate')}}" class="btn btn-primary"
-                                                     @if($order->order_total == 0) disabled @endif>Email Invoice</a>
-                                                   @endif
-                                                </td>
-                                            </tr>
-
+                                                       @if($order->complete_date == NULL)
+                                                         <a href="{{url('/order/'.$order->id.'/2/confirmCompleteDate')}}" class="btn btn-primary"
+                                                         @if($order->order_total == 0) disabled @endif>Email Invoice</a>
+                                                       @endif
+                                                    </td>
+                                                </tr>
                                             </table>
-
                                         </div>
-
-
                                 </div>
 
                                 <!-- Payments -->

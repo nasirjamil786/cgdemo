@@ -679,7 +679,7 @@ class OrderController extends Controller
 
     //Email Invoice
 
-    public function invPreview($id){
+    public function invPreview($id,$reminder){
 
         $order = Order::findorfail($id);
         $orlines = Orline::where('order_id','=',$id)->get();
@@ -689,13 +689,15 @@ class OrderController extends Controller
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
 
-        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings'));
+       
+
+        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder'));
 
     }
 
     //Print Preview an Email without buttons 
 
-    public function invPrint($id){
+    public function invPrint($id,$reminder){
 
         $order = Order::findorfail($id);
         $orlines = Orline::where('order_id','=',$id)->get();
@@ -704,12 +706,12 @@ class OrderController extends Controller
         $inv_date = $order->complete_date;
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
-
-        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings'));
+        
+        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings','reminder'));
     }
 
 
-    public function invEmail($id){
+    public function invEmail($id,$reminder){
 
         $order = Order::with('customer')->where('id',$id)->first();
         $orlines = Orline::where('order_id','=',$id)->get();
@@ -720,10 +722,13 @@ class OrderController extends Controller
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
 
-        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments], function ($m) use ($user,$order) {
+        $remindLabel = ($reminder > 0) ? '[Reminder]':'';
+
+        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'reminder' => $reminder], function ($m) use ($user,$order,$remindLabel) {
            
            $m->from($user->email, $user->name);
-           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Invoice# '.$order->id);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name);
+           $m->subject($remindLabel.'Computer Gurus Invoice #'.$order->id);
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Invoice to Customer');
            if ($order->customer->ccemail != null) {
