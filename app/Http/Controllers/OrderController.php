@@ -688,10 +688,11 @@ class OrderController extends Controller
         $inv_date = $order->complete_date;
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
+        $user = Auth::user();
 
        
 
-        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder'));
+        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user'));
 
     }
 
@@ -724,7 +725,7 @@ class OrderController extends Controller
 
         $remindLabel = ($reminder > 0) ? '[Reminder]':'';
 
-        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'reminder' => $reminder], function ($m) use ($user,$order,$remindLabel) {
+        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'reminder' => $reminder,'user' => $user], function ($m) use ($user,$order,$remindLabel) {
            
            $m->from($user->email, $user->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name);

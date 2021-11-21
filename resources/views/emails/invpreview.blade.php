@@ -15,6 +15,7 @@
          @if($order->customer->ccemail != null) 
             CC: {{$order->customer->ccemail}}
          @endif
+         From:{{$user->email}}
     </div>
     <div class="divclear"></div>
 	<hr>
