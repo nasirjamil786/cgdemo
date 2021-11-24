@@ -48,6 +48,7 @@
                                         <option value="emailed" @if($quote->quote_status == 'emailed') selected @endif >emailed  </option>
                                         <option value="ordered" @if($quote->quote_status == 'ordered') selected @endif >ordered  </option>
                                         <option value="rejected" @if($quote->quote_status == 'rejected') selected @endif >rejected  </option>
+                                        <option value="inactive" @if($quote->quote_status == 'inactive') selected @endif >inactive </option>
                                     </select>
                                 </div>
                                 <div class="form-group">

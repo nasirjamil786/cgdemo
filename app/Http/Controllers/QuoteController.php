@@ -35,7 +35,7 @@ class QuoteController extends Controller
     	$status  = $request->status;
 
 
-        if($status == 'on') {
+        if($status == 'on') {  //show all status
 
             if($keyword != NULL){  //All quotes including rejected matching the search criteria
 
@@ -50,7 +50,7 @@ class QuoteController extends Controller
                         ->orderby('quotes.id','desc')
                         ->paginate(400);
 
-            } else {  //All quotes including rejected 
+            } else {  //All quotes including rejected and inactive 
 
                 $quotes = DB::table('quotes')
                         ->join('customers','quotes.customer_id','=','customers.id')
@@ -61,9 +61,8 @@ class QuoteController extends Controller
 
             }
 
-        } else {  //exclude rejected 
-            if($keyword != NULL){  //status will be ignored but where will be matched 
-
+        } else {   //only show which are active 
+            if($keyword != NULL){  //
 
                 $quotes = DB::table('quotes')
                         ->join('customers','quotes.customer_id','=','customers.id')
@@ -78,9 +77,6 @@ class QuoteController extends Controller
                         ->orderby('quotes.id','desc')
                         ->paginate(400);
 
-
-
-
             } else {  //All quotes no condition excluding rejected 
 
                 $quotes = DB::table('quotes')
@@ -89,6 +85,7 @@ class QuoteController extends Controller
                         ->select('quotes.*','customers.first_name','customers.last_name','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS usrname')
                         ->where('quotes.quote_status','!=','rejected')  //exclude rejected 
                         ->where('quotes.quote_status','!=','ordered')  //exclude ordered
+                        ->where('quotes.quote_status','!=','inactive')  //exclude inactive
                         ->orderby('quotes.id','desc')
                         ->paginate(400);
             }

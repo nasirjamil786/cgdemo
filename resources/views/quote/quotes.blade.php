@@ -80,9 +80,10 @@
                                                     <span style="color: green">{{$quote->quote_status}}</span>
                                                     <small>{{$quote->order_id}}</small>
                                                 @break
-                                                @case('rejected')
+                                                @default
                                                     <span style="color: grey">{{$quote->quote_status}}</span>
-                                                @break
+                                                
+
                                             @endswitch
 
                                         </td>
