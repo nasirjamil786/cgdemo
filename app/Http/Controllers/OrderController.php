@@ -314,6 +314,7 @@ class OrderController extends Controller
             'booking_time' => 'required',
             'location'  => 'required',
             'device_id'   => 'required',
+            'make_id'        => 'required',
             'model'   => 'required',
             'password'   => 'required',
             'data_backup'   => 'required',
@@ -338,7 +339,7 @@ class OrderController extends Controller
         $order->booking_time = $request->booking_time;
         $order->location = $request->location;
         $order->device_id = $request->device_id;
-        $order->make_id =   1;
+        $order->make_id =   $request->make_id;
         $order->model = $request->model;
         $order->password = $request->password;
         $order->data_backup = $request->data_backup;

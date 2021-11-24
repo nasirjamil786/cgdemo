@@ -95,7 +95,19 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="model">Make/Model and Serial No</label>
+                                    <label for="make_id">Make</label>
+                                    <select class="form-control" name="make_id" required>
+
+                                        <option value="0"></option>
+                                        @foreach($makes as $make)
+                                            <option value="{{$make->id}}">{{$make->make}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="model">Model and Serial No</label>
                                     <input type="text" class="form-control" name="model" value="{{ old('model') }}" required>
                                 </div>
 
