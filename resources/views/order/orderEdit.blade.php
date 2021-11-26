@@ -13,7 +13,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        @if($order->signature == NULL && $order->quote_id == 0)
+                        @if($order->signature == NULL {{-- && $order->quote_id == 0 --}} )
                             <div class="signaturealert" role="alert">
                                   <h4>Customer's signature required - please press the button to get signature</h4>
                                   <a href="{{url('signature/'.$order->id)}}" class="btn btn-danger">Get Signature</a>
