@@ -8,6 +8,7 @@ use App\Quote;
 use App\Qline;
 use App\Orline;
 use App\Customer;
+use App\Supplier;
 use App\User;
 use App\Device;
 use App\Make;
@@ -23,6 +24,7 @@ use Carbon\Carbon;
 use App\Payment;
 use Spatie\GoogleCalendar\Event;
 use PDF;
+
 
 class OrderController extends Controller
 {
@@ -64,7 +66,15 @@ class OrderController extends Controller
                                 ->join('customers','orders.customer_id','=','customers.id')
                                 ->join('users','orders.worked_by','=','users.id')
                                 ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
-                                ->where('orders.id','LIKE','%'.$search.'%')
+                                ->WhereExists(function($query) use($search){ 
+
+                                        $query->select(DB::raw(1))
+                                              ->from('orlines')
+                                              ->whereColumn('orders.id','=','orlines.order_id')
+                                              ->where('orlines.supp_ref','LIKE','%'.$search.'%');
+
+                                    })
+                                ->orwhere('orders.id','LIKE','%'.$search.'%')
                                 ->orwhere('orders.serial_no','LIKE','%'.$search.'%')
                                 ->orwhere('orders.private_notes','LIKE','%'.$search.'%')
                                 ->orWhere('customers.first_name','LIKE','%'.$search.'%')
@@ -79,9 +89,17 @@ class OrderController extends Controller
                 $orders = DB::table('orders')
                                 ->join('customers','orders.customer_id','=','customers.id')
                                 ->join('users','orders.worked_by','=','users.id')
-                                
                                 ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
-                                ->where('orders.id','LIKE','%'.$search.'%')
+                                
+                                ->WhereExists(function($query) use($search){ 
+
+                                        $query->select(DB::raw(1))
+                                              ->from('orlines')
+                                              ->whereColumn('orders.id','=','orlines.order_id')
+                                              ->where('orlines.supp_ref','LIKE','%'.$search.'%');
+
+                                    })
+                                ->orWhere('orders.id','LIKE','%'.$search.'%')
                                 ->orwhere('orders.serial_no','LIKE','%'.$search.'%')
                                 ->orwhere('orders.private_notes','LIKE','%'.$search.'%')
                                 ->orWhere('customers.first_name','LIKE','%'.$search.'%')
@@ -161,7 +179,6 @@ class OrderController extends Controller
     {
         
         
-
     }
     public function neworder($custid)
     {
@@ -384,6 +401,8 @@ class OrderController extends Controller
             $orline->cost = $ql->cost;
             $orline->value = $ql->value;
             $orline->commission = $ql->commission;
+            $orline->supp_id = $ql->supp_id;
+            $orline->supp_name = $ql->supp_name;
             $orline->supp_ref = $ql->supp_ref;
             $orline->updated_by = Auth::user()->id;
 
@@ -435,12 +454,13 @@ class OrderController extends Controller
     public function edit($id,$from)
     {
 
-        $order = Order::with('customer')->where('id',$id)->first();
+        $order = Order::with('customer')->where('orders.id',$id)->first();
         $orlines = Orline::where('order_id',$id)->get();
         $payments = Payment::where('order_id',$id)->get();
         $devices = Device::all();
         $makes = Make::all();
         $engineers = User::all();
+        $suppliers = Supplier::all();
         
         $services = 0;
         foreach ($orlines as $ol) {
@@ -450,7 +470,7 @@ class OrderController extends Controller
         }
         
         $from = $from;
-        return view('order.orderEdit',compact('order','orlines','payments','devices','makes','engineers','services','from'));
+        return view('order.orderEdit',compact('order','orlines','payments','devices','makes','engineers','suppliers','services','from'));
     }
 
     /**

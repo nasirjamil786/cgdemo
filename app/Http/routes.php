@@ -271,6 +271,15 @@ Route::get('payment/{id}/delete','PaymentController@delete');
 
 //Secure Signature files - This route will be secure 
 
+//Suppliers Routes here 
+
+Route::get('/suppliers','SupplierController@index')->name('suppliers.index');
+Route::get('/suppliers/create','SupplierController@create')->name('suppliers.create');
+Route::post('/suppliers','SupplierController@store')->name('suppliers.store');
+Route::get('/suppliers/{supplier}','SupplierController@show')->name('suppliers.show');
+Route::get('/suppliers/{supplier}/edit','SupplierController@edit')->name('suppliers.edit');
+Route::put('/suppliers/{supplier}','SupplierController@update')->name('suppliers.update');
+Route::get('/suppliers/{supplier}/delete','SupplierController@destroy')->name('suppliers.destroy');
 
 
 

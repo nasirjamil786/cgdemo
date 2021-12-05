@@ -676,13 +676,14 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
-                                                    <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}">Edit</a> 
+
+                                                    <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
 
                                                 </td>
                                                 <td>{{$ol->item_detail}}</td>
                                                 <td>{{$ol->value}}</td>
                                                 <td>{{$ol->item_notes}}</td>
-                                                <td>{{$ol->supp_ref}}</td>
+                                                <td>{{$ol->supp_name}} {{$ol->supp_ref}}</td>
                                                 {{-- <td><small>{{$ol->cost}}</small></td> --}}
                                                 {{-- <td><small>{{$ol->commission}}</small></td> --}}
                                             </tr>
@@ -880,6 +881,17 @@
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" placeholder="£0.00" required>
                                             </div>
                                             <div class="form-group">
+                                               <label for="supp_id">Supplier</label>
+                                               <select class="form-control" name="supp_id">
+                                                    <option value="0">Select....</option>
+                                                    @foreach($suppliers as $supp)
+                                                        <option value="{{$supp->id}}">{{$supp->name}}
+                                                        </option>
+                                                    @endforeach
+                                               </select>
+                                        
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="supp_ref" class="control-label">Supplier Reference</label>
                                                 <input type="text" class="form-control" name="supp_ref"   id="supp_ref">
                                             </div>
@@ -947,6 +959,15 @@
                                                              <div class="form-group">
                                                                 <label for="commission" class="control-label">Commission</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="" placeholder="£0.00" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="supp_id">Supplier</label>
+                                                                <select class="form-control" name="supp_id" id="supp_id">
+                                                                    <option value="0">Select....</option>
+                                                                    @foreach($suppliers as $supp)
+                                                                        <option  value="{{$supp->id}}"> {{$supp->name}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="supp_ref" class="control-label">Supplier Reference</label>
@@ -1067,6 +1088,9 @@
             var value = button.data('value')
             var cost = button.data('cost')
             var commission = button.data('commission')
+            var supp_ref = button.data('supp_ref')
+            var supp_id = button.data('supp_id')
+
 
                 // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
                 // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -1078,7 +1102,8 @@
                 modal.find('.modal-body #value').val(value)
                 modal.find('.modal-body #cost').val(cost)
                 modal.find('.modal-body #commission').val(commission)
-                modal.find('.modal-body #sup_ref').val(supp_ref)
+                modal.find('.modal-body #supp_ref').val(supp_ref)
+                modal.find('.modal-body #supp_id').val(supp_id)
         })
     </script>
 
