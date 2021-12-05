@@ -44,6 +44,8 @@ class CreateQlinesTable extends Migration
             $table->decimal('value',10,2)->nullable();
             $table->decimal('vat_rate',10,2)->nullable();
             $table->decimal('vat',10,2)->nullable();
+            $table->integer('supp_id')->nullable();
+            $table->string('supp_name')->nullable();
             $table->string('supp_ref')->nullable();
 
             $table->string('updated_by')->nullable();

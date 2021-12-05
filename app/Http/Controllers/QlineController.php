@@ -13,6 +13,7 @@ use Auth;
 use App\Myfunctions\Myfunctions;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use App\Supplier;
 
 class QlineController extends Controller
 {
@@ -25,8 +26,9 @@ class QlineController extends Controller
     public function create($quoteid){
 
        $quote = Quote::findorfail($quoteid);
+       $suppliers = Supplier::all();
 
-       return view('qline.create',compact('quote'));
+       return view('qline.create',compact('quote','suppliers'));
 
     }
 
@@ -42,6 +44,11 @@ class QlineController extends Controller
 
 
        $quote = Quote::findorfail($quoteid);
+       $supp_id = $request->supp_id;
+
+       if($supp_id != 0){
+            $supplier = Supplier::findorfail($supp_id);
+       }
 
        $qline = new Qline();
        $qline->quote_id = $quote->id;
@@ -62,7 +69,10 @@ class QlineController extends Controller
        $qline->vat = 0.0;
        $qline->item_notes = $request->item_notes;
        $qline->item_type = $request->item_type;
+       $qline->supp_id = $request->supp_id;
+       $qline->supp_name = ($supp_id != 0) ? $supplier->name : ''; 
        $qline->supp_ref = $request->supp_ref;
+        
 
        $qline->save();
     
@@ -83,8 +93,9 @@ class QlineController extends Controller
     public function edit($qlineid){
 
     	$qline = Qline::findorfail($qlineid);
+        $suppliers = Supplier::all();
 
-    	return view('qline.edit',compact('qline'));
+    	return view('qline.edit',compact('qline','suppliers'));
 
     }
 
@@ -93,13 +104,19 @@ class QlineController extends Controller
     	//validation
     	$this->validate($request,[
     		'item_detail' => 'required',
-        'item_type' => 'required',
+            'item_type' => 'required',
     		'quantity' => 'required',
     		'value' => 'required',
     	]);
 
 
        $qline = Qline::findorfail($qlineid);
+       $supp_id = $request->supp_id;
+
+       if($supp_id != 0){
+            $supplier = Supplier::findorfail($supp_id);
+       }
+
 
        $qline->item_no = 1;
        $qline->item_detail = $request->item_detail;
@@ -112,6 +129,8 @@ class QlineController extends Controller
        $qline->price = $request->value;
        $qline->cost = $request->cost;
        $qline->commission = $request->commission;
+       $qline->supp_id = $request->supp_id;
+       $qline->supp_name = ($supp_id != 0) ? $supplier->name : '';
        $qline->supp_ref = $request->supp_ref;
        $qline->value = $request->value;
        $qline->vat_rate = 0.0;

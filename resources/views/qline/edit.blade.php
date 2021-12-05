@@ -59,6 +59,15 @@
                                         <input type="number" class="form-control" step="0.01" name="commission" value="{{ $qline->commission }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
+                                        <label for="supp_id">Supplier</label>
+                                        <select class="form-control" name="supp_id">
+                                            <option value="0">Select....</option>
+                                            @foreach($suppliers as $supp)
+                                                <option value="{{$supp->id}}" @if($qline->supp_id == $supp->id) SELECTED @endif>{{$supp->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
                                          <label for="supp_ref">Supplier Reference</label>
                                          <input type="text" class="form-control" name="supp_ref" value="{{ $qline->supp_ref }}">
                                     </div>

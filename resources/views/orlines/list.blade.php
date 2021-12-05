@@ -44,7 +44,7 @@
                                         <td>{{$o->value}}</td>
                                         <td>{{$o->commission}}</td>
                                         <td>{{$o->value - $o->cost - $o->commission}}</td>
-                                        <td>{{$o->supp_ref}}</td>
+                                        <td>{{$o->supp_name}} {{$o->supp_ref}}</td>
                                         
                                     </tr>
                                 @endforeach

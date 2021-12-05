@@ -10,6 +10,8 @@ use App\Orline;
 use Auth;
 use Redirect;
 use DB;
+use App\Supplier;
+
 class OrlineController extends Controller
 {
     /**
@@ -43,6 +45,7 @@ class OrlineController extends Controller
                         ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
                         ->where('orlines.item_notes','!=','advance')
                         ->where('orlines.supp_ref','LIKE','%'.$supp_ref.'%')
+                        ->orWhere('orlines.supp_name','LIKE','%'.$supp_ref.'%')
                         ->orWhere('orders.private_notes','LIKE','%'.$supp_ref.'%')
                         ->orderBy('orders.id','desc')
                         ->get();
@@ -102,6 +105,11 @@ class OrlineController extends Controller
         ]);
 
         $order = Order::findorfail($orderid);
+        $supp_id = $request->supp_id;
+
+        if($supp_id != 0){
+            $supplier = Supplier::findorfail($supp_id);
+        }
 
         $orline = New Orline;
 
@@ -113,11 +121,12 @@ class OrlineController extends Controller
         $orline->cost = $request->cost;
         $orline->value = $request->value;
         $orline->commission = $request->commission;
+        $orline->supp_id = $request->supp_id;
+        $orline->supp_name = ($supp_id != 0) ? $supplier->name : '';
         $orline->supp_ref = $request->supp_ref;
         $orline->updated_by = Auth::user()->id;
 
         $orline->save();
-
 
         $myfunctions = New Myfunctions;
         $myfunctions->updateOrderTotals($orderid);
@@ -136,6 +145,11 @@ class OrlineController extends Controller
         ]);
 
         $orline = Orline::findorfail($lineid);
+        $supp_id = $request->supp_id;
+
+        if($supp_id != 0){
+            $supplier = Supplier::findorfail($supp_id);
+        }
 
         $orderid = $orline->order_id;
 
@@ -145,6 +159,8 @@ class OrlineController extends Controller
         $orline->value = $request->value;
         $orline->cost = $request->cost;
         $orline->commission = $request->commission;
+        $orline->supp_id = $request->supp_id;
+        $orline->supp_name = ($supp_id != 0) ? $supplier->name : '';
         $orline->supp_ref = $request->supp_ref;
         $orline->updated_by = Auth::user()->id;
 

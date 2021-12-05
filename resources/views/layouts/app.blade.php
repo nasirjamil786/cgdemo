@@ -69,6 +69,7 @@
                     </li>
                     -->
                     <li><a href="{{url('customer')}}">Customers</a></li>
+                    <li><a href="{{url('suppliers')}}">Suppliers</a></li>
                     <li><a href="{{ url('booking') }}">Bookings</a></li>
                     <li><a href="{{ url('order') }}">Orders</a></li>
                     <li><a href="{{ url('quote') }}">Quotes</a></li>
