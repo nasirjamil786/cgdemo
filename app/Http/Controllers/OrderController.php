@@ -166,8 +166,10 @@ class OrderController extends Controller
 
             }
          }
+
+         $today = Carbon::now()->toDateString();
              
-        return view('order.orders',compact('orders','checked_state','sortby'));
+        return view('order.orders',compact('orders','checked_state','sortby','today'));
     }
 
     /**

@@ -116,6 +116,7 @@
                                         
                                         <td>
 
+                                            @if(DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('Y-m-d') == $today) <span style="color:red; "> <b>Today</b></span><br> @endif
                                             {{DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('l')}} 
                                             <small>
                                             {{DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('j M Y')}}
