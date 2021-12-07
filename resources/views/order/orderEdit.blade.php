@@ -21,7 +21,7 @@
                         @endif
                         <h4>  
                             <small>Order No</small> {{$order->id}}  <small> for </small>
-                           <a href="{{url('customer/'.$order->customer->id)}}">{{$order->customer->first_name}} {{$order->customer->last_name}} </a>
+                           <a href="{{url('customer/'.$order->customer->id)}}">{{$order->customer->first_name}} {{$order->customer->last_name}} </a> <small>@if($order->customer->phone != NULL) {{$order->customer->phone}} @endif @if($order->customer->mobile != NULL ) /{{$order->customer->mobile}} @endif</small>
                            <span class="label label-info">{{$order->order_status}} @if($order->order_status == 'Invoiced' && $order->inv_emailed != NULL) <small> {{DateTime::createFromFormat('Y-m-d H:i:s',$order->inv_emailed)->format('d/m/Y')}} </small>@endif</span>
                            @if($order->fixednotif_emailed != NULL)
                                 <small>Collection Notification Sent on {{DateTime::createFromFormat('Y-m-d H:i:s',$order->fixednotif_emailed)->format('d/m/Y')}} </small>
@@ -966,7 +966,7 @@
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="" placeholder="£0.00" required>
                                                             </div>
                                                             --}}
-                                                            
+
                                                             <div class="form-group">
                                                                 <label for="supp_id">Supplier</label>
                                                                 <select class="form-control" name="supp_id" id="supp_id">

@@ -65,7 +65,7 @@ class OrderController extends Controller
                 $orders = DB::table('orders')
                                 ->join('customers','orders.customer_id','=','customers.id')
                                 ->join('users','orders.worked_by','=','users.id')
-                                ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
+                                ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name','customers.phone','customers.mobile')
                                 ->WhereExists(function($query) use($search){ 
 
                                         $query->select(DB::raw(1))
@@ -89,7 +89,7 @@ class OrderController extends Controller
                 $orders = DB::table('orders')
                                 ->join('customers','orders.customer_id','=','customers.id')
                                 ->join('users','orders.worked_by','=','users.id')
-                                ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name')
+                                ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name as user_first_name','customers.phone','customers.mobile')
                                 
                                 ->WhereExists(function($query) use($search){ 
 
@@ -122,7 +122,7 @@ class OrderController extends Controller
                     $orders = DB::table('orders')
                             ->join('customers','orders.customer_id','=','customers.id')
                             ->join('users','orders.worked_by','=','users.id')
-                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name','customers.phone','customers.mobile')
                             ->orderby('id','desc')
                             ->paginate(500);
                     
@@ -131,7 +131,7 @@ class OrderController extends Controller
                     $orders = DB::table('orders')
                             ->join('customers','orders.customer_id','=','customers.id')
                             ->join('users','orders.worked_by','=','users.id')
-                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name','customers.phone','customers.mobile')
                             ->orderby('booking_date','desc')
                             ->paginate(500);
                 }
@@ -145,7 +145,7 @@ class OrderController extends Controller
                         $orders = DB::table('orders')
                             ->join('customers','orders.customer_id','=','customers.id')
                             ->join('users','orders.worked_by','=','users.id')
-                            ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.address1','customers.email','customers.ccemail','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name','customers.phone','customers.mobile')
                             /*->when($exclude,function($query,$exclude_closed){return $query->where('order_status','!=','Closed');})*/
                             ->where('order_status','!=','Closed')
                             ->orderby('id','desc')
@@ -155,7 +155,7 @@ class OrderController extends Controller
                         $orders = DB::table('orders')
                             ->join('customers','orders.customer_id','=','customers.id')
                             ->join('users','orders.worked_by','=','users.id')
-                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name')
+                            ->select('orders.*','customers.first_name','customers.last_name','customers.email','customers.ccemail','customers.address1','customers.phone','customers.town','customers.postcode','users.first_name AS user_first_name','customers.phone','customers.mobile')
                             /*->when($exclude,function($query,$exclude_closed){return $query->where('order_status','!=','Closed');})*/
                             ->where('order_status','!=','Closed')
                             ->orderby('booking_date','desc')

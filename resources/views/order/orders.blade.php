@@ -111,6 +111,7 @@
 
                                             @endswitch
                                             <br><small>{{$order->email}}</small>
+                                            <br><small> @if($order->phone != NULL) {{$order->phone}} @endif @if($order->mobile != NULL ) /{{$order->mobile}} @endif </small>
                                           
                                         </td>
                                         
