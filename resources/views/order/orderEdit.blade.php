@@ -876,10 +876,13 @@
                                                 <label for="cost" class="control-label">Cost</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" placeholder="£0.00" required>
                                             </div>
+
+                                            {{--
                                              <div class="form-group">
                                                 <label for="commission" class="control-label">Commission</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" placeholder="£0.00" required>
                                             </div>
+                                            --}}
                                             <div class="form-group">
                                                <label for="supp_id">Supplier</label>
                                                <select class="form-control" name="supp_id">
@@ -956,10 +959,14 @@
                                                                 <label for="cost" class="control-label">Cost</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value=""placeholder="£0.00" required>
                                                             </div>
+
+                                                            {{--
                                                              <div class="form-group">
                                                                 <label for="commission" class="control-label">Commission</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="" placeholder="£0.00" required>
                                                             </div>
+                                                            --}}
+                                                            
                                                             <div class="form-group">
                                                                 <label for="supp_id">Supplier</label>
                                                                 <select class="form-control" name="supp_id" id="supp_id">

@@ -61,7 +61,8 @@
                                     <th>Job Date</th>
                                     <th>Location</th>
                                     <th>Engineer</th>
-                                    <th>Total</th>
+                                    <th>Order Total</th>
+                                    
                                     
                                     
 
@@ -139,8 +140,28 @@
                                     
                                         
                                         <td>{{$order->user_first_name}}</td>
-                                        <td>£{{$order->order_total}}</td>
-                                        
+                                        <td>  {{-- £{{$order->order_total}}  --}}
+
+                                            @if($order->payment == 0)
+                                                
+
+                                                @if($order->order_total != NULL && $order->order_total != 0.00)
+                                                    <span style="color:red;">
+                                                        £{{$order->order_total}} Due
+                                                    </span>
+                                                @endif
+
+                                              @elseif(($order->order_total - $order->payment) != 0 )
+                                                   £{{$order->order_total}}
+                                                  <br><span style="color:red;"> £{{$order->order_total - $order->payment}} Due</span>
+                                               @else
+
+                                                  <span style="color:green;"> £{{$order->order_total}} Paid </span>
+                                               
+                                            
+                                            @endif 
+
+                                        </td>
 
                                     </tr>
                                     
