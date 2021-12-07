@@ -246,7 +246,11 @@ Route::get('quote/{quoteid}/emailpreview','QuoteController@emailpreview');
 Route::get('quote/{quoteid}/email','QuoteController@email');
 Route::get('quote/{quoteid}/print','QuoteController@print');
 Route::get('quote/{quoteid}/deleteconfirm','QuoteController@deleteConfirm');
-Route::post('quote/{quoteid}/delete','QuoteController@delete');
+
+//Route::post('quote/{quoteid}/delete','QuoteController@delete');
+
+Route::get('quote/{quoteid}/delete','QuoteController@delete');
+
 Route::get('quote/{quoteid}/convorder','QuoteController@convertToOrder');
 Route::get('quote/{quoteid}/copy','QuoteController@copy');
 Route::post('quote/{quoteid}/savecopy','QuoteController@saveCopy');

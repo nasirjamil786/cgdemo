@@ -90,7 +90,10 @@
                                         
                                         <td> 
                                             {{-- @if($quote->quote_status == 'current') --}}
-                                              <a href="{{url('quote/'.$quote->id.'/deleteconfirm')}}">Delete</a> 
+                                            {{-- <a href="{{url('quote/'.$quote->id.'/deleteconfirm')}}">Delete</a>  --}}
+
+                                              <a href="{{url('quote/'.$quote->id.'/delete')}}">Delete</a>
+
                                             {{-- @endif --}}
                                         </td>
                                     

@@ -296,6 +296,7 @@ class QuoteController extends Controller
         return view('quote.deleteconfirm',compact('quote'));
     }
 
+/*
     public function delete(Request $request,$quoteid){
            
         $this->validate($request,[
@@ -304,6 +305,15 @@ class QuoteController extends Controller
 
         $quote = Quote::findorfail($quoteid);
 
+        $quote->delete();
+
+        return redirect('quote');
+        
+    } */
+
+    public function delete($quoteid){
+           
+        $quote = Quote::findorfail($quoteid);
         $quote->delete();
 
         return redirect('quote');
