@@ -54,10 +54,15 @@
                                         <label for="Cost">Cost</label>
                                         <input type="number" class="form-control" step="0.01" name="cost" value="{{ $qline->cost }}" required>
                                     </div>
+
+                                    {{--
                                     <div class="form-group col-md-3">
                                         <label for="Cost">Commission</label>
                                         <input type="number" class="form-control" step="0.01" name="commission" value="{{ $qline->commission }}" required>
                                     </div>
+
+                                    --}}
+                                    
                                     <div class="form-group col-md-3">
                                         <label for="supp_id">Supplier</label>
                                         <select class="form-control" name="supp_id">

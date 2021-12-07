@@ -147,16 +147,16 @@
 
                                                 @if($order->order_total != NULL && $order->order_total != 0.00)
                                                     <span style="color:red;">
-                                                        £{{$order->order_total}} Due
+                                                        £{{$order->order_total}}
                                                     </span>
                                                 @endif
 
                                               @elseif(($order->order_total - $order->payment) != 0 )
                                                    £{{$order->order_total}}
-                                                  <br><span style="color:red;"> £{{$order->order_total - $order->payment}} Due</span>
+                                                  <br><span style="color:red;"> £{{$order->order_total - $order->payment}}</span>
                                                @else
 
-                                                  <span style="color:green;"> £{{$order->order_total}} Paid </span>
+                                                  <span style="color:green;"> £{{$order->order_total}}</span>
                                                
                                             
                                             @endif 
