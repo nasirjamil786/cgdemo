@@ -135,6 +135,7 @@ class ComposerStaticInit3754af2abf3c8962d70755dc2e5563d1
         ),
         'I' => 
         array (
+            'Intervention\\Image\\' => 19,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Foundation\\Auth\\' => 27,
             'Illuminate\\' => 11,
@@ -422,6 +423,10 @@ class ComposerStaticInit3754af2abf3c8962d70755dc2e5563d1
         'Laravel\\Ui\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/ui/src',
+        ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
         ),
         'Illuminate\\Support\\' => 
         array (
