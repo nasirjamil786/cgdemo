@@ -629,6 +629,25 @@ class ShoppingContent extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'patch' => [
+              'path' => '{merchantId}/buyongoogleprograms/{regionCode}',
+              'httpMethod' => 'PATCH',
+              'parameters' => [
+                'merchantId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'regionCode' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],'pause' => [
               'path' => '{merchantId}/buyongoogleprograms/{regionCode}/pause',
               'httpMethod' => 'POST',
@@ -2197,6 +2216,21 @@ class ShoppingContent extends \Google\Service
               'httpMethod' => 'POST',
               'parameters' => [
                 'merchantId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => '{merchantId}/promotions/{id}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'merchantId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'id' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
