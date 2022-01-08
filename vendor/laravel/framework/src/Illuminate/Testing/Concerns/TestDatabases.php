@@ -69,7 +69,6 @@ trait TestDatabases
      * Ensure a test database exists and returns its name.
      *
      * @param  string  $database
-     *
      * @return array
      */
     protected function ensureTestDatabaseExists($database)
@@ -157,12 +156,12 @@ trait TestDatabases
         if ($url) {
             config()->set(
                 "database.connections.{$default}.url",
-                preg_replace('/^(.*)(\/[\w-]*)(\??.*)$/', "$1/{$database}$3", $url)
+                preg_replace('/^(.*)(\/[\w-]*)(\??.*)$/', "$1/{$database}$3", $url),
             );
         } else {
             config()->set(
                 "database.connections.{$default}.database",
-                $database
+                $database,
             );
         }
     }

@@ -18,6 +18,7 @@
 namespace Google\Service\DisplayVideo\Resource;
 
 use Google\Service\DisplayVideo\CustomBiddingAlgorithm;
+use Google\Service\DisplayVideo\CustomBiddingScriptRef;
 use Google\Service\DisplayVideo\ListCustomBiddingAlgorithmsResponse;
 
 /**
@@ -131,6 +132,29 @@ class CustomBiddingAlgorithms extends \Google\Service\Resource
     $params = ['customBiddingAlgorithmId' => $customBiddingAlgorithmId, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], CustomBiddingAlgorithm::class);
+  }
+  /**
+   * Creates a custom bidding script reference object for a script file. The
+   * resulting reference object provides a resource path to which the script file
+   * should be uploaded. This reference object should be included in when creating
+   * a new custom bidding script object. (customBiddingAlgorithms.uploadScript)
+   *
+   * @param string $customBiddingAlgorithmId Required. The ID of the custom
+   * bidding algorithm owns the script.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string advertiserId The ID of the advertiser that owns the parent
+   * custom bidding algorithm.
+   * @opt_param string partnerId The ID of the partner that owns the parent custom
+   * bidding algorithm. Only this partner will have write access to this custom
+   * bidding script.
+   * @return CustomBiddingScriptRef
+   */
+  public function uploadScript($customBiddingAlgorithmId, $optParams = [])
+  {
+    $params = ['customBiddingAlgorithmId' => $customBiddingAlgorithmId];
+    $params = array_merge($params, $optParams);
+    return $this->call('uploadScript', [$params], CustomBiddingScriptRef::class);
   }
 }
 
