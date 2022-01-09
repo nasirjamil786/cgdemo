@@ -59,8 +59,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "platform-check": false
+        "preferred-install": "dist"
          
     }
 }
