@@ -5,7 +5,11 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
+<<<<<<< HEAD
         'reference' => '42dd8a0bc0bef938b41a3adb980678518f0b7b26',
+=======
+        'reference' => 'ac6d087cd7abe2e32f5a99bceda606dca01ecad0',
+>>>>>>> 783631021fb7e6a2cb56489824e7ab0f4f5142b3
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -451,6 +455,15 @@
                 0 => 'v8.66.0',
             ),
         ),
+        'intervention/image' => array(
+            'pretty_version' => '2.7.1',
+            'version' => '2.7.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../intervention/image',
+            'aliases' => array(),
+            'reference' => '744ebba495319501b873a4e48787759c72e3fb8c',
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -472,7 +485,11 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
+<<<<<<< HEAD
             'reference' => '42dd8a0bc0bef938b41a3adb980678518f0b7b26',
+=======
+            'reference' => 'ac6d087cd7abe2e32f5a99bceda606dca01ecad0',
+>>>>>>> 783631021fb7e6a2cb56489824e7ab0f4f5142b3
             'dev_requirement' => false,
         ),
         'laravel/serializable-closure' => array(
@@ -862,8 +879,13 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
+<<<<<<< HEAD
                 0 => '1.0.0 || 2.0.0 || 3.0.0',
                 1 => '1.0|2.0',
+=======
+                0 => '1.0|2.0',
+                1 => '1.0.0 || 2.0.0 || 3.0.0',
+>>>>>>> 783631021fb7e6a2cb56489824e7ab0f4f5142b3
             ),
         ),
         'psr/simple-cache' => array(

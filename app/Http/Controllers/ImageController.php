@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use App\Image;
 use Illuminate\Support\Facades\Response;
 use Image;
@@ -40,5 +41,26 @@ class ImageController extends Controller
         $response->header('content-type','image/jpeg');
 
         return $response;
+=======
+use Illuminate\Support\Facades\Response;
+use App\Image;
+use Images;
+
+class ImageController extends Controller
+{
+    // get image from the database
+
+    public function getImage($id)
+    {
+
+        $image = Image::findorfail($id);
+        $img_file = Images::make($image->image);
+
+        $response = Response::make($img_file->encode('jpeg'));
+        $response->header('Content-Type','image/jpeg');
+
+        return $response;
+
+>>>>>>> 783631021fb7e6a2cb56489824e7ab0f4f5142b3
     }
 }

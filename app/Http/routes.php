@@ -173,6 +173,8 @@ Route::post('ordreport','OrderController@OrderReportSummary');
 Route::get('/orderreportexport/{booking_date_from}/{booking_date_to}','OrderController@OrderReportExport');
 Route::get('/order/{order}/deviceFixedNotifPreview','OrderController@DeviceFixedNotifPreview');
 Route::get('/order/{order}/deviceFixedNotifEmail','OrderController@DeviceFixedNotifEmail');
+//get order signature
+Route::get('/order/{order}/getSignature','OrderController@getSignature');
 
 //Device Testing Routes
 
@@ -265,6 +267,7 @@ Route::get('qline/{qlineid}/delete','QlineController@delete');
 Route::get('qline/{qlineid}/image','QlineController@image');
 Route::post('qline/{qlineid}/imageupload','QlineController@imageUpload');
 Route::get('qline/{qlineid}/removeimage','QlineController@removeImage');
+Route::get('qline/{qlineid}/getimage','QlineController@getImage');
 
 
 //Payment 
@@ -284,6 +287,10 @@ Route::get('/suppliers/{supplier}','SupplierController@show')->name('suppliers.s
 Route::get('/suppliers/{supplier}/edit','SupplierController@edit')->name('suppliers.edit');
 Route::put('/suppliers/{supplier}','SupplierController@update')->name('suppliers.update');
 Route::get('/suppliers/{supplier}/delete','SupplierController@destroy')->name('suppliers.destroy');
+
+//Images Routes 
+
+Route::get('image/{id}','ImageController@getImage');
 
 
 
