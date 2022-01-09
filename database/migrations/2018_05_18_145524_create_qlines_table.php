@@ -18,7 +18,9 @@ class CreateQlinesTable extends Migration
             $table->unsignedInteger('line_no');
             $table->string('item_no')->nullable();
             $table->string('item_detail')->nullable();
-            $table->string('item_image')->nullable();
+            $table->binary('item_image')->nullable();
+            $table->integer('image_id')->nullable();
+            $table->binary('image')->nullable();
             $table->string('spec1')->nullable();
             $table->string('spec2')->nullable();
             $table->string('spec3')->nullable();

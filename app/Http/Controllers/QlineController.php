@@ -9,11 +9,14 @@ use App\Quote;
 use App\Qline;
 use App\Customer;
 use App\User;
+use App\Supplier;
+use App\Image;  //This is a model class
 use Auth;
+use Images;     //This is an alliase of service provider 
 use App\Myfunctions\Myfunctions;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use App\Supplier;
+use Illuminate\Support\Facades\Response;
 
 class QlineController extends Controller
 {
@@ -173,7 +176,9 @@ class QlineController extends Controller
 
     public function image($qlineid){
 
+
     	$qline = Qline::findorfail($qlineid);
+
     	return view('qline.image',compact('qline'));
 
 
@@ -183,9 +188,34 @@ class QlineController extends Controller
 
        //validation
     	$this->validate($request,[
-    		'item_image' => 'required',
+    		'item_image' => 'required|image|max:2048',
     	]);
 
+        /*New code to store imag ein the database */
+
+        $file = $request->file('item_image');
+
+        $img = Images::make($file);
+        Response::make($img->encode('jpeg'));
+
+        // create new row in the iMages table
+
+        //$imgRow = New Image();
+
+        //$imgRow->image = $img;
+
+        //$imgRow->save();
+
+        //store qline 
+        $qline = Qline::findorfail($qlineid);
+        $qline->item_image = $img;
+        $qline->save();
+        $qline = Qline::findorfail($qlineid);
+        return view('qline.image',compact('qline'));
+
+        /* New code end here   */
+
+/* This is old code 
         $file = $request->file('item_image');
         $name = $file->getClientOriginalName();
 
@@ -200,6 +230,7 @@ class QlineController extends Controller
         $qline = Qline::findorfail($qlineid);
 
         return view('qline.image',compact('qline'));
+old code end here  */
 
     }
 
@@ -214,5 +245,16 @@ class QlineController extends Controller
       return view('qline.image',compact('qline'));
  
 
+    }
+
+    public function getImage($qlineid)
+    {
+        $qline = Qline::findorfail($qlineid);
+
+        $img_file = Images::make($qline->item_image);
+        $response = Response::make($img_file->encode('jpeg'));
+        $response->header('Content-Type','image/jpeg');
+
+        return $response;
     }
 }

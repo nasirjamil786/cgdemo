@@ -24,6 +24,8 @@ use Carbon\Carbon;
 use App\Payment;
 use Spatie\GoogleCalendar\Event;
 use PDF;
+use Illuminate\Support\Facades\Response;
+use Images;
 
 
 class OrderController extends Controller
@@ -271,9 +273,26 @@ class OrderController extends Controller
         // so that we can retrieve it later for prinitng etc
         if($request->ignore_signature != 'on') {
 
-            $signatureFile = $myfuncs->storeSignature($order->id,$request->signature);
-            $order->signature = $signatureFile;
+
+            //New code
+            $signature = $request->signature;  //store input signature from javascript pad
+            $image_parts = explode(";base64,", $signature);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);  //This is an image
+
+            //now save this image into order.signature as BLOB 
+            $img = Images::make($image_base64);
+            Response::make($img->encode('png'));
+
+            $order->signature = $img;
             $order->save();
+            //end of new code 
+
+
+            //$signatureFile = $myfuncs->storeSignature($order->id,$request->signature);
+            //$order->signature = $signatureFile;
+            //$order->save();
 
         }
         /*
@@ -883,20 +902,41 @@ class OrderController extends Controller
             return "Signature required!";
         }
 
+        //New code
+            $signature = $request->signature;  //store input signature from javascript pad
+            $image_parts = explode(";base64,", $signature);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);  //This is an image
 
-        $order = Order::findorfail($orderid);
+            //now save this image into order.signature as BLOB 
+            $img = Images::make($image_base64);
+            Response::make($img->encode('png'));
 
-        $myfuncs = New Myfunctions;
+            $order = Order::findorfail($orderid);
+            $order->signature = $img;
+            $order->save();
+        //end of new code 
 
-        $signatureFile = $myfuncs->storeSignature($order->id,$request->signature);
-
-        $order->signature = $signatureFile;
-        $order->save();
+        //$order = Order::findorfail($orderid);
+        //$myfuncs = New Myfunctions;
+        //$signatureFile = $myfuncs->storeSignature($order->id,$request->signature);
+        //$order->signature = $signatureFile;
+        //$order->save();
 
 
         return redirect()->route('emailPreview', ['orderid' => $order->id]);
     }
 
+    public function getSignature($orderid)
+    {
+        $order = Order::findorfail($orderid);
+        $img_file = Images::make($order->signature);
+        $response = Response::make($img_file->encode('png'));
+        $response->header('Content-Type','image/png');
+
+        return $response;
+    }
 
     public function emailPreview($orderid){
 
@@ -917,7 +957,10 @@ class OrderController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('order.email', ['order' => $order,'settings' => $settings,'olines' => $olines], function ($m) use ($user,$order) {
+        Mail::send('order.email', ['order' => $order,'settings' => $settings,'olines' => $olines], 
+
+
+            function ($m) use ($user,$order) {
            
            $m->from($user->email, $user->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Booking# '.$order->id);
@@ -986,7 +1029,6 @@ class OrderController extends Controller
     public function OrderReportExport($booking_date_from,$booking_date_to){
          
     
-
         /*
         $myfuncs = New Myfunctions;
         $booking_date_from = $myfuncs->usDate($booking_date_from);

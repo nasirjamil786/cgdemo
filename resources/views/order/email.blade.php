@@ -10,8 +10,10 @@
   
 @endsection
 @section('signature')
-	@if($order->signature != NULL)
 
-    	<img alt="sign" src="<?php echo $message->embed(storage_path().'/signatures/'.$order->id.'.png');  ?>" width="220" height="80" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 12px;" border="0"> 
+    @if($order->signature != NULL)
+        <img alt="sign" src="<?php echo $message->embedData($order->signature,'sig');  ?>" width="220" height="80" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 12px;" border="0"> 
     @endif
+
+
 @endsection

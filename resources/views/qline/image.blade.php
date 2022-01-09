@@ -34,8 +34,11 @@
                             </div>
 
                         </form>  <!-- end of form -->
-                        <div><img src="{{asset($qline->item_image)}}"  style="height: 200px;width: 200px"></div>
-                        <div><a href="{{url(asset($qline->item_image))}}">{{asset($qline->item_image)}}</a></div>
+
+                            <div>
+                                <img src="{{url('qline/'.$qline->id).'/getimage'}}" style="width: 120px;height: 120px">
+
+                            </div>
                     </div>
                     <div class="panel-footer">
 

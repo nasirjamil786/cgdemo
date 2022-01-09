@@ -33,7 +33,9 @@
                                                     <tr>
                                                         <td align="right" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">
                                                             
-                                                              <img alt="item_image" src="<?php echo $message->embed(ltrim($ql->item_image,'/')); ?>"  width="250" style="display: block;">
+                                                              {{-- <img alt="item_image" src="<?php echo $message->embed(ltrim($ql->item_image,'/')); ?>"  width="250" style="display: block;"> --}}
+
+                                                              <img alt="item_image" src="<?php echo $message->embedData($ql->item_image,'image'); ?>"  width="250" style="display: block;">
                                                             
                                                         </td>
                                                     </tr>
