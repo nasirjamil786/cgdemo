@@ -29,7 +29,7 @@
                                                     <tr>
                                                         <td align="right" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">
                                                             
-                                                              <img alt="item_image" src="{{$ql->item_image}}"  width="250" style="display: block;">
+                                                              <img alt="item_image" src="{{url('qline/'.$ql->id.'/getimage/')}}"  width="250" style="display: block;">
                                                             
                                                         </td>
                                                     </tr>

@@ -55,7 +55,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('payment',10,2)->nullable();
             $table->string('payment_method')->nullable();
             $table->string('payment_ref')->nullable();
-            $table->string('signature')->nullable();
+            $table->binary('signature')->nullable();
             $table->boolean('send_email');
             $table->string('event_id')->nullable();
             $table->string('test_startup')->nullable();

@@ -8,7 +8,7 @@
 
 @section('signature')
     @if($order->signature != NULL)
-    <img alt="sign" src="{{url('/signatures/'.$order->id.'.png')}}" width="220" height="50" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 12px;" border="0">
+    <img alt="sign" src="{{url('/order/'.$order->id.'/getSignature')}}" width="220" height="50" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 12px;" border="0">
     @endif
 @endsection
 

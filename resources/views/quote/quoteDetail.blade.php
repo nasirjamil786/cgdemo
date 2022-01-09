@@ -51,8 +51,7 @@
                                       <td>
 
                                         @if($ql->item_image != null)
-
-                                            <a href="{{url('qline/'.$ql->id.'/image')}}"><img src="{{asset($ql->item_image)}}" style="width: 120px;height: 120px"></a>
+                                            <a href="{{url('qline/'.$ql->id.'/image')}}"><img src="{{ url('qline/'.$ql->id.'/getimage/') }}" style="width: 120px;height: 120px"></a>
                                         @else
                                              <a href="{{url('qline/'.$ql->id.'/image')}}">Add Image</a>
                                          @endif   
