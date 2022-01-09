@@ -1760,8 +1760,6 @@
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "intervention/image",
             "version": "2.7.1",
             "source": {
@@ -1846,7 +1844,6 @@
             "time": "2021-12-16T16:49:26+00:00"
         },
         {
->>>>>>> 783631021fb7e6a2cb56489824e7ab0f4f5142b3
             "name": "laravel/framework",
             "version": "v8.66.0",
             "source": {
