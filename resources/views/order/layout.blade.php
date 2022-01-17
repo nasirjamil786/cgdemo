@@ -363,9 +363,6 @@
 
                                         <tr>
                                             <td align="left" style="padding: 5px 0 5px 0; font-size: 14px; line-height: 10px; font-family: Helvetica, Arial, sans-serif; color: #7ca230; font-style: italic;border-bottom: 1px dashed #aaaaaa;" class="padding-copy">
-
-                                                Customers Signature <br>
-
                                                 <!-- customer signature box-->
                                                 
                                                 @yield('signature')

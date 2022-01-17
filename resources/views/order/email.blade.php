@@ -12,6 +12,7 @@
 @section('signature')
 
     @if($order->signature != NULL)
+        Customers Signature <br>
         <img alt="sign" src="<?php echo $message->embedData($order->signature,'sign.png');  ?>" width="220" height="80" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 12px;" border="0"> 
     @endif
 
