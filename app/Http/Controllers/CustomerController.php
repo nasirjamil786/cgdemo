@@ -78,6 +78,7 @@ class CustomerController extends Controller
                                     orWhere('town','LIKE','%'.$request->keyword.'%')->
                                     orWhere('postcode','LIKE','%'.$request->keyword.'%')->
                                     orWhere('phone','LIKE','%'.$request->keyword.'%')->
+                                    orWhere('mobile','LIKE','%'.$request->keyword.'%')->
                                     orWhere('id','LIKE','%'.$request->keyword.'%')->
                                     orWhere('email','LIKE','%'.$request->keyword.'%')->
                                     orWhere('ccemail','LIKE','%'.$request->keyword.'%')->
