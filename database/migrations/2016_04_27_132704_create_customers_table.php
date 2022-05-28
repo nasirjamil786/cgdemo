@@ -38,6 +38,7 @@ class CreateCustomersTable extends Migration
             $table->string('status');
             $table->string('newsletter')->nullable();
             $table->string('voter')->nullable();
+            $table->string('voters')->nullable();
             $table->text('notes')->nullable();
             $table->string('old_ref')->nullable();
             $table->string('subscription_status')->nullable();

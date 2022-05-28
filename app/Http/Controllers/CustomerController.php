@@ -83,7 +83,8 @@ class CustomerController extends Controller
                                     orWhere('email','LIKE','%'.$request->keyword.'%')->
                                     orWhere('ccemail','LIKE','%'.$request->keyword.'%')->
                                     orWhere('recommended_by','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('recommended_name','LIKE','%'.$request->keyword.'%')
+                                    orWhere('recommended_name','LIKE','%'.$request->keyword.'%')->
+                                    orWhere('notes','LIKE','%'.$request->keyword.'%')
                                     ->paginate(200); 
 
 

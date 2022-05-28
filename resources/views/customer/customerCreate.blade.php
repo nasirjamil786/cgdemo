@@ -143,6 +143,13 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-md-2 control-label"  ></label>
+                                <div class="col-md-6">
+                                    sbeast,sbwest,sbnorth,stjohns
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-md-2 control-label"  >Notes</label>
                                 <div class="col-md-6">
                                     <textarea class="form-control" rows="4" name="notes" id="notes"></textarea>

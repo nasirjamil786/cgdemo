@@ -183,13 +183,21 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label"  >Old Reference No</label>
+                                <label class="col-md-2 control-label"  >Old Ref No</label>
                                 <div class="col-md-6">
                                     <input  type="number" class="form-control" name="old_ref" id="old_ref" value="{{$cust->old_ref}}" >
                                 </div>
                             </div>
 
                             <div class="form-group">
+                                <label class="col-md-2 control-label"  ></label>
+                                <div class="col-md-6">
+                                    sbeast,sbwest,sbnorth,stjohns
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                
                                 <label class="col-md-2 control-label"  >Notes</label>
                                 <div class="col-md-6">
                                     <textarea class="form-control" rows="4" name="notes" id="notes">{{$cust->notes}}</textarea>
