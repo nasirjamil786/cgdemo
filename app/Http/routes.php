@@ -143,6 +143,7 @@ Route::get('custreports','CustomerController@custReports');
 Route::get('exportcustomers','CustomerController@exportCustomers');
 Route::get('exportconstituents','CustomerController@exportconstituents');
 Route::get('exportcustnewsletteronly','CustomerController@exportcustnewsletteronly'); 
+Route::get('exportsearchresult','CustomerController@ExportSearchResult');
 
 
 //pre order booking routes 

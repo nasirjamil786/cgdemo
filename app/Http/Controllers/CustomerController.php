@@ -90,6 +90,10 @@ class CustomerController extends Controller
 
         }else $customers = App\Customer::orderBy('id','desc')->paginate(200);
 
+        //store the keyword in to session which will then be used in function ExportSearchResult()
+
+        $request->session()->put('keyword',$request->keyword);
+
 
         return view('customer.customers',compact('customers'));
     }
@@ -367,6 +371,60 @@ class CustomerController extends Controller
       fclose($file_handle);
 
       return response()->download($pathToFile, $name, $headers);
+    }
+
+    public function ExportSearchResult (Request $request)
+    {
+
+        $keyword = $request->session()->get('keyword','all');
+
+        $pathToFile = 'CustomerSearchResult.csv';
+        $name = "CustomerSearchResult.csv";
+        $headers = array('content-type' => 'text/csv',);
+
+        $file_handle = fOpen($pathToFile,'w+');
+        fputcsv($file_handle,['ID','FNAME','LNAME','EMAIL','ADD1','ADD2','TOWN','POSTCODE','Area']);
+
+        //Query for search result
+
+
+        $results = Customer::where('first_name','LIKE','%'.$keyword.'%')->
+                                    orWhere('last_name','LIKE','%'.$keyword.'%')->
+                                    orWhere('address1','LIKE','%'.$keyword.'%')->
+                                    orWhere('address2','LIKE','%'.$keyword.'%')->
+                                    orWhere('town','LIKE','%'.$keyword.'%')->
+                                    orWhere('postcode','LIKE','%'.$keyword.'%')->
+                                    orWhere('phone','LIKE','%'.$keyword.'%')->
+                                    orWhere('mobile','LIKE','%'.$keyword.'%')->
+                                    orWhere('id','LIKE','%'.$keyword.'%')->
+                                    orWhere('email','LIKE','%'.$keyword.'%')->
+                                    orWhere('ccemail','LIKE','%'.$keyword.'%')->
+                                    orWhere('recommended_by','LIKE','%'.$keyword.'%')->
+                                    orWhere('recommended_name','LIKE','%'.$keyword.'%')->
+                                    orWhere('notes','LIKE','%'.$keyword.'%')
+                                    ->get(); 
+
+
+
+        foreach ($results as $r) {
+          
+            fputcsv($file_handle, [
+                $r->id,
+                $r->first_name,
+                $r->last_name,
+                $r->email,
+                $r->address1,
+                $r->address2,
+                $r->town,
+                $r->postcode,
+                $r->voter,
+            ]);
+        }
+
+        fclose($file_handle);
+
+        return response()->download($pathToFile, $name, $headers);
+
     }
     
 }

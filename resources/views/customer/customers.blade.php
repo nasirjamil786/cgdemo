@@ -19,6 +19,8 @@
                             </div>
                             <button type="submit"   class="btn btn-primary">Search</button> or
                             <a href="{{url('customer/create')}}" class="btn btn-primary">New Customer</a>
+                            <a href="{{url('exportsearchresult')}}" >Download Result</a>
+                            
                         </form>
                     </div>
                     <div class="panel-body">
