@@ -39,10 +39,16 @@ class Repository extends \Google\Model
    * @var string[]
    */
   public $labels;
+  protected $mavenConfigType = MavenRepositoryConfig::class;
+  protected $mavenConfigDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var string
+   */
+  public $sizeBytes;
   /**
    * @var string
    */
@@ -119,6 +125,20 @@ class Repository extends \Google\Model
     return $this->labels;
   }
   /**
+   * @param MavenRepositoryConfig
+   */
+  public function setMavenConfig(MavenRepositoryConfig $mavenConfig)
+  {
+    $this->mavenConfig = $mavenConfig;
+  }
+  /**
+   * @return MavenRepositoryConfig
+   */
+  public function getMavenConfig()
+  {
+    return $this->mavenConfig;
+  }
+  /**
    * @param string
    */
   public function setName($name)
@@ -131,6 +151,20 @@ class Repository extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * @param string
+   */
+  public function setSizeBytes($sizeBytes)
+  {
+    $this->sizeBytes = $sizeBytes;
+  }
+  /**
+   * @return string
+   */
+  public function getSizeBytes()
+  {
+    return $this->sizeBytes;
   }
   /**
    * @param string

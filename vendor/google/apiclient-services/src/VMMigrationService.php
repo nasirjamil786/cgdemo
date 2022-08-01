@@ -336,6 +336,14 @@ class VMMigrationService extends \Google\Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'get' => [
               'path' => 'v1/{+name}',
@@ -467,6 +475,16 @@ class VMMigrationService extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],'upgradeAppliance' => [
+              'path' => 'v1/{+datacenterConnector}:upgradeAppliance',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'datacenterConnector' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

@@ -1,3 +1,6 @@
+
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
+
 # Manage events on a Google Calendar
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-google-calendar.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-google-calendar)
@@ -258,6 +261,11 @@ Google assigns a unique id to every single event. You can get this id by getting
 ```php
 // get the id of the first upcoming event in the calendar.
 $eventId = Event::get()->first()->id;
+
+// you can also get the id after creating the event, then you can save it to database.
+$event = new Event;
+$newEvent = $event->save();
+echo $newEvent->id; // displey the event id
 ```
 
 You can use this id to fetch a single event from Google:

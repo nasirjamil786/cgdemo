@@ -71,6 +71,10 @@ class Policy extends \Google\Collection
    */
   public $bluetoothDisabled;
   /**
+   * @var string
+   */
+  public $cameraAccess;
+  /**
    * @var bool
    */
   public $cameraDisabled;
@@ -158,6 +162,10 @@ class Policy extends \Google\Collection
    * @var string
    */
   public $maximumTimeToLock;
+  /**
+   * @var string
+   */
+  public $microphoneAccess;
   /**
    * @var int
    */
@@ -290,6 +298,8 @@ class Policy extends \Google\Collection
    * @var bool
    */
   public $unmuteMicrophoneDisabled;
+  protected $usageLogType = UsageLog::class;
+  protected $usageLogDataType = '';
   /**
    * @var bool
    */
@@ -510,6 +520,20 @@ class Policy extends \Google\Collection
   public function getBluetoothDisabled()
   {
     return $this->bluetoothDisabled;
+  }
+  /**
+   * @param string
+   */
+  public function setCameraAccess($cameraAccess)
+  {
+    $this->cameraAccess = $cameraAccess;
+  }
+  /**
+   * @return string
+   */
+  public function getCameraAccess()
+  {
+    return $this->cameraAccess;
   }
   /**
    * @param bool
@@ -860,6 +884,20 @@ class Policy extends \Google\Collection
   public function getMaximumTimeToLock()
   {
     return $this->maximumTimeToLock;
+  }
+  /**
+   * @param string
+   */
+  public function setMicrophoneAccess($microphoneAccess)
+  {
+    $this->microphoneAccess = $microphoneAccess;
+  }
+  /**
+   * @return string
+   */
+  public function getMicrophoneAccess()
+  {
+    return $this->microphoneAccess;
   }
   /**
    * @param int
@@ -1420,6 +1458,20 @@ class Policy extends \Google\Collection
   public function getUnmuteMicrophoneDisabled()
   {
     return $this->unmuteMicrophoneDisabled;
+  }
+  /**
+   * @param UsageLog
+   */
+  public function setUsageLog(UsageLog $usageLog)
+  {
+    $this->usageLog = $usageLog;
+  }
+  /**
+   * @return UsageLog
+   */
+  public function getUsageLog()
+  {
+    return $this->usageLog;
   }
   /**
    * @param bool

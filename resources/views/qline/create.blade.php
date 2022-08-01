@@ -53,13 +53,13 @@
                                          <input type="number" class="form-control" step="0.01" name="cost" value="{{ old('cost') }}" required>
                                     </div>
 
-                                    {{-- 
+                                    
                                     <div class="form-group col-md-3">
                                          <label for="cost">Commission</label>
                                          <input type="number" class="form-control" step="0.01" name="commission" value="{{ old('commission') }}" required>
                                     </div>
 
-                                    --}}
+                                    
 
                                     <div class="form-group col-md-3">
                                         <label for="supp_id">Supplier</label>

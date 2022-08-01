@@ -187,12 +187,16 @@ final class Style
             '/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Testing/',
             '/vendor\/symfony\/framework-bundle\/Test/',
             '/vendor\/symfony\/phpunit-bridge/',
+            '/vendor\/symfony\/dom-crawler/',
+            '/vendor\/symfony\/browser-kit/',
+            '/vendor\/symfony\/css-selector/',
             '/vendor\/bin\/.phpunit/',
             '/bin\/.phpunit/',
             '/vendor\/bin\/simple-phpunit/',
             '/bin\/phpunit/',
             '/vendor\/coduo\/php-matcher\/src\/PHPUnit/',
             '/vendor\/sulu\/sulu\/src\/Sulu\/Bundle\/TestBundle\/Testing/',
+            '/vendor\/webmozart\/assert/',
         ]);
 
         if ($throwable instanceof ExceptionWrapper && $throwable->getOriginalException() !== null) {

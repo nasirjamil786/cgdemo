@@ -60,9 +60,9 @@ trait ManagesFrequencies
 
         if ($endTime->lessThan($startTime)) {
             if ($startTime->greaterThan($now)) {
-                $startTime->subDay(1);
+                $startTime = $startTime->subDay(1);
             } else {
-                $endTime->addDay(1);
+                $endTime = $endTime->addDay(1);
             }
         }
 
@@ -387,7 +387,7 @@ trait ManagesFrequencies
     /**
      * Schedule the event to run weekly on a given day and time.
      *
-     * @param  int  $dayOfWeek
+     * @param  array|mixed  $dayOfWeek
      * @param  string  $time
      * @return $this
      */

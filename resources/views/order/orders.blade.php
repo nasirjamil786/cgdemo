@@ -60,7 +60,7 @@
                                     <th>Customer</th>
                                     <th>Job Date</th>
                                     <th>Location</th>
-                                    <th>Engineer</th>
+                                    <!-- <th>Engineer</th> -->
                                     <th>Order Total</th>
                                     
                                     
@@ -140,7 +140,8 @@
                                         </td>
                                     
                                         
-                                        <td>{{$order->user_first_name}}</td>
+                                       <!-- <td>{{$order->user_first_name}}</td>  -->
+                                       
                                         <td>  {{-- £{{$order->order_total}}  --}}
 
                                             @if($order->payment == 0)

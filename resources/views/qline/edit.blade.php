@@ -55,13 +55,13 @@
                                         <input type="number" class="form-control" step="0.01" name="cost" value="{{ $qline->cost }}" required>
                                     </div>
 
-                                    {{--
+                                
                                     <div class="form-group col-md-3">
                                         <label for="Cost">Commission</label>
                                         <input type="number" class="form-control" step="0.01" name="commission" value="{{ $qline->commission }}" required>
                                     </div>
 
-                                    --}}
+                    
                                     
                                     <div class="form-group col-md-3">
                                         <label for="supp_id">Supplier</label>
@@ -106,7 +106,6 @@
                                     <textarea class="form-control" name="item_notes" rows=8 id="item_notes">{{ $qline->item_notes}}</textarea> 
                                 </div>
 
-                                
                         
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Save</button>
