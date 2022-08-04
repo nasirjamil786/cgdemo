@@ -85,6 +85,11 @@ Route::get('/', function () {
 });
 
 
+Route::get('/label', function () {
+    return view('labels.label');
+});
+
+
 /*
 Route::get('/email', function () {
     return view('quote.untitled');
@@ -176,6 +181,9 @@ Route::get('/order/{order}/deviceFixedNotifPreview','OrderController@DeviceFixed
 Route::get('/order/{order}/deviceFixedNotifEmail','OrderController@DeviceFixedNotifEmail');
 //get order signature
 Route::get('/order/{order}/getSignature','OrderController@getSignature');
+
+//print label
+Route::get('/printlabel/{order}','OrderController@PrintLabel');
 
 //Device Testing Routes
 

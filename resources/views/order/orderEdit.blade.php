@@ -9,6 +9,12 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
+
+                @php
+                    echo Session::has('sess_mess') ? '<div class="alert alert-success">' . Session::get('sess_mess') . '</div>' : '';
+                @endphp
+
+
             <form role="form" name="updateorder" method="POST" action="{{url('/order/'.$order->id)}}">
 
                 <div class="panel panel-default">
@@ -43,6 +49,8 @@
                         @if($order->order_status == 'Invoiced' && $order->inv_emailed != NULL) 
                             <a href="{{url('invpreview/'.$order->id.'/1')}}" class="btn btn-primary">Send Invoice Reminder</a>
                         @endif
+
+                        <a href="{{url('printlabel/'.$order->id)}}" class="btn btn-primary" target="_self">Print Label</a>
 
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         

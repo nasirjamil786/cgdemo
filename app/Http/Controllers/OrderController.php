@@ -27,6 +27,11 @@ use PDF;
 use Illuminate\Support\Facades\Response;
 use Images;
 
+use Talal\LabelPrinter\Printer;
+use Talal\LabelPrinter\Mode\Template;
+use Talal\LabelPrinter\Command;
+use Talal\LabelPrinter\Mode\Escp; 
+
 
 class OrderController extends Controller
 {
@@ -1369,6 +1374,36 @@ class OrderController extends Controller
         }
 
 
+    }
+
+    //Print Labels 
+
+    public function PrintLabel($order_no){
+
+        $order = Order::findorfail($order_no);
+        $stream = stream_socket_client('tcp://192.168.1.230:9100', $errorNumber, $errorString);
+
+        $printer = new Printer(new Escp($stream));
+        $font = new Command\Font('brussels', Command\Font::TYPE_OUTLINE);
+
+        $printer->addCommand(new Command\CharStyle(Command\CharStyle::NORMAL));
+        $printer->addCommand($font);
+        $printer->addCommand(new Command\CharSize(46, $font));
+        $printer->addCommand(new Command\Align(Command\Align::LEFT));
+
+        /*$printer->addCommand(new Command\Text("Computer Gurus Ltd\r"));*/
+        $printer->addCommand(new Command\Text("www.computergurus.co.uk\r"));
+        $printer->addCommand(new Command\Text("T: 01892 529999\r"));
+        $printer->addCommand(new Command\Text("Nasir Jamil\r"));
+        $printer->addCommand(new Command\Text("Order# 786786\n"));
+        $printer->addCommand(new Command\Text('Date : 12/01/2002'));
+
+        $printer->addCommand(new Command\Cut(Command\Cut::FULL));
+        $printer->printLabel();
+
+        fclose($stream);
+
+        return back()->with('sess_mess', 'Your label has been printed');
     }
 
 }

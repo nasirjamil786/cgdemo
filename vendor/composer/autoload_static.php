@@ -54,6 +54,7 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         'T' => 
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
+            'Talal\\LabelPrinter\\' => 19,
         ),
         'S' => 
         array (
@@ -93,6 +94,7 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         ),
         'R' => 
         array (
+            'Rawilk\\Printing\\' => 16,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
@@ -118,6 +120,7 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         array (
             'Myfunctions\\' => 12,
             'Monolog\\' => 8,
+            'Mike42\\' => 7,
         ),
         'L' => 
         array (
@@ -214,6 +217,10 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
+        ),
+        'Talal\\LabelPrinter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramytalal/label-printer/src',
         ),
         'Symfony\\Polyfill\\Php81\\' => 
         array (
@@ -347,6 +354,10 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
+        'Rawilk\\Printing\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rawilk/laravel-printing/src',
+        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -411,6 +422,11 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Mike42\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mike42/escpos-php/src/Mike42',
+            1 => __DIR__ . '/..' . '/mike42/gfx-php/src/Mike42',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
