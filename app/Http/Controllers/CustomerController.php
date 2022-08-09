@@ -10,6 +10,7 @@ use App\Customer;
 use App\User;
 Use Auth;
 use Mail;
+use DB;
 class CustomerController extends Controller
 {
     /**
@@ -69,24 +70,26 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
 
-        if($request->keyword != NULL){
+        if(trim($request->keyword) != NULL){
 
-            $customers = Customer::where('first_name','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('last_name','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('address1','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('address2','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('town','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('postcode','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('phone','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('mobile','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('id','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('email','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('ccemail','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('recommended_by','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('recommended_name','LIKE','%'.$request->keyword.'%')->
-                                    orWhere('notes','LIKE','%'.$request->keyword.'%')
+            $customers = Customer::where('first_name','LIKE','%'.trim($request->keyword).'%')->
+
+                                    orwhere(DB::raw("CONCAT(first_name,' ',last_name)"), 'LIKE', '%' . trim($request->keyword) . '%')->
+
+                                    orWhere('last_name','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('address1','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('address2','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('town','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('postcode','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('phone','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('mobile','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('id','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('email','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('ccemail','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('recommended_by','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('recommended_name','LIKE','%'.trim($request->keyword).'%')->
+                                    orWhere('notes','LIKE','%'.trim($request->keyword).'%')
                                     ->paginate(200); 
-
 
         }else $customers = App\Customer::orderBy('id','desc')->paginate(200);
 

@@ -1381,7 +1381,11 @@ class OrderController extends Controller
     public function PrintLabel($order_no){
 
         $order = Order::findorfail($order_no);
-        $stream = stream_socket_client('tcp://192.168.1.230:9100', $errorNumber, $errorString);
+        
+        /*$stream = stream_socket_client('tcp://31.48.81.30:9100', $errorNumber, $errorString);*/
+        /*$stream = stream_socket_client('tcp://81.143.205.231:9100', $errorNumber, $errorString);*/
+
+        $stream = stream_socket_client(env('STATIC_IP'), $errorNumber, $errorString);
 
         $printer = new Printer(new Escp($stream));
         $font = new Command\Font('brussels', Command\Font::TYPE_OUTLINE);
@@ -1391,12 +1395,14 @@ class OrderController extends Controller
         $printer->addCommand(new Command\CharSize(46, $font));
         $printer->addCommand(new Command\Align(Command\Align::LEFT));
 
-        /*$printer->addCommand(new Command\Text("Computer Gurus Ltd\r"));*/
-        $printer->addCommand(new Command\Text("www.computergurus.co.uk\r"));
-        $printer->addCommand(new Command\Text("T: 01892 529999\r"));
-        $printer->addCommand(new Command\Text("Nasir Jamil\r"));
-        $printer->addCommand(new Command\Text("Order# 786786\n"));
-        $printer->addCommand(new Command\Text('Date : 12/01/2002'));
+        /*$printer->addCommand(new Command\Text("Computer Gurus Ltd\r"));
+        $printer->addCommand(new Command\Text("computergurus.co.uk\r"));
+        $printer->addCommand(new Command\Text("T: 01892 529999\r")); */
+        $printer->addCommand(new Command\Text($order->customer->first_name.' '.$order->customer->last_name."\r"));
+        $printer->addCommand(new Command\Text("Order#:".$order->id."\n"));
+        $printer->addCommand(new Command\Text("Ord Date:".date('d/m/Y H:i',strtotime($order->created_at))."\r"));
+        $printer->addCommand(new Command\Text("support: 01892 529999\r"));
+        $printer->addCommand(new Command\Text("computergurus.co.uk"));
 
         $printer->addCommand(new Command\Cut(Command\Cut::FULL));
         $printer->printLabel();
