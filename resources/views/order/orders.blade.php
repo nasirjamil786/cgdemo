@@ -126,7 +126,7 @@
                                             {{DateTime::createFromFormat('H:i:s',$order->booking_time)->format('H:i')}}
                                             </small> 
                                             <br>
-                                            <small>{{$order->model}}: {{$order->serial_no}}</small>
+                                            <small>{{$order->device_type}} {{$order->make}} {{$order->model}} {{$order->serial_no}}</small>
 
                                         </td>
                                         <td>
