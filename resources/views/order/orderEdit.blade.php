@@ -154,9 +154,6 @@
                                                 
                                             </select>
                                         </div>
-
-                                       
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -173,22 +170,17 @@
                                         </div>
                                     </div>
 
-
                                     <button type="submit" class="btn btn-primary"  >Save</button>
                                     <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
-                                    
-
                                 </div>
 
                                 {{-- Device --}}
                                 <div id="device" class="tab-pane fade">
 
-
                                     <div class="col-md-6">
 
                                         <label for="device_id">Device Type</label>
                                         <select class="form-control" name="device_id" required>
-
 
                                             @foreach($devices as $device)
                                                 <option value="{{$device->id}}" @if($order->device_id == $device->id) selected @endif>{{$device->device_type}}</option>
@@ -219,10 +211,7 @@
                                             <label for="operating_system">Operating System</label>
                                             <input type="text" class="form-control" name="operating_system" value="{{$order->operating_system}}" >
                                         </div>
-
                                     </div>
-
-
                                      <div class="col-md-6">
 
                                         <div class="form-group">
@@ -230,9 +219,17 @@
                                             <input type="text" class="form-control" name="condition" value="{{$order->condition}}" >
                                         </div>
                                         <div class="form-group">
+                                            <label for="colour">Charger Present</label>
+                                            <select class="form-control" name="colour" required >
+                                                <option value="" @if($order->colour == NULL) selected @endif ></option>
+                                                <option value="No" @if($order->colour == 'No') selected @endif>No</option>
+                                                <option value="Yes" @if($order->colour == 'Yes') selected @endif>Yes</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <label for="colour">Colour</label>
                                             <input type="text" class="form-control" name="colour" value="{{$order->colour}}" >
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="data_backup">Databackup</label>
                                             <input type="text" class="form-control" name="data_backup" value="{{$order->data_backup}}" >

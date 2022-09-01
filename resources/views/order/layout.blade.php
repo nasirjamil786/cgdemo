@@ -301,7 +301,7 @@
                                  <!-- Data backup required or not -->
                                  @if($order->data_backup != NULL) Backup: <b>{{$order->data_backup}}</b> @endif 
                                  <!-- Colour -->
-                                 @if($order->colour != NULL) Colour: <b> {{$order->colour}} </b>  @endif
+                                 @if($order->colour != NULL) Charger Present: <b> {{$order->colour}} </b>  @endif
                                  <!-- Condition -->
                                  @if($order->condition != NULL) Condition: <b> {{$order->condition}}</b>@endif
 

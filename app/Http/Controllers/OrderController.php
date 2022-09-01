@@ -229,6 +229,7 @@ class OrderController extends Controller
             'device_id'   => 'required',
             'make_id'       => 'required', 
             'model'   => 'required',
+            'colour'  => 'required',
             'serial_no'   => 'required',
             'password'   => 'required',
             'data_backup'   => 'required',
@@ -260,6 +261,7 @@ class OrderController extends Controller
         $order->device_id = $request->device_id;
         $order->make_id =  $request->make_id;
         $order->model = $request->model;
+        $order->colour = $request->colour;
         $order->serial_no = $request->serial_no;
         $order->password = $request->password;
         $order->data_backup = $request->data_backup;
