@@ -22,7 +22,7 @@
                                            <input class="form-control" name="order_search" size="20"   placeholder="Enter order no or customer name">
                                            <button type="submit" class="btn btn-primary">Find</button>
 
-                                           <a href="{{url('customer')}}" class="btn btn-primary">New Order</a>
+                                           <a href="{{url('custsearch/0')}}" class="btn btn-primary">New Order</a>
                                         </div>
                                         <div class="form-group col-md-3">
 

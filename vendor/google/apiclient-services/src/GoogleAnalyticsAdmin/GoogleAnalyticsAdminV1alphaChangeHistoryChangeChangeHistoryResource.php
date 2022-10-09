@@ -21,6 +21,8 @@ class GoogleAnalyticsAdminV1alphaChangeHistoryChangeChangeHistoryResource extend
 {
   protected $accountType = GoogleAnalyticsAdminV1alphaAccount::class;
   protected $accountDataType = '';
+  protected $attributionSettingsType = GoogleAnalyticsAdminV1alphaAttributionSettings::class;
+  protected $attributionSettingsDataType = '';
   protected $conversionEventType = GoogleAnalyticsAdminV1alphaConversionEvent::class;
   protected $conversionEventDataType = '';
   protected $customDimensionType = GoogleAnalyticsAdminV1alphaCustomDimension::class;
@@ -45,6 +47,8 @@ class GoogleAnalyticsAdminV1alphaChangeHistoryChangeChangeHistoryResource extend
   protected $measurementProtocolSecretDataType = '';
   protected $propertyType = GoogleAnalyticsAdminV1alphaProperty::class;
   protected $propertyDataType = '';
+  protected $searchAds360LinkType = GoogleAnalyticsAdminV1alphaSearchAds360Link::class;
+  protected $searchAds360LinkDataType = '';
 
   /**
    * @param GoogleAnalyticsAdminV1alphaAccount
@@ -59,6 +63,20 @@ class GoogleAnalyticsAdminV1alphaChangeHistoryChangeChangeHistoryResource extend
   public function getAccount()
   {
     return $this->account;
+  }
+  /**
+   * @param GoogleAnalyticsAdminV1alphaAttributionSettings
+   */
+  public function setAttributionSettings(GoogleAnalyticsAdminV1alphaAttributionSettings $attributionSettings)
+  {
+    $this->attributionSettings = $attributionSettings;
+  }
+  /**
+   * @return GoogleAnalyticsAdminV1alphaAttributionSettings
+   */
+  public function getAttributionSettings()
+  {
+    return $this->attributionSettings;
   }
   /**
    * @param GoogleAnalyticsAdminV1alphaConversionEvent
@@ -227,6 +245,20 @@ class GoogleAnalyticsAdminV1alphaChangeHistoryChangeChangeHistoryResource extend
   public function getProperty()
   {
     return $this->property;
+  }
+  /**
+   * @param GoogleAnalyticsAdminV1alphaSearchAds360Link
+   */
+  public function setSearchAds360Link(GoogleAnalyticsAdminV1alphaSearchAds360Link $searchAds360Link)
+  {
+    $this->searchAds360Link = $searchAds360Link;
+  }
+  /**
+   * @return GoogleAnalyticsAdminV1alphaSearchAds360Link
+   */
+  public function getSearchAds360Link()
+  {
+    return $this->searchAds360Link;
   }
 }
 

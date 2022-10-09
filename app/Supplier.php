@@ -9,4 +9,6 @@ class Supplier extends Model
 {
     
     protected $fillable = ['name','email','phone','mobile','website','username','password','account','notes'];
+
+    public $incrementing = true;
 }

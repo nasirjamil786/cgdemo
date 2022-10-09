@@ -101,6 +101,76 @@ class CustomerController extends Controller
         return view('customer.customers',compact('customers'));
     }
 
+    //Display Search view
+
+    public function search($id)
+    {
+
+        $first_name = '';
+        $last_name  = '';
+        $postcode = '';
+        $phone = '';
+        $mobile = '';
+        $email = '';
+        $ccemail = '';
+        $company = '';
+        $town = '';
+        $address1 = '';
+
+        $customers = Customer::where('id',$id)->paginate(200); 
+
+        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','mobile','id','email','ccemail','company','town','address1'));
+
+    }
+
+    public function searchResult(Request $request)
+    {
+
+        $first_name = $request->first_name;
+        $last_name  = $request->last_name;
+        $postcode = $request->postcode;
+        $phone = $request->phone;
+        $id = $request->id;
+        $email = $request->email;
+        $town = $request->town;
+        $address1 = $request->address1;
+
+
+        if($first_name <> NULL || $last_name <> NULL || $postcode <> NULL || $phone <> NULL || $id <> 0 || $email <> NULL || $town <> NULL || $address1 <> NULL) {
+
+                $customers = Customer::when($first_name,function($query, $first_name) {
+                                                           $query->where('first_name', $first_name);
+                                                         })->
+                                       when($last_name, function ($query, $last_name) {
+                                                            $query->where('last_name', $last_name);
+                                                         })->
+                                       when($postcode, function ($query, $postcode) {
+                                                            $query->where('postcode', $postcode);
+                                                         })->
+                                       when($address1, function ($query, $address1) {
+                                                            $query->where('address1', $address1);
+                                                         })->
+                                       when($town, function ($query, $town) {
+                                                            $query->where('town', $town);
+                                                         })->
+                                       when($phone, function ($query, $phone) {
+                                                            $query->where('phone', $phone);
+                                                         })->
+                                       when($id, function ($query, $id) {
+                                                            $query->where('id', $id);
+                                                         })->
+                                       when($email, function ($query, $email) {
+                                                            $query->where('email', $email);
+                                                         })->
+                                        paginate(100);
+        } else {
+            $customers = Customer::where('id',99999)->paginate(100);
+        }
+
+        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','id','email','town','address1'));
+
+    }
+
     public function create()
     {
         return view('customer.customerCreate');
@@ -160,13 +230,12 @@ class CustomerController extends Controller
             if ($user->bcc != NULL)
                $m->bcc($user->bcc, $user->name);
         });
-        // end
+        // end 
 
-
-        return redirect('customer')->with('status','New customer was adedd and welcome email was sent successfully!');
-        //return redirect::back()->with('status','Order details was saved successfully!');
+        return redirect('custsearch/'.$customer->id)->with('status','New customer was adedd and welcome email was sent successfully!');
 
     }
+
 
     public function show($id)
     {

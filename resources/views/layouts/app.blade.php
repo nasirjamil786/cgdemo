@@ -68,7 +68,7 @@
                         </ul>
                     </li>
                     -->
-                    <li><a href="{{url('customer')}}">Customers</a></li>
+                    <li><a href="{{url('custsearch/0')}}">Customers</a></li>
                     <li><a href="{{url('suppliers')}}">Suppliers</a></li>
                     <li><a href="{{ url('booking') }}">Bookings</a></li>
                     <li><a href="{{ url('order') }}">Orders</a></li>
@@ -107,6 +107,7 @@
                                     <li><a href="{{url('/permissions')}}">Permissions</a></li>
                                 </ul>
                             </li>
+                            <li><a href="{{url('customer')}}">Customers</a></li>
                         @endcan
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
