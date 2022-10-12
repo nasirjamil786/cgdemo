@@ -68,7 +68,7 @@
                         </ul>
                     </li>
                     -->
-                    <li><a href="{{url('custsearch/0')}}">Customers</a></li>
+                    <li><a href="{{url('custsearch1/0')}}">Customers</a></li>
                     <li><a href="{{url('suppliers')}}">Suppliers</a></li>
                     <li><a href="{{ url('booking') }}">Bookings</a></li>
                     <li><a href="{{ url('order') }}">Orders</a></li>

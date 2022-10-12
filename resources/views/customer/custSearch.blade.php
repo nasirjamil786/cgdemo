@@ -10,7 +10,7 @@
             <div class="col-lg-12 ">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-
+                        @include('partials.error')
                         <form class="form" method="POST" action="{{url('custsearchresult')}}">
                             {!! csrf_field() !!}
 
@@ -48,8 +48,8 @@
                                     <input type="text" class="form-control" name="email" value="{{$email}}">
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label class="control-label">ID</label>
-                                    <input type="text" class="form-control" name="id" value="{{$id}}">
+                                    <label class="control-label">Cust#</label>
+                                    <input type="text" class="form-control" name="custno" value="{{$custno}}">
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -59,7 +59,7 @@
                         </form>
                     </div>
                     <div class="panel-body">
-                        @include('partials.success')
+                        
                         <div class="table-responsive">
                             <table class="table">
                                 <tr>
@@ -87,7 +87,7 @@
                                            <a href="{{url('order/'.$cust->id.'/neworder')}}" class="btn-sm btn-primary">Order</a>
                                        </td>
                                        <td>
-                                           <a href="{{url('quote/'.$cust->id.'/create')}}" class="btn-sm btn-primary">Quote</a>
+                                           <a href="{{url('quote/'.$cust->id.'/1/create')}}" class="btn-sm btn-primary">Quote</a>
                                        </td>
                                         <td>{{$cust->address1}}</td>
                                         <td>{{$cust->postcode}}</td>

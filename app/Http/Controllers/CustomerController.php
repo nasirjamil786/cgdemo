@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests;
 use App\Setting;
@@ -101,42 +102,80 @@ class CustomerController extends Controller
         return view('customer.customers',compact('customers'));
     }
 
+    //Display search view first time 
+
+    public function search1($id){
+        $first_name = $last_name = $postcode = $phone = $custno = $email = $town = $address1 = '';
+        $customers = Customer::where('id',$id)->paginate(200); 
+        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+    }
+
     //Display Search view
 
-    public function search($id)
+    public function searchBack(Request $request,$id)
     {
 
-        $first_name = '';
-        $last_name  = '';
-        $postcode = '';
-        $phone = '';
-        $mobile = '';
-        $email = '';
-        $ccemail = '';
-        $company = '';
-        $town = '';
-        $address1 = '';
+        $first_name = $request->session()->pull('first_name');
+        $last_name  = $request->session()->pull('last_name');
+        $postcode = $request->session()->pull('postcode');
+        $phone = $request->session()->pull('phone');
+        $email = $request->session()->pull('email');
+        $town = $request->session()->pull('town');
+        $address1 = $request->session()->pull('address1');
+        $custno = request->session()->pull('custno');
 
         $customers = Customer::where('id',$id)->paginate(200); 
 
-        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','mobile','id','email','ccemail','company','town','address1'));
+        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
 
     }
 
     public function searchResult(Request $request)
     {
 
-        $first_name = $request->first_name;
-        $last_name  = $request->last_name;
-        $postcode = $request->postcode;
-        $phone = $request->phone;
-        $id = $request->id;
-        $email = $request->email;
-        $town = $request->town;
-        $address1 = $request->address1;
+            $rules = array(
+                'first_name' => 'required_without_all:last_name,postcode,phone,custno,email,town,address1',
+                'last_name' => 'required_without_all:first_name,postcode,phone,custno,email,town,address1',
+                'postcode' => 'required_without_all:first_name,last_name,phone,custno,email,town,address1',
+                'phone' => 'required_without_all:first_name,last_name,postcode,custno,email,town,address1',
+                'custno' => 'required_without_all:first_name,last_name,postcode,phone,email,town,address1',
+                'email' => 'required_without_all:first_name,last_name,postcode,phone,custno,town,address1',
+                'town' => 'required_without_all:first_name,last_name,postcode,phone,email,custno,address1',
+                'address1' => 'required_without_all:first_name,last_name,postcode,phone,custno,email,town',
+            );
 
+            $validator = Validator::make($request->all(), $rules,["At least one field must be entered"])->validate();
 
-        if($first_name <> NULL || $last_name <> NULL || $postcode <> NULL || $phone <> NULL || $id <> 0 || $email <> NULL || $town <> NULL || $address1 <> NULL) {
+            $first_name = $request->first_name;
+            $last_name = $request->last_name;
+            $postcode = $request->postcode;
+            $phone = $request->phone;
+            $custno = $request->custno;
+            $email = $request->email;
+            $town = $request->town;
+            $address1 = $request->address1;
+
+        //store all the values to session
+
+        session(['first_name' => $first_name],
+            ['last_name' => $last_name],
+            ['postcode' => $postcode],
+            ['phone' => $phone],
+            ['custno' => $custno],
+            ['email' => $email],
+            ['town' => $town],
+            ['address1' => $address1]);
+
+        //if atleast one input parameter is set then performed search
+
+        if($first_name <> NULL || 
+            $last_name <> NULL || 
+            $postcode <> NULL || 
+            $phone <> NULL || 
+            $custno <> Null || 
+            $email <> NULL || 
+            $town <> NULL || 
+            $address1 <> NULL) {
 
                 $customers = Customer::when($first_name,function($query, $first_name) {
                                                            $query->where('first_name', $first_name);
@@ -156,18 +195,15 @@ class CustomerController extends Controller
                                        when($phone, function ($query, $phone) {
                                                             $query->where('phone', $phone);
                                                          })->
-                                       when($id, function ($query, $id) {
-                                                            $query->where('id', $id);
+                                       when($custno, function ($query, $custno) {
+                                                            $query->where('id', $custno);
                                                          })->
                                        when($email, function ($query, $email) {
                                                             $query->where('email', $email);
                                                          })->
                                         paginate(100);
-        } else {
-            $customers = Customer::where('id',99999)->paginate(100);
-        }
-
-        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','id','email','town','address1'));
+            return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+        } 
 
     }
 
@@ -232,7 +268,7 @@ class CustomerController extends Controller
         });
         // end 
 
-        return redirect('custsearch/'.$customer->id)->with('status','New customer was adedd and welcome email was sent successfully!');
+        return redirect('custsearch1/'.$customer->id)->with('status','New customer was adedd and welcome email was sent successfully!');
 
     }
 

@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <input class="form-control" name="keyword" size="40"   placeholder="Enter quote no or customer name">
                         <button type="submit" class="btn btn-primary">Find</button>
-                        <a href="{{url('custsearch/0')}}" class="btn btn-primary">New Quote</a>
+                        <a href="{{url('custsearch1/0')}}" class="btn btn-primary">New Quote</a>
                         <div class="checkbox">
                           <label>
                             <input type="checkbox"  name="status" id="status" > Show All 

@@ -149,6 +149,7 @@ Route::get('exportcustomers','CustomerController@exportCustomers');
 Route::get('exportconstituents','CustomerController@exportconstituents');
 Route::get('exportcustnewsletteronly','CustomerController@exportcustnewsletteronly'); 
 Route::get('exportsearchresult','CustomerController@ExportSearchResult');
+Route::get('custsearch1/{id}','CustomerController@search1');
 Route::get('custsearch/{id}','CustomerController@search');
 Route::post('custsearchresult','CustomerController@searchResult');
 
@@ -248,7 +249,7 @@ Route::delete('permission/{id}','PermissionController@destroy');
 //rout for quote lists
 Route::get('quote','QuoteController@index');
 //route for creating new quote
-Route::get('quote/{custid}/create','QuoteController@create');
+Route::get('quote/{custid}/{from}/create','QuoteController@create');
 //route for storing new quote
 Route::post('quote/{custid}/store','QuoteController@store');
 //router for updating new quote
@@ -266,8 +267,9 @@ Route::get('quote/{quoteid}/delete','QuoteController@delete');
 
 Route::get('quote/{quoteid}/convorder','QuoteController@convertToOrder');
 Route::get('quote/{quoteid}/copy','QuoteController@copy');
-Route::post('quote/{quoteid}/savecopy','QuoteController@saveCopy');
+Route::get('quote/{custid}/{from}/back','QuoteController@goBack');
 
+Route::get('quote/{quoteid}/delete','QuoteController@delete');
 
 //Quote Line Routes
 Route::get('qline/{quoteid}/create','QlineController@create');

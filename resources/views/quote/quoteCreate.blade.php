@@ -11,7 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
 
-                        <a href="{{ URL::previous()}}" class="btn btn-primary pull-right">Back</a>
+                        <a href="{{ url('quote/'.$cust->id.'/'.$from.'/back')}}" class="btn btn-primary pull-right">Back</a>
                         <h4><small>New Quote for </small> {{$cust->first_name}} {{$cust->last_name}}</h4>
 
                     </div>

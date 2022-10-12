@@ -130,7 +130,7 @@ class QuoteController extends Controller
 
     }
 
-    public function create($custid)
+    public function create($custid,$from)
     {
     	$cust = Customer::findorfail($custid);
 
@@ -145,7 +145,32 @@ class QuoteController extends Controller
         //return redirect('quote/'.$quote->id.'/edit');
     
 
-        return view('quote.quoteCreate',compact('cust'));
+        return view('quote.quoteCreate',compact('cust','from'));
+
+    }
+
+    public function goBack($custid,$from){
+
+    
+        if($from == 1){
+            $first_name = session('first_name');
+            $last_name  = session('last_name');
+            $postcode = session('postcode');
+            $phone = session('phone');
+            $email = session('email');
+            $town = session('town');
+            $address1 = session('address1');
+            $custno = session('custno');
+
+            $customers = Customer::where('id',$custid)->paginate(50);
+            return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+        }
+
+        if($from == 2){
+            $customer = Customer::findorfail($custid);
+            return view('customer.customerDetail',compact('customer'));
+        }
+
 
     }
 
