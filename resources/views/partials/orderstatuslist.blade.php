@@ -8,9 +8,11 @@
 <option value="Collection Scheduled" @if($order->order_status == 'Collection Scheduled') selected @endif>Collection Scheduled</option>
 <option value="Visit Scheduled" @if($order->order_status == 'Visit Scheduled') selected @endif>Visit Scheduled</option>
 <option value="Collected Unpaid" @if($order->order_status == 'Collected Unpaid') selected @endif>Collected Unpaid</option>
-<option value="Invoiced" @if($order->order_status == 'Invoiced') selected @endif>Invoiced</option>
-<option value="Paid" @if($order->order_status == 'Paid') selected @endif>Paid</option>
 <option value="Payment Receipt Sent" @if($order->order_status == 'Payment Receipt Sent') selected @endif>Payment Receipt Sent</option>
 <option value="Courtsey Call Required" @if($order->order_status == 'Courtsey Call Required') selected @endif>Courtsey Call Required</option>
+@can('admin-only')
+<option value="Invoiced" @if($order->order_status == 'Invoiced') selected @endif>Invoiced</option>
+<option value="Paid" @if($order->order_status == 'Paid') selected @endif>Paid</option>
 <option value="Closed" @if($order->order_status == 'Closed') selected @endif>Closed</option>
 <option value="Cancelled" @if($order->order_status == 'Cancelled') selected @endif>Cancelled</option>
+@endcan

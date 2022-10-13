@@ -16,6 +16,10 @@
                     </div>
 
                     <div class="panel-body">
+
+                        @include('partials.error')
+                        @include('partials.success')
+                        
                         <div class="col-md-6">
 
                             <ul class="list-unstyled">

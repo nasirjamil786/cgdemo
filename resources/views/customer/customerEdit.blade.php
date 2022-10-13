@@ -15,6 +15,7 @@
                     </div>
                     <div class="panel-body">
                         @include('partials.error')
+                        @include('partials.success')
                         <form class="form-horizontal" role="form" method="POST" action="{{url('customer/'.$cust->id)}}">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

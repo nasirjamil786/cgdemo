@@ -90,7 +90,7 @@
                         {{--  <li><a href="{{ url('/register') }}">Register</a></li> --}}
                     @else
                         {{-- only Admin can do that --}}
-                        @can('update-settings')
+                        @can('update-settings') <!-- update-settings is a permission name if it exist -->
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-expanded="false" >Admin Reports <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{url('/custreports')}}">Customers</a></li>

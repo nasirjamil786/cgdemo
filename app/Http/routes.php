@@ -17,8 +17,6 @@ use Illuminate\Http\Response;
 //Route to take signature later on in case order is placed before without client present
 
 
-
-
 //Route to get secure signature files
 Route::get('/signatures/{file}', [ function ($file) {
   $path = storage_path('signatures/'.$file);
@@ -139,8 +137,8 @@ Route::post('/settings/{id}', 'SettingController@update');
 Route::get('/customer', 'CustomerController@index');
 Route::get('/customer/create', 'CustomerController@create');
 Route::post('/customer', 'CustomerController@store');
-Route::get('/customer/{id}', 'CustomerController@show');
-Route::get('/customer/{id}/edit', 'CustomerController@edit');
+Route::get('/customer/{id}', 'CustomerController@show')->name('customer.show');
+Route::get('/customer/{id}/edit', 'CustomerController@edit')->name('customer.edit');
 Route::put('/customer/{id}', 'CustomerController@update');
 Route::delete('/customer/{id}', 'CustomerController@destroy');
 Route::get('/customer/{id}/deleteconfirm', 'CustomerController@deleteconfirm');

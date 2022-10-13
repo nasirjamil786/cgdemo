@@ -333,8 +333,12 @@ class CustomerController extends Controller
         $customer->updated_by = Auth::user()->id;
         $customer->save();
 
-        $request->session()->flash('status', 'Customer details was saved successfully!');
-        return view('messages');
+        //$request->session()->flash('status', 'Customer details was saved successfully!');
+        //return view('messages');
+
+        //return redirect('customer.show')->with('success','Customer updated successfully!');
+
+        return redirect()->route('customer.show', ['id' => $customer->id])->with('status','Customer updated successfully!');
 
     }
 

@@ -659,11 +659,11 @@
                                 <!-- Parts -->
 
                                 <div id="parts" class="tab-pane fade">
-                                    
+                                    @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
                                     <button type="button" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModal"  data-backdrop="static"      >
                                         Add Line
                                     </button>
-
+                                    @endif
 
                                     <table class="table">
 
@@ -680,9 +680,13 @@
                                         @foreach($orlines AS $ol)
                                             <tr>
                                                 <td>
-                                                    <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
-
-                                                    <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
+                                                    @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
+                                                        <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
+                                                        <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
+                                                    @else
+                                                        <small style="color: red"> INVOICED <br> 
+                                                        {{DateTime::createFromFormat('Y-m-d H:i:s',$order->inv_emailed)->format('d/m/Y')}}</small> 
+                                                    @endif
 
                                                 </td>
                                                 <td>{{$ol->item_detail}}</td>
@@ -814,7 +818,11 @@
                                                             <td>{{$pay->payment_method}}</td>
                                                             <td>{{$pay->payment_ref}}</td>
                                                             <td>{{$pay->detail}}</td>
-                                                            <td><a href="{{url('payment/'.$pay->id.'/delete')}}">Delete</a></td>
+                                                            <td>
+                                                                @if(Auth::user()->hasRole('Admin'))
+                                                                <a href="{{url('payment/'.$pay->id.'/delete')}}">Delete</a>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </table>
