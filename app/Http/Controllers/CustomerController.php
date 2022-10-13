@@ -223,7 +223,7 @@ class CustomerController extends Controller
             'town'       => 'required',
             'postcode'   => 'required',
             'email'   => 'required|email',
-            'phone'   => 'required',
+            'phone'   => 'required|digits:11',
 
             'recommended_by' => 'required',
         ]);
@@ -301,7 +301,7 @@ class CustomerController extends Controller
             'town'       => 'required',
             'postcode'   => 'required',
             'email'   => 'required|email',
-            'phone'   => 'required',
+            'phone'   => 'required|digits:11',
             'recommended_by' => 'required',
         ]);
 

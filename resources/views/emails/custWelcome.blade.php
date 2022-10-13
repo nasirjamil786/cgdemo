@@ -199,7 +199,7 @@
                             <table class="btn-primary" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td>
-                                        <a href="https://computergurus.co.uk/computer-knowledge-base/">Please visit our website for knowledge base</a>
+                                        <a href="https://computergurus.co.uk/blog/">Please visit our website for knowledge base</a>
                                     </td>
                                 </tr>
                             </table>
@@ -212,6 +212,7 @@
                             <p>Computer Gurus Limited <br> Call us: 01892 544199 <br> <a>www.computergurus.co.uk</a></p>
                             <p><a href="http://twitter.com/computergurusuk">Twitter</a> <br>
                             <a href="http://facebook.com/computergurusuk">Facebook</a></p>
+                            <a href="http://youtube.com/@computergurusuk">YouTube</a></p>
                         </td>
                     </tr>
                 </table>
@@ -235,7 +236,7 @@
                 <table>
                     <tr>
                         <td align="center">
-                        <p>Computer Gurus Limited registered office is 7 Yew Tree Road, Tunbridge Wells, TN4 0BD, UNITED KINGDOM Registration No 5142185 
+                        <p>Computer Gurus Limited registered office is 7 Yew Tree Road, Tunbridge Wells, TN4 0BD, UK Registration No 5142185 
                             If you wish not to receive emails from us please? <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>.
                             </p>
                         </td>
