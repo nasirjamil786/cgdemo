@@ -149,6 +149,7 @@ Route::get('exportcustnewsletteronly','CustomerController@exportcustnewsletteron
 Route::get('exportsearchresult','CustomerController@ExportSearchResult');
 Route::get('custsearch1/{id}','CustomerController@search1');
 Route::get('custsearch/{id}','CustomerController@search');
+Route::get('/customer/goback','CustomerController@goBack');
 Route::post('custsearchresult','CustomerController@searchResult');
 
 

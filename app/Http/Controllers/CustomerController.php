@@ -105,8 +105,13 @@ class CustomerController extends Controller
     //Display search view first time 
 
     public function search1($id){
+        //clear all the data in the session
+        //session()->flush();
+        //define all the variable 
         $first_name = $last_name = $postcode = $phone = $custno = $email = $town = $address1 = '';
+        //find a null value of customer 
         $customers = Customer::where('id',$id)->paginate(200); 
+        //return view 
         return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
     }
 
@@ -128,6 +133,25 @@ class CustomerController extends Controller
 
         return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
 
+    }
+
+    public function goBack(){
+
+
+
+dd('here');
+            $first_name = session('first_name');
+            $last_name  = session('last_name');
+            $postcode = session('postcode');
+            $phone = session('phone');
+            $email = session('email');
+            $town = session('town');
+            $address1 = session('address1');
+            $custno = session('custno');
+
+            $customers = Customer::where('id',$custno)->paginate(50);
+
+            return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
     }
 
     public function searchResult(Request $request)
