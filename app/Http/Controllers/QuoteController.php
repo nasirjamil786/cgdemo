@@ -163,7 +163,7 @@ class QuoteController extends Controller
             $custno = session('custno');
 
             $customers = Customer::where('id',$custid)->paginate(50);
-            return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+            return view('customer.custSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
         }
 
         if($from == 2){
