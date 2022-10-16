@@ -131,7 +131,7 @@ class CustomerController extends Controller
 
         $customers = Customer::where('id',$id)->paginate(200); 
 
-        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+        return view('customer.custSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
 
     }
 
@@ -151,7 +151,7 @@ dd('here');
 
             $customers = Customer::where('id',$custno)->paginate(50);
 
-            return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+            return view('customer.custSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
     }
 
     public function searchResult(Request $request)
@@ -226,7 +226,7 @@ dd('here');
                                                             $query->where('email', $email);
                                                          })->
                                         paginate(100);
-            return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+            return view('customer.custSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
         } 
 
     }
