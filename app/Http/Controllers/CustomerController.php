@@ -112,7 +112,7 @@ class CustomerController extends Controller
         //find a null value of customer 
         $customers = Customer::where('id',$id)->paginate(200); 
         //return view 
-        return view('customer.CustSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
+        return view('customer.custSearch',compact('customers','first_name','last_name','postcode','phone','custno','email','town','address1'));
     }
 
     //Display Search view
