@@ -30,7 +30,7 @@ use Talal\LabelPrinter\Printer;
 use Talal\LabelPrinter\Mode\Template;
 use Talal\LabelPrinter\Command;
 use Talal\LabelPrinter\Mode\Escp; 
-gi
+
 class OrderController extends Controller
 {
 
@@ -1004,7 +1004,6 @@ class OrderController extends Controller
         return view('order.orderreport');
     }
 
-
     public function OrderReportSummary(Request $request){
         $myfuncs = New Myfunctions;
         $booking_date_from = $myfuncs->usDate($request->booking_date_from);
@@ -1121,8 +1120,6 @@ class OrderController extends Controller
          dd("I am in ConvertQuoteToOrder function in Order controller qote id ".$id );
     }
 
-
-
     //Commission Report dislay date range 
     public function CommissionReport() {
 
@@ -1145,7 +1142,6 @@ class OrderController extends Controller
 
 //dd($order_date_to);
 
-
        $xyz = DB::table('orders')
                     ->join('users','orders.worked_by','=','users.id')
                     ->join('customers','orders.customer_id','=','customers.id')
@@ -1156,7 +1152,6 @@ class OrderController extends Controller
                     ->where('orlines.item_notes','!=','advance')
                     ->orderBy('orders.id','desc')
                     ->get();
-
 
         /*$xyz = DB::table('orders')
                       ->join('orlines','orlines.order_id','=','orders.id')
@@ -1192,8 +1187,7 @@ class OrderController extends Controller
 
        /*$xyz = Orline::where('created_at','>=',$order_date_from)->get(); */
 
-        
- 
+
         $parts_cost = 0;
         $parts_commission = 0;
         $parts_charge = 0;
@@ -1203,8 +1197,6 @@ class OrderController extends Controller
         $services_commission = 0;
         $services_charge = 0;
         $services_profit = 0;
-
-
 
         foreach ($xyz as $orl) {
             
