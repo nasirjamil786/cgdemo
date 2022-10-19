@@ -1306,17 +1306,17 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.270.0",
-            "version_normalized": "0.270.0.0",
+            "version": "v0.271.0",
+            "version_normalized": "0.271.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "902b415a7ab92ccb50e2b7dda334a3497c8bc3da"
+                "reference": "3ab645dbdd0e511ba4c7a937fb4dc764e861ed6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/902b415a7ab92ccb50e2b7dda334a3497c8bc3da",
-                "reference": "902b415a7ab92ccb50e2b7dda334a3497c8bc3da",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/3ab645dbdd0e511ba4c7a937fb4dc764e861ed6a",
+                "reference": "3ab645dbdd0e511ba4c7a937fb4dc764e861ed6a",
                 "shasum": ""
             },
             "require": {
@@ -1325,7 +1325,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^5.7||^8.5.13"
             },
-            "time": "2022-10-08T01:14:15+00:00",
+            "time": "2022-10-15T00:58:16+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1347,7 +1347,7 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.270.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.271.0"
             },
             "install-path": "../google/apiclient-services"
         },
@@ -1960,17 +1960,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.35.1",
-            "version_normalized": "9.35.1.0",
+            "version": "v9.36.3",
+            "version_normalized": "9.36.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "79aed20f54b6ab75f926bf7d0dd7a5043ceb774a"
+                "reference": "80ba0561b3682b96743e1c152fde0698bbdb2412"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/79aed20f54b6ab75f926bf7d0dd7a5043ceb774a",
-                "reference": "79aed20f54b6ab75f926bf7d0dd7a5043ceb774a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/80ba0561b3682b96743e1c152fde0698bbdb2412",
+                "reference": "80ba0561b3682b96743e1c152fde0698bbdb2412",
                 "shasum": ""
             },
             "require": {
@@ -2059,7 +2059,7 @@
                 "league/flysystem-read-only": "^3.3",
                 "league/flysystem-sftp-v3": "^3.0",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": "^7.8",
+                "orchestra/testbench-core": "^7.11",
                 "pda/pheanstalk": "^4.0",
                 "phpstan/phpstan": "^1.4.7",
                 "phpunit/phpunit": "^9.5.8",
@@ -2101,7 +2101,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2022-10-11T17:30:47+00:00",
+            "time": "2022-10-19T13:23:53+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2470,17 +2470,17 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.6.0",
-            "version_normalized": "3.6.0.0",
+            "version": "3.9.0",
+            "version_normalized": "3.9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "8eded334b9894dc90ebdcb7be81e3a1c9413f709"
+                "reference": "60f3760352fe08e918bc3b1acae4e91af092ebe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8eded334b9894dc90ebdcb7be81e3a1c9413f709",
-                "reference": "8eded334b9894dc90ebdcb7be81e3a1c9413f709",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/60f3760352fe08e918bc3b1acae4e91af092ebe1",
+                "reference": "60f3760352fe08e918bc3b1acae4e91af092ebe1",
                 "shasum": ""
             },
             "require": {
@@ -2510,7 +2510,7 @@
                 "phpunit/phpunit": "^9.5.11",
                 "sabre/dav": "^4.3.1"
             },
-            "time": "2022-10-13T20:05:14+00:00",
+            "time": "2022-10-18T21:02:43+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2544,7 +2544,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.6.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.9.0"
             },
             "funding": [
                 {
@@ -3382,17 +3382,17 @@
         },
         {
             "name": "nunomaduro/termwind",
-            "version": "v1.14.0",
-            "version_normalized": "1.14.0.0",
+            "version": "v1.14.1",
+            "version_normalized": "1.14.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "10065367baccf13b6e30f5e9246fa4f63a79eb1d"
+                "reference": "86fc30eace93b9b6d4c844ba6de76db84184e01b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/10065367baccf13b6e30f5e9246fa4f63a79eb1d",
-                "reference": "10065367baccf13b6e30f5e9246fa4f63a79eb1d",
+                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/86fc30eace93b9b6d4c844ba6de76db84184e01b",
+                "reference": "86fc30eace93b9b6d4c844ba6de76db84184e01b",
                 "shasum": ""
             },
             "require": {
@@ -3412,7 +3412,7 @@
                 "symfony/var-dumper": "^5.2.7|^6.0.0",
                 "thecodingmachine/phpstan-strict-rules": "^1.0.0"
             },
-            "time": "2022-08-01T11:03:24+00:00",
+            "time": "2022-10-17T15:20:29+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -3451,7 +3451,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v1.14.0"
+                "source": "https://github.com/nunomaduro/termwind/tree/v1.14.1"
             },
             "funding": [
                 {

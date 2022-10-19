@@ -26,7 +26,6 @@ use Spatie\GoogleCalendar\Event;
 use PDF;
 use Illuminate\Support\Facades\Response;
 use Images;
-
 use Talal\LabelPrinter\Printer;
 use Talal\LabelPrinter\Mode\Template;
 use Talal\LabelPrinter\Command;
@@ -340,8 +339,16 @@ class OrderController extends Controller
             $event = new Event;
             //Assign values including Name, date , time and location
             $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
-            $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
-            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/london')->addHour(2);
+
+            $event->startDateTime = Carbon\Carbon::now();
+            $event->startDateTime = Carbon\Carbon::now()->addHour();
+
+
+            //$event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
+            //$event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London')->addHour(2);
+
+            //$event->endDateTime = DateTime::createFromFormat("Y-m-d H:i:s", "2017-03-01 14:00:00");
+
             $event->location = $order->customer->address1.','.$order->customer->postcode;
             $event = $event->save();
 
@@ -460,7 +467,7 @@ class OrderController extends Controller
             //Assign values including Name, date , time and location
             $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
             $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
-            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/london')->addHour(2);
+            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London')->addHour(2);
             $event->location = $order->customer->address1.','.$order->customer->postcode;
             $event = $event->save();
 
@@ -657,8 +664,13 @@ class OrderController extends Controller
 
             //At this stage event will be available so assign values including Name, date , time and location
             $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
+
+//$event->startDateTime = Carbon::now();
+//$event->endDateTime = Carbon::now()->addHour();
+
             $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
-            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/london')->addHour(2);
+            $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London')->addHour(2);
+
             $event->location = $order->customer->address1.','.$order->customer->postcode;
             $event = $event->save();
 
