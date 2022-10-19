@@ -30,8 +30,7 @@ use Talal\LabelPrinter\Printer;
 use Talal\LabelPrinter\Mode\Template;
 use Talal\LabelPrinter\Command;
 use Talal\LabelPrinter\Mode\Escp; 
-
-
+gi
 class OrderController extends Controller
 {
 
@@ -39,8 +38,6 @@ class OrderController extends Controller
     {
         $this->middleware('auth');
     }
-
-
     public function confirmCompleteDate($id,$p)
     {
 
@@ -49,7 +46,6 @@ class OrderController extends Controller
         return view('order.orderCompleteDate',compact('order','p'));
 
     }
-
 
     /**
      * Display a listing of the resource.
@@ -359,12 +355,9 @@ class OrderController extends Controller
             
         }
 
-
         //return redirect('order');
 
         return redirect()->route('emailPreview', ['orderid' => $order->id]);
-
-
 
     }
 
@@ -633,7 +626,6 @@ class OrderController extends Controller
         $order->test_others_comm = $request->test_others_comm;
         $order->test_date = Carbon::now();
         $order->tested_by = Auth::user()->first_name.' '.Auth::user()->last_name;
-        
 
         $order->save();
 
@@ -702,11 +694,9 @@ class OrderController extends Controller
                 }
             }
 
-         
         //return redirect::back()->with('status','Order details was saved successfully!');
 
             return redirect('order/'.$order->id.'/edit/0')->with('status','Order details was saved successfully!');
-
 
     }
 
@@ -763,8 +753,6 @@ class OrderController extends Controller
         $settings = Setting::findorfail(1);
         $user = Auth::user();
 
-       
-
         return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user'));
 
     }
@@ -783,8 +771,6 @@ class OrderController extends Controller
         
         return view('emails.invprint',compact('order','orlines','payments','inv_date','settings','reminder'));
     }
-
-
     public function invEmail($id,$reminder){
 
         $order = Order::with('customer')->where('id',$id)->first();
@@ -902,7 +888,6 @@ class OrderController extends Controller
         return view('order.print',compact('order','settings','olines','user'));
 
     }
-
 
     // Signature later on , if order is placed while client is not present,
     // for example taking order over phone and visit home later on
