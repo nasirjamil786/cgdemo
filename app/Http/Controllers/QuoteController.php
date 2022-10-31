@@ -369,7 +369,7 @@ class QuoteController extends Controller
 
     }
 
-    public function saveCopy(Request $request,$quoteid){
+    public function savecopy(Request $request,$quoteid){
 
         
             $this->validate($request,[
@@ -425,7 +425,6 @@ class QuoteController extends Controller
            $qline->save();
         }
         
-
         //Now return the copied quote to the user 
 
         return redirect('quote/'.$quote->id.'/editdetail')->with('status','Quote copied successfully!');

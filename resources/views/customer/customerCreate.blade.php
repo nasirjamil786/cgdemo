@@ -44,20 +44,32 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-2 control-label"  >Email*</label>
+                                <div class="col-md-6">
+                                    <input  type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"  >Mobile/Phone*</label>
+                                <div class="col-md-6">
+                                    <input  type="tel" class="form-control" name="phone" id="phone" value="{{ old('phone') }}"required>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-2 control-label"  >Company</label>
                                 <div class="col-md-6">
                                     <input  type="text" class="form-control "  name="company" id="company" value="{{ old('company') }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label"  >Address1*</label>
+                                <label class="col-md-2 control-label"  >Address Line1*</label>
                                 <div class="col-md-6">
                                     <input  type="text" class="form-control "  name="address1" id="address1" value="{{ old('address1') }}"required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label"  >Address2 or Area</label>
+                                <label class="col-md-2 control-label"  >Address Line2</label>
                                 <div class="col-md-6">
                                     <input  type="text" class="form-control "  name="address2" id="address2" value="{{ old('address2') }}">
                                 </div>
@@ -72,25 +84,6 @@
                                 <label class="col-md-2 control-label"  >Postcode*</label>
                                 <div class="col-md-6">
                                     <input  type="text" class="form-control text-uppercase" name="postcode" id="postcode" value="{{ old('postcode') }}"required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Email*</label>
-                                <div class="col-md-6">
-                                    <input  type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Phone*</label>
-                                <div class="col-md-6">
-                                    <input  type="tel" class="form-control" name="phone" id="phone" value="{{ old('phone') }}"required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Mobile</label>
-                                <div class="col-md-6">
-                                    <input  type="tel" class="form-control" name="mobile" id="mobile" value="{{ old('mobile') }}">
                                 </div>
                             </div>
                             <div class="form-group">

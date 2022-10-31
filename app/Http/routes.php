@@ -267,6 +267,7 @@ Route::get('quote/{quoteid}/delete','QuoteController@delete');
 Route::get('quote/{quoteid}/convorder','QuoteController@convertToOrder');
 Route::get('quote/{quoteid}/copy','QuoteController@copy');
 Route::get('quote/{custid}/{from}/back','QuoteController@goBack');
+Route::post('quote/{quoteid}/savecopy','QuoteController@savecopy');
 
 Route::get('quote/{quoteid}/delete','QuoteController@delete');
 
