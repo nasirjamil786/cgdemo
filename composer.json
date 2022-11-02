@@ -16,7 +16,7 @@
         "intervention/image": "^2.7",
         "barryvdh/laravel-dompdf": "^1.0",
         "ramytalal/label-printer": "^1.1",
-        "rawilk/laravel-printing": "^3.0"
+        "guzzlehttp/guzzle": "^7.5"
     },
 
     "require-dev": {
