@@ -62,14 +62,9 @@
                                     <th>Location</th>
                                     <!-- <th>Engineer</th> -->
                                     <th>Order Total</th>
-                                    
-                                    
-                                    
-
                                 </tr>
 
                                 @foreach($orders AS $order)
-                                    
                                     <tr>
                                         <td>
                                             <a href="{{url('order/'.$order->id.'/edit/1')}}"> {{$order->id}} </a>
@@ -112,12 +107,8 @@
                                             @endswitch
                                             <br><small>{{$order->email}}</small>
                                             <br><small> @if($order->phone != NULL) {{$order->phone}} @endif @if($order->mobile != NULL ) /{{$order->mobile}} @endif </small>
-                                          
                                         </td>
-                                        
-                                        
                                         <td>
-
                                             @if(DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('Y-m-d') == $today) <span style="color:red; "> <b>Today</b></span><br> @endif
                                             {{DateTime::createFromFormat('Y-m-d H:i:s',$order->booking_date)->format('l')}} 
                                             <small>
@@ -127,26 +118,23 @@
                                             </small> 
                                             <br>
                                             <small>{{$order->device_type}} {{$order->make}} {{$order->model}} {{$order->serial_no}}</small>
-
+                                            <br>
+                                            --------------------------------------------
+                                            <br>
+                                            <small>{{$order->order_notes}}</small>
                                         </td>
                                         <td>
-
                                             @if($order->location == "1")
                                                {{$order->address1}} <br> <small>{{$order->town}}, {{$order->postcode}}</small>
                                             @else
                                                 {{'In Office'}}
                                             @endif
-
                                         </td>
-                                    
-                                        
                                        <!-- <td>{{$order->user_first_name}}</td>  -->
                                        
                                         <td>  {{-- £{{$order->order_total}}  --}}
 
                                             @if($order->payment == 0)
-                                                
-
                                                 @if($order->order_total != NULL && $order->order_total != 0.00)
                                                     <span style="color:red;">
                                                         £{{$order->order_total}}
@@ -160,21 +148,12 @@
 
                                                   <span style="color:green;"> £{{$order->order_total}}</span>
                                                
-                                            
                                             @endif 
-
                                         </td>
-
                                     </tr>
-                                    
-
                                 @endforeach
-
-
                             </table>
-
                         </div>
-
                     </div>
                     <div class="panel-footer">
                         {!! $orders->appends(['checked_state' => $checked_state])->links() !!}
