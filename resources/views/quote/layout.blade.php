@@ -469,7 +469,7 @@
 
                                                 <h4>Terms & Conditions</h4>
                                                 <ul>
-                                                    <li><b>50% Deposit required to place an order.</b></li>
+                                                    <li style="color:red"><b>A FULL PAYMENT OF <span style="color:green">£{{$quote->quote_total}} </span> IS REQUIRED TO PLACE AN ORDER.</b></li>
                                                     <li>We guarantee our service, including replacement parts, for 90 days or manufacturer warranty whichever is longer.</li>
                                                     <li>Service is subject to availability of the parts </li>
                                                     <li>This is an estimate of the work instructed by you the actual cost may vary.</li>
