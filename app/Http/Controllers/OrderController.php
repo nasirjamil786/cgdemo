@@ -370,6 +370,7 @@ class OrderController extends Controller
             'password'   => 'required',
             'data_backup'   => 'required',
             'order_notes' => 'required',
+            'colour' => 'required',
         ]);
 
         //convert the input booking date in to a database store format 
@@ -392,6 +393,7 @@ class OrderController extends Controller
         $order->device_id = $request->device_id;
         $order->make_id =   $request->make_id;
         $order->model = $request->model;
+        $order->colour = $request->colour;
         $order->password = $request->password;
         $order->data_backup = $request->data_backup;
         $order->order_notes = $request->order_notes;
