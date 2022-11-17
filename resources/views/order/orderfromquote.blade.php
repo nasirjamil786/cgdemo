@@ -124,6 +124,14 @@
                                         <option value="Required" @if(old('data_backup') == 'Required') selected @endif>Required</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="colour">Charger Present</label>
+                                    <select class="form-control" name="colour" required >
+                                        <option value=""></option>
+                                        <option value="No">No</option>
+                                        <option value="Yes" >Yes</option>
+                                    </select>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="order_notes">Problem Detail</label>
