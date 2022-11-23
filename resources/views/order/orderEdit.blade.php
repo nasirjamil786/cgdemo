@@ -661,12 +661,14 @@
                                 <!-- Parts -->
 
                                 <div id="parts" class="tab-pane fade">
+
+                                @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))   
                                     @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
                                     <button type="button" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModal"  data-backdrop="static"      >
                                         Add Line
                                     </button>
                                     @endif
-
+                                @endif
                                     <table class="table">
 
                                         <tr>
