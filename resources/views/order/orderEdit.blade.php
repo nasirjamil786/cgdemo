@@ -8,13 +8,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-
-
                 @php
                     echo Session::has('sess_mess') ? '<div class="alert alert-success">' . Session::get('sess_mess') . '</div>' : '';
                 @endphp
-
-
             <form role="form" name="updateorder" method="POST" action="{{url('/order/'.$order->id)}}">
 
                 <div class="panel panel-default">
@@ -36,7 +32,9 @@
                                 <span> <small> Quote Ref: {{$order->quote_id}} </small> </span> 
                            @endif
                         </h4>
-                        <button type="submit" class="btn btn-primary"  >Save</button>
+                        @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))
+                           <button type="submit" class="btn btn-primary"  >Save</button>
+                        @endif
                         <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
                         
                         <a href="{{url('/order/'.$order->id.'/deviceFixedNotifPreview')}}" class="btn btn-primary">
@@ -169,8 +167,9 @@
                                             <textarea class="form-control" name="private_notes" rows="10" >{{$order->private_notes}}</textarea>
                                         </div>
                                     </div>
-
+                                    @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))
                                     <button type="submit" class="btn btn-primary"  >Save</button>
+                                    @endif
                                     <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
                                 </div>
 
@@ -245,8 +244,9 @@
                                         </div>
 
                                      </div>
-
+                                     @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))
                                      <button type="submit" class="btn btn-primary"  >Save</button>
+                                     @endif
                                      <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email</a>
 
                                 </div>
@@ -650,7 +650,9 @@
                                         </div>
                                              
                                         <p style="color: red;">Important: Please don't forget to press save button before printing</p>
+                                        @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))
                                         <button type="submit" class="btn btn-primary"  >Save</button>
+                                        @endif
                                         <a href="{{url('devicetest/'.$order->id.'/preview')}}" class="btn btn-primary">Print/Email This Test</a>
                                              
                                 </div>
@@ -839,13 +841,7 @@
 
                     </div>  <!--end of panel body-->
                     <div class="panel-footer">
-                        <!-- <button type="submit" class="btn btn-primary"  >Save Changes</button>  -->
-                        
-                        <!-- <a href="{{url('/order/'.$order->id.'/emailpreview')}}" class="btn btn-primary">Print/Email Order Confirmation</a> -->
-
                     </div>
-
-
                 </div> <!--end of panel -->
 
             </form>
