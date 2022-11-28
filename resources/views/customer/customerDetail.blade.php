@@ -10,9 +10,13 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading"> <a href="{{ URL::previous() }}" class="btn btn-primary">Back to List</a>
-                        <a href="{{url('order/'.$customer->id.'/neworder')}}" class="btn btn-primary">New Order</a>
-                        <a href="{{url('quote/'.$customer->id.'/2/create')}}" class="btn btn-primary">New Quote</a>
-                        <a href="{{url('customer/'.$customer->id.'/edit')}}" class="btn btn-primary">Edit </a>
+                        @if($customer->status == 'Active')
+                            <a href="{{url('order/'.$customer->id.'/neworder')}}" class="btn btn-primary">New Order</a>
+                            <a href="{{url('quote/'.$customer->id.'/2/create')}}" class="btn btn-primary">New Quote</a>
+                        @endif
+                        @if($customer->status == 'Active' || Auth::user()->hasRole('Admin'))
+                          <a href="{{url('customer/'.$customer->id.'/edit')}}" class="btn btn-primary">Edit </a>
+                        @endif
                     </div>
 
                     <div class="panel-body">

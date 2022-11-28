@@ -12,26 +12,21 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-
                         <form class="form-inline" method="GET" action="{{url('/order')}}">
                             {!! csrf_field() !!}
-
                              <div class="container"> 
                                 <div class="form-row">
                                         <div class="form-group col-md-4">
                                            <input class="form-control" name="order_search" size="20"   placeholder="Enter order no or customer name">
                                            <button type="submit" class="btn btn-primary">Find</button>
-
                                            <a href="{{url('custsearch1/0')}}" class="btn btn-primary">New Order</a>
                                         </div>
                                         <div class="form-group col-md-3">
-
                                             <div class="checkbox">
                                                <label>
                                                  <input type="checkbox"  name="checked_state" id="checked_state" @if($checked_state == 'on') checked @endif> Show All 
                                                 </label>
                                             </div>
-
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="sort_by">Sort By</label>
@@ -40,20 +35,45 @@
                                                     <option value="orderno"  @if($sortby == 'orderno') selected @endif >Order No    </option>
                                             </select>
                                         </div>
-                                 
                                 </div> <!-- Row -->
-
                                 <div class="clearfix"></div>
-                                
                             </div>  <!-- container -->
-
                          </form>
                     </div>
-
+                </div>
+                <!-- A new Order Panel -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3">
+                                Order# <br>
+                                1098
+                                </div>
+                                <div class="col-md-6">
+                                2 of 3 (wider)
+                                </div>
+                                <div class="col-md-3">
+                                3 of 3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="panel-body">
+                                This is body 
+                    </div>
+                </div>
 
+
+
+
+
+                <!-- end  of new order panel -->
+
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
                         <div class="table-responsive">
-
                             <table class="table">
                                 <tr>
                                     <th>Order#</th>

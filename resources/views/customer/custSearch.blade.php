@@ -84,10 +84,16 @@
                                             
                                         </td>
                                         <td>
-                                           <a href="{{url('order/'.$cust->id.'/neworder')}}" class="btn-sm btn-primary">Order</a>
+                                            @if($cust->status == 'Inactive')
+                                               <small style="color: red">INACTIVE <br> {{$cust->notes}}</small>
+                                            @else
+                                               <a href="{{url('order/'.$cust->id.'/neworder')}}" class="btn-sm btn-primary">Order</a>
+                                            @endif
                                        </td>
                                        <td>
-                                           <a href="{{url('quote/'.$cust->id.'/1/create')}}" class="btn-sm btn-primary">Quote</a>
+                                            @if($cust->status == 'Active')
+                                             <a href="{{url('quote/'.$cust->id.'/1/create')}}" class="btn-sm btn-primary">Quote</a>
+                                            @endif
                                        </td>
                                         <td>{{$cust->address1}}</td>
                                         <td>{{$cust->postcode}}</td>
