@@ -161,21 +161,12 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Account Status</label>
                                 <div class="col-md-6">
-                                    @if(Auth::user()->hasRole('Admin'))
+                                    
                                         <select class="form-control" name="status" id="status" required >
                                             <option value="Active" @if($cust->status == "Active") selected @endif >Active</option>
                                             <option value="Inactive" @if($cust->status == "Inactive") selected @endif>Inactive</option>
                                         </select>
-                                    @elseif($cust->status == 'Active')
-                                        <select class="form-control" name="status" id="status" required >
-                                            <option value="Active" @if($cust->status == "Active") selected @endif >Active</option>
-                                        </select>
-                                    @else
-                                        <select class="form-control" name="status" id="status" required >
-                                            <option value="Inactive" @if($cust->status == "Inactive") selected @endif>Inactive</option>
-                                        </select>
-
-                                    @endif
+                                    
                                        
                                 </div>
                             </div>
