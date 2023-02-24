@@ -69,6 +69,11 @@
                                             
                                        </select>
                                     </div>
+                                    <div class="checkbox">
+                                       <label>
+                                         <input type="checkbox" name="add_event" id="add_event" value="1">Add to Calendar
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
 

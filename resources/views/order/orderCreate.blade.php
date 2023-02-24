@@ -67,6 +67,11 @@
                                         <option value="22:00" >22:00</option>
                                    </select>
                                 </div>
+                                <div class="checkbox">
+                                   <label>
+                                      <input type="checkbox" name="add_event" id="add_event" value="1">Add to Calendar
+                                    </label>
+                                </div>
                                 <div class="form-group">
                                     <label for="location">Work Location</label>
                                     <select class="form-control" name="location" required onchange="terms(this.value)">

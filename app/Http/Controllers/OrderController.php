@@ -270,6 +270,7 @@ class OrderController extends Controller
         $order->discount_percent = $cust->discount;
         $order->vat_rate = $settings->vat_rate;
         $order->send_email = 1;
+        $order->add_event = ($request->add_event) ? 1 : 0;
         $order->save();
 
         //If Customer one off discount applied then clear that in customer 
@@ -329,8 +330,8 @@ class OrderController extends Controller
 
         */
 
-        //If the order is onsite then create an event in Google Calendar
-        if($order->location == 1) {
+        //If the order is onsite or add event checkbox is checked then create an event in Google Calendar
+        if($order->location == 1 || $order->add_event == 1) {
             //Create new event 
             $event = new Event;
             //Assign values including Name, date , time and location
@@ -339,7 +340,8 @@ class OrderController extends Controller
             $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
             $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London')->addHour(2);
 
-            $event->location = $order->customer->address1.','.$order->customer->postcode;
+            //$event->location = $order->customer->address1.','.$order->customer->postcode;
+            $event->location = ($order->location == 1) ? $order->customer->address1.','.$order->customer->postcode : 'Comming into the Office';
             $event = $event->save();
 
             $order->event_id = $event->id;
@@ -406,6 +408,7 @@ class OrderController extends Controller
         $order->discount_percent = $cust->discount;
         $order->vat_rate = $settings->vat_rate;
         $order->send_email = 1;
+        $order->add_event = ($request->add_event) ? 1 : 0;
         $order->save();
         
         $order->order_ref = $order->id;
@@ -450,14 +453,15 @@ class OrderController extends Controller
 
 
         //If the order is onsite then create an event in Google Calendar
-        if($order->location == 1) {
+        if($order->location == 1 || $order->add_event == 1) {
             //Create new event 
             $event = new Event;
             //Assign values including Name, date , time and location
             $event->name = $order->customer->first_name.' '.$order->customer->last_name.'|Order#'.$order->id;
             $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
             $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London')->addHour(2);
-            $event->location = $order->customer->address1.','.$order->customer->postcode;
+            //$event->location = $order->customer->address1.','.$order->customer->postcode;
+            $event->location = ($order->location == 1) ? $order->customer->address1.','.$order->customer->postcode : 'Comming into the Office';
             $event = $event->save();
 
             $order->event_id = $event->id;
@@ -583,6 +587,7 @@ class OrderController extends Controller
         $order->vat_rate = $settings->vat_rate;
         $order->worked_by = $request->worked_by;
         $order->updated_by = Auth::user()->id;
+        $order->add_event = ($request->add_event) ? 1 : 0;
 
         // store device testing result 
 
@@ -630,7 +635,7 @@ class OrderController extends Controller
 
 
         //If the order is onsite then create an event in Google Calendar
-        if($order->location == 1) {
+        if($order->location == 1 || $order->add_event == 1) {
 
             //check if the calendar event already exist 
             if($order->event_id != NULL){
@@ -643,7 +648,6 @@ class OrderController extends Controller
 
                     $event = new Event();
                 }
-
             }
             else {
 
@@ -656,14 +660,13 @@ class OrderController extends Controller
             $event->startDateTime =  Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London');
             $event->endDateTime = Carbon::parse($booking_date.' '.$order->booking_time,'Europe/London')->addHour(2);
 
-            $event->location = $order->customer->address1.','.$order->customer->postcode;
+            $event->location = ($order->location == 1) ? $order->customer->address1.','.$order->customer->postcode : 'Comming into the Office';
             $event = $event->save();
 
             $order->event_id = $event->id;
             $order->save();
         } else 
             {
-
                 if($order->event_id != NULL)
                 {
                     try { 

@@ -99,6 +99,11 @@
                                                 @include('partials.timelist')
                                             </select>
                                         </div>
+                                        <div class="checkbox">
+                                          <label>
+                                            <input type="checkbox" name="add_event" id="add_event" value="1" {{ $order->add_event == 1 ? 'checked' : '' }}>Add to Calendar
+                                          </label>
+                                        </div>
                                         <div class="form-group">
                                             <label form="location">Job Location</label>
                                             <select class="form-control" name="location" required>

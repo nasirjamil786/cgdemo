@@ -58,6 +58,7 @@ class CreateOrdersTable extends Migration
             $table->binary('signature')->nullable();
             $table->boolean('send_email');
             $table->string('event_id')->nullable();
+            $table->tinyInteger('add_event');
             $table->string('test_startup')->nullable();
             $table->text('test_startup_comm')->nullable();
             $table->string('test_sound')->nullable();
