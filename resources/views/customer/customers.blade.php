@@ -43,6 +43,7 @@
                                     <tr>
                                         <td>
                                             <a href="{{url('customer/'.$cust->id)}}"> {{$cust->first_name}} {{$cust->last_name}} </a> <br>
+                                            <small>{{$cust->address1}}</small>
                                             @if($cust->discount != 0)
                                              <small style="color: red">{{$cust->discount}}% Discount</small>
                                             @endif

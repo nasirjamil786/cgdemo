@@ -69,13 +69,14 @@
                                             
                                        </select>
                                     </div>
-                                    <div class="checkbox">
-                                       <label>
-                                         <input type="checkbox" name="add_event" id="add_event" value="1">Add to Calendar
-                                        </label>
-                                    </div>
+                                    
                                 </div>
                                 <div class="clearfix"></div>
+                                <div class="checkbox">
+                                    <label for="add_event">
+                                        <input type="checkbox" name="add_event" id="add_event" value="1">Add to Calendar
+                                    </label>
+                                </div>
 
                                 <div class="form-group">
                                     <label form="location">Work Location</label>
