@@ -1,6 +1,4 @@
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
 # Manage events on a Google Calendar
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-google-calendar.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-google-calendar)
@@ -27,6 +25,7 @@ $event->addAttendee([
     'comment' => 'Lorum ipsum',
 ]);
 $event->addAttendee(['email' => 'anotherEmail@gmail.com']);
+$event->addMeetLink(); // optionally add a google meet link to the event
 
 $event->save();
 
@@ -313,6 +312,14 @@ $yourEvent->source = [
  ];
  ```
 
+## Setting a color
+
+You can set certain colors for your events (colorId 1 to 11). The possibilities are limited to the color definitions of the Google Calendar API. You can find them [here](https://developers.google.com/calendar/api/v3/reference/colors/get).
+
+```php
+$yourevent->setColorId(11);
+```
+
 ### Limitations
 
 The Google Calendar API provides many options. This package doesn't support all of them. For instance, recurring events cannot be managed properly with this package. If you stick to creating events with a name and a date you should be fine.
@@ -335,7 +342,7 @@ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security
 

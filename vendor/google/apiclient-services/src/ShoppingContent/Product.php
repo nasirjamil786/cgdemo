@@ -111,6 +111,10 @@ class Product extends \Google\Collection
   /**
    * @var string
    */
+  public $disclosureDate;
+  /**
+   * @var string
+   */
   public $displayAdsId;
   /**
    * @var string
@@ -187,6 +191,10 @@ class Product extends \Google\Collection
    * @var string
    */
   public $kind;
+  /**
+   * @var string[]
+   */
+  public $lifestyleImageLinks;
   /**
    * @var string
    */
@@ -671,6 +679,20 @@ class Product extends \Google\Collection
   /**
    * @param string
    */
+  public function setDisclosureDate($disclosureDate)
+  {
+    $this->disclosureDate = $disclosureDate;
+  }
+  /**
+   * @return string
+   */
+  public function getDisclosureDate()
+  {
+    return $this->disclosureDate;
+  }
+  /**
+   * @param string
+   */
   public function setDisplayAdsId($displayAdsId)
   {
     $this->displayAdsId = $displayAdsId;
@@ -955,6 +977,20 @@ class Product extends \Google\Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * @param string[]
+   */
+  public function setLifestyleImageLinks($lifestyleImageLinks)
+  {
+    $this->lifestyleImageLinks = $lifestyleImageLinks;
+  }
+  /**
+   * @return string[]
+   */
+  public function getLifestyleImageLinks()
+  {
+    return $this->lifestyleImageLinks;
   }
   /**
    * @param string

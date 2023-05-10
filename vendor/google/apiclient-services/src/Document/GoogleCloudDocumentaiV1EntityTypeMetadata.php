@@ -27,8 +27,6 @@ class GoogleCloudDocumentaiV1EntityTypeMetadata extends \Google\Model
    * @var bool
    */
   public $inactive;
-  protected $schemaMutabilityMetadataType = GoogleCloudDocumentaiV1SchemaMutabilityMetadata::class;
-  protected $schemaMutabilityMetadataDataType = '';
 
   /**
    * @param GoogleCloudDocumentaiV1HumanReviewLabelingMetadata
@@ -71,20 +69,6 @@ class GoogleCloudDocumentaiV1EntityTypeMetadata extends \Google\Model
   public function getInactive()
   {
     return $this->inactive;
-  }
-  /**
-   * @param GoogleCloudDocumentaiV1SchemaMutabilityMetadata
-   */
-  public function setSchemaMutabilityMetadata(GoogleCloudDocumentaiV1SchemaMutabilityMetadata $schemaMutabilityMetadata)
-  {
-    $this->schemaMutabilityMetadata = $schemaMutabilityMetadata;
-  }
-  /**
-   * @return GoogleCloudDocumentaiV1SchemaMutabilityMetadata
-   */
-  public function getSchemaMutabilityMetadata()
-  {
-    return $this->schemaMutabilityMetadata;
   }
 }
 

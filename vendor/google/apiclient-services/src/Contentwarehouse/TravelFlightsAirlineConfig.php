@@ -21,7 +21,7 @@ class TravelFlightsAirlineConfig extends \Google\Collection
 {
   protected $collection_key = 'localizedContactInfo';
   /**
-   * @var int
+   * @var string
    */
   public $adwordsCid;
   /**
@@ -68,6 +68,8 @@ class TravelFlightsAirlineConfig extends \Google\Collection
   public $mid;
   protected $namesType = TravelFlightsNameCatalogProto::class;
   protected $namesDataType = '';
+  protected $passengerAssistanceUrlsType = TravelFlightsNameCatalogProto::class;
+  protected $passengerAssistanceUrlsDataType = '';
   /**
    * @var int
    */
@@ -84,14 +86,14 @@ class TravelFlightsAirlineConfig extends \Google\Collection
   protected $waiverSummaryUrlsDataType = '';
 
   /**
-   * @param int
+   * @param string
    */
   public function setAdwordsCid($adwordsCid)
   {
     $this->adwordsCid = $adwordsCid;
   }
   /**
-   * @return int
+   * @return string
    */
   public function getAdwordsCid()
   {
@@ -292,6 +294,20 @@ class TravelFlightsAirlineConfig extends \Google\Collection
   public function getNames()
   {
     return $this->names;
+  }
+  /**
+   * @param TravelFlightsNameCatalogProto
+   */
+  public function setPassengerAssistanceUrls(TravelFlightsNameCatalogProto $passengerAssistanceUrls)
+  {
+    $this->passengerAssistanceUrls = $passengerAssistanceUrls;
+  }
+  /**
+   * @return TravelFlightsNameCatalogProto
+   */
+  public function getPassengerAssistanceUrls()
+  {
+    return $this->passengerAssistanceUrls;
   }
   /**
    * @param int

@@ -9,6 +9,7 @@ use App\Order;
 use App\Orline;
 use Auth;
 use Redirect;
+use App\Setting;
 use DB;
 use App\Supplier;
 
@@ -106,6 +107,7 @@ class OrlineController extends Controller
 
         $order = Order::findorfail($orderid);
         $supp_id = $request->supp_id;
+        $settings = Setting::findorfail(1);
 
         if($supp_id != 0){
             $supplier = Supplier::findorfail($supp_id);
@@ -119,7 +121,12 @@ class OrlineController extends Controller
         $orline->quantity = 1;
         $orline->price = $request->value;
         $orline->cost = $request->cost;
+        $orline->cost_vat = $request->cost_vat;
         $orline->value = $request->value;
+        $orline->vat_rate = $settings->vat_rate;
+        $orline->vat = $request->value * $settings->vat_rate / 100;
+        $request->total_withvat = $request->value + ($request->value * $settings->vat_rate / 100);
+
         $orline->commission = $request->commission;
         $orline->supp_id = $request->supp_id;
         $orline->supp_name = ($supp_id != 0) ? $supplier->name : '';
@@ -146,6 +153,7 @@ class OrlineController extends Controller
 
         $orline = Orline::findorfail($lineid);
         $supp_id = $request->supp_id;
+        $settings = Setting::findorfail(1);
 
         if($supp_id != 0){
             $supplier = Supplier::findorfail($supp_id);
@@ -158,6 +166,10 @@ class OrlineController extends Controller
         $orline->price = $request->value;
         $orline->value = $request->value;
         $orline->cost = $request->cost;
+        $orline->cost_vat = $request->cost_vat;
+        $orline->vat = $request->value * $settings->vat_rate / 100;
+        $request->total_withvat = $request->value + ($request->value * $settings->vat_rate / 100);
+        
         $orline->commission = $request->commission;
         $orline->supp_id = $request->supp_id;
         $orline->supp_name = ($supp_id != 0) ? $supplier->name : '';

@@ -186,6 +186,8 @@ class QuoteController extends Controller
 
     	//$request->flash();
 
+        $settings = Setting::findorfail(1);
+
         $myfuncs = New Myfunctions;
         $valid_date = $myfuncs->usDate($request->valid_date);
 
@@ -199,6 +201,7 @@ class QuoteController extends Controller
         $quote->notes = '';
         $quote->quote_title = $request->quote_title;
         $quote->work_detail = $request->work_detail;
+        $quote->vat_rate = $settings->vat_rate;
         $quote->updated_by = auth::user()->id;
         $quote->save();
 

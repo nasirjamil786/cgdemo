@@ -23,7 +23,10 @@ class CreateOrlinesTable extends Migration
             $table->integer('quantity')->nullable();
             $table->decimal('price',10,2)->nullable();
             $table->decimal('cost',10,2)->nullable();
+            $table->decimal('cost_vat',10,2)->nullable();
             $table->decimal('value',10,2)->nullable();
+            $table->decimal('vat_rate',10,2)->nullable();
+            $table->decimal('vat',10,2)->nullable();
             $table->integer('supp_id')->nullable();
             $table->string('supp_name')->nullable();
             $table->string('supp_ref')->nullable();

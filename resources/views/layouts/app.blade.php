@@ -96,9 +96,9 @@
                                     <li><a href="{{url('/custreports')}}">Customers</a></li>
                                     <!-- <li><a href="{{url('/ordreport')}}">Orders</a></li> -->
                                     <li><a href="{{url('/commissionreport')}}">Financial Report</a></li>
+                                    <li><a href="{{url('/vatreport')}}">VAT Report</a></li>
                                 </ul>
                             </li>
-
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-expanded="false" >Settings <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{url('/settings')}}">Settings</a></li>

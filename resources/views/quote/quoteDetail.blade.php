@@ -81,14 +81,32 @@
 
                                       <td> {{$ql->quantity}}</td>
                                       <td> {{$ql->value}} </td>
+                                      
                                       <td><a href="{{url('qline/'.$ql->id.'/delete')}}">Delete</a></td>
                                   </tr>
                                 @endforeach
                                 <tr>
                                   <td></td>
                                   <td></td>
+                                  <td>Total without VAT</td>
+                                  <td>{{$quote->total_beforevat}}</td>
+                                  <td></td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <td>VAT @ {{$quote->vat_rate}}%</td>
+                                  <td>{{$quote->vat}}</td>
+                                  <td></td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td></td>
+                                  <td></td>
                                   <td><h4>Quote Total</h4></td>
                                   <td><h4>{{$quote->quote_total}}</h4></td>
+                                  <td></td>
                                   <td></td>
                                 </tr>
 

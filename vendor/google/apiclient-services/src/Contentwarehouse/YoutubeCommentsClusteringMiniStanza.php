@@ -164,6 +164,10 @@ class YoutubeCommentsClusteringMiniStanza extends \Google\Collection
   public $sensitivityScores;
   protected $sentimentType = YoutubeCommentsSentimentSentiment::class;
   protected $sentimentDataType = '';
+  /**
+   * @var string
+   */
+  public $shortReplyVideoId;
   protected $smartRepliesType = VideoYoutubeCommentsClassificationProtoYouTubeCommentSmartReply::class;
   protected $smartRepliesDataType = 'map';
   /**
@@ -192,6 +196,8 @@ class YoutubeCommentsClusteringMiniStanza extends \Google\Collection
   public $textLength;
   protected $textQualityScoresType = YoutubeCommentsRankingYouTubeCommentTextQualityAnnotation::class;
   protected $textQualityScoresDataType = '';
+  protected $textQualityScores2Type = YoutubeCommentsRankingYouTubeCommentTextQualityAnnotation::class;
+  protected $textQualityScores2DataType = '';
   /**
    * @var string
    */
@@ -201,6 +207,10 @@ class YoutubeCommentsClusteringMiniStanza extends \Google\Collection
    */
   public $videoTimestamps;
   public $wordEntropy;
+  /**
+   * @var string
+   */
+  public $ytAuthorChannelId;
   public $ytCommentQualityScore;
   public $ytCommentQualityScore2;
   public $ytCommentQualityScore3;
@@ -794,6 +804,20 @@ class YoutubeCommentsClusteringMiniStanza extends \Google\Collection
     return $this->sentiment;
   }
   /**
+   * @param string
+   */
+  public function setShortReplyVideoId($shortReplyVideoId)
+  {
+    $this->shortReplyVideoId = $shortReplyVideoId;
+  }
+  /**
+   * @return string
+   */
+  public function getShortReplyVideoId()
+  {
+    return $this->shortReplyVideoId;
+  }
+  /**
    * @param VideoYoutubeCommentsClassificationProtoYouTubeCommentSmartReply[]
    */
   public function setSmartReplies($smartReplies)
@@ -934,6 +958,20 @@ class YoutubeCommentsClusteringMiniStanza extends \Google\Collection
     return $this->textQualityScores;
   }
   /**
+   * @param YoutubeCommentsRankingYouTubeCommentTextQualityAnnotation
+   */
+  public function setTextQualityScores2(YoutubeCommentsRankingYouTubeCommentTextQualityAnnotation $textQualityScores2)
+  {
+    $this->textQualityScores2 = $textQualityScores2;
+  }
+  /**
+   * @return YoutubeCommentsRankingYouTubeCommentTextQualityAnnotation
+   */
+  public function getTextQualityScores2()
+  {
+    return $this->textQualityScores2;
+  }
+  /**
    * @param string
    */
   public function setVideoId($videoId)
@@ -968,6 +1006,20 @@ class YoutubeCommentsClusteringMiniStanza extends \Google\Collection
   public function getWordEntropy()
   {
     return $this->wordEntropy;
+  }
+  /**
+   * @param string
+   */
+  public function setYtAuthorChannelId($ytAuthorChannelId)
+  {
+    $this->ytAuthorChannelId = $ytAuthorChannelId;
+  }
+  /**
+   * @return string
+   */
+  public function getYtAuthorChannelId()
+  {
+    return $this->ytAuthorChannelId;
   }
   public function setYtCommentQualityScore($ytCommentQualityScore)
   {

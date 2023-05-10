@@ -10,6 +10,7 @@ use App\Qline;
 use App\Customer;
 use App\User;
 use App\Supplier;
+use App\Setting;
 use App\Image;  //This is a model class
 use Auth;
 use Images;     //This is an alliase of service provider 
@@ -27,11 +28,13 @@ class QlineController extends Controller
     }
 
     public function create($quoteid){
-
+        
+       $settings = Setting::findorfail(1);
+       $vatRate = $settings->vat_rate;
        $quote = Quote::findorfail($quoteid);
        $suppliers = Supplier::all();
 
-       return view('qline.create',compact('quote','suppliers'));
+       return view('qline.create',compact('quote','suppliers','vatRate'));
 
     }
 
@@ -48,6 +51,7 @@ class QlineController extends Controller
 
        $quote = Quote::findorfail($quoteid);
        $supp_id = $request->supp_id;
+       $settings = Setting::findorfail(1);
 
        if($supp_id != 0){
             $supplier = Supplier::findorfail($supp_id);
@@ -66,10 +70,12 @@ class QlineController extends Controller
        $qline->quantity = $request->quantity;
        $qline->price = $request->value;
        $qline->cost = $request->cost;
+       $qline->cost_vat = $request->cost_vat;
        $qline->commission = $request->commission;
        $qline->value = $request->value;
-       $qline->vat_rate = 0.0;
-       $qline->vat = 0.0;
+       $qline->vat_rate = $settings->vat_rate;
+       $qline->vat = ($request->value * $settings->vat_rate / 100);
+       $qline->total_withvat = $request->value + ($request->value * $settings->vat_rate / 100);
        $qline->item_notes = $request->item_notes;
        $qline->item_type = $request->item_type;
        $qline->supp_id = $request->supp_id;
@@ -115,6 +121,7 @@ class QlineController extends Controller
 
        $qline = Qline::findorfail($qlineid);
        $supp_id = $request->supp_id;
+       $settings = Setting::findorfail(1);
 
        if($supp_id != 0){
             $supplier = Supplier::findorfail($supp_id);
@@ -131,13 +138,15 @@ class QlineController extends Controller
        $qline->quantity = $request->quantity;
        $qline->price = $request->value;
        $qline->cost = $request->cost;
+       $qline->cost_vat = $request->cost_vat;
        $qline->commission = $request->commission;
        $qline->supp_id = $request->supp_id;
        $qline->supp_name = ($supp_id != 0) ? $supplier->name : '';
        $qline->supp_ref = $request->supp_ref;
        $qline->value = $request->value;
-       $qline->vat_rate = 0.0;
-       $qline->vat = 0.0;
+       $qline->vat_rate = $settings->vat_rate;
+       $qline->vat = ($request->value * $settings->vat_rate / 100);
+       $qline->total_withvat = $request->value + ($request->value * $settings->vat_rate / 100);
        $qline->item_notes = $request->item_notes;
        $qline->item_type = $request->item_type;
        $qline->updated_by = Auth::user()->id;
@@ -176,11 +185,9 @@ class QlineController extends Controller
 
     public function image($qlineid){
 
-
     	$qline = Qline::findorfail($qlineid);
 
     	return view('qline.image',compact('qline'));
-
 
     }
 

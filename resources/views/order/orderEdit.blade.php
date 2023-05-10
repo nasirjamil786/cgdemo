@@ -680,6 +680,7 @@
                                             <th></th>
                                             <th>Parts/Services</th>
                                             <th>Price</th>
+                                            
                                             <th>Type</th>
                                             <th>Supp</th>
                                             {{-- <th>Cost</th> --}}
@@ -700,6 +701,7 @@
                                                 </td>
                                                 <td>{{$ol->item_detail}}</td>
                                                 <td>{{$ol->value}}</td>
+                                                
                                                 <td>{{$ol->item_notes}}</td>
                                                 <td>{{$ol->supp_name}} {{$ol->supp_ref}}</td>
                                                 {{-- <td><small>{{$ol->cost}}</small></td> --}}
@@ -716,7 +718,7 @@
                                         <div class="col-md-4">
                                             <table class="table">
                                                 <tr>
-                                                    <td>Line Total</td>
+                                                    <td>Line Total without VAT</td>
                                                     <td>{{$order->line_total}}</td>
                                                 </tr>
                                                 <tr>
@@ -884,13 +886,23 @@
                                                 <label for="item_detail" class="control-label">Item Detail</label>
                                                 <input type="text" class="form-control" name="item_detail"   id="item_detail" required>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="value" class="control-label">Price</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="value" id="value" placeholder="£0.00" required>
                                             </div>
+
+                                            
+
+
                                             <div class="form-group">
                                                 <label for="cost" class="control-label">Cost</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" placeholder="£0.00" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="cost" class="control-label">Cost VAT</label>
+                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" placeholder="£0.00" required>
                                             </div>
 
                                             

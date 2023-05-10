@@ -31,6 +31,7 @@ class Qline extends Model
              'line_status',
              'quantity',
              'cost', 
+             'cost_vat',
              'commission',
              'supp_ref',
              'price', 

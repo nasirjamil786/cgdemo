@@ -12,6 +12,7 @@ use App\Orline;
 use App\Customer;
 use App\Quote;
 use App\Qline;
+use App\Setting;
 use Illuminate\Support\Facades\Storage;
 
 class myfunctions
@@ -36,6 +37,7 @@ class myfunctions
         $order = Order::findorfail($order_id);
         $cust_id = $order->customer_id;
         $orlines = Orline::where('order_id',$order_id)->get();        
+        $settings = Setting::findorfail(1);
 
         $line_total = 0;
         $service_total = 0;
@@ -51,14 +53,9 @@ class myfunctions
 
         $order->line_total = $line_total;
         $order->discount = ($order->discount_percent * $service_total / 100);
-
-
         $order->total_beforevat = $line_total + $order->delivery_charge - $order->discount;
-
-        $vat = ($line_total + $order->delivery_charge - $order->discount) * ($order->vat_rate / 100);
-
-        $order->vat = $vat;
-        $order->order_total = $order->total_beforevat + $vat;
+        $order->vat = $order->total_beforevat * $settings->vat_rate / 100;
+        $order->order_total = $order->total_beforevat + $order->vat;
         $order->save();
 
         $this->custBalance($cust_id);
@@ -88,8 +85,10 @@ class myfunctions
 
           $quote = Quote::findorfail($quoteid);
           $qlines = Qline::where('quote_id',$quote->id)->get();
+          $settings = Setting::findorfail(1);
 
           $qtotal = 0.00;
+          $total_beforevat = 0.00;
           foreach ($qlines as $ql) {
 
               //Becuae in the qline model we have used number_format therefore 
@@ -97,11 +96,13 @@ class myfunctions
               // we need to convert back it to decimal 
 
               //$qtotal = $qtotal + (float) str_replace(',', '', $ql->value);
-              $qtotal = $qtotal + $ql->value;
+              $total_beforevat = $total_beforevat + $ql->value;
+              
           }
 
-
-          $quote->quote_total = $qtotal;
+          $quote->total_beforevat = $total_beforevat;
+          $quote->vat = $total_beforevat * $settings->vat_rate / 100 ;
+          $quote->quote_total = $total_beforevat + ($total_beforevat * $settings->vat_rate / 100);
           $quote->save();
 
     }

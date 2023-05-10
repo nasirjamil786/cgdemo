@@ -438,7 +438,11 @@ class OrderController extends Controller
             $orline->quantity = $ql->quantity;
             $orline->price = $ql->price;
             $orline->cost = $ql->cost;
+            $orline->cost_vat = $ql->cost_vat;
             $orline->value = $ql->value;
+            $orline->vat_rate = $ql->vat_rate;
+            $orline->vat = $ql->vat;
+            $orline->total_withvat = $ql->total_withvat;
             $orline->commission = $ql->commission;
             $orline->supp_id = $ql->supp_id;
             $orline->supp_name = $ql->supp_name;
@@ -1000,6 +1004,8 @@ class OrderController extends Controller
         return view('order.orderreport');
     }
 
+
+
     public function OrderReportSummary(Request $request){
         $myfuncs = New Myfunctions;
         $booking_date_from = $myfuncs->usDate($request->booking_date_from);
@@ -1051,26 +1057,7 @@ class OrderController extends Controller
         $file_handle = fOpen($pathToFile,'w+');
         fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','ORDERVALUE','COST','TYPE','ORDERSTATUS','ENGINEER','COMM']);
 
-        /*
-        $orders =  DB::table('orlines')
-                       ->join('orders',function($join) use($booking_date_from, $booking_date_to) {
-                          
-                          $join->on('orlines.order_id' , '=','orders.id')
-                               ->where('orders.booking_date','>=',$booking_date_from)
-                               ->Where('orders.booking_date','<=',$booking_date_to);
-                               
-                            })
-                       ->join('users','users.id','=','orders.worked_by')
-                       ->join('customers','orders.customer_id','=','customers.id')
-                       ->get();
-
-        */
-        /*$orders = DB::table('orlines')
-        
-                  ->join('orders','orders.id','=','orlines.order_id')
-                  ->join('users','users.id','=','orders.worked_by')
-                  ->where('orlines.order_id','=','1279')
-                  ->get();  */
+    
 
         $orders = DB::table('orders')
                     ->join('users','orders.worked_by','=','users.id')
@@ -1104,10 +1091,11 @@ class OrderController extends Controller
 
     }
 
+    
+
     //Convert Quote To Order 
     public function ConvertQuoteToOrder ($id) {
 
-    
         $quote = Quote::findorfail($id);
         $cust = Customer::findorfail($quote->customer_id);
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
@@ -1122,21 +1110,17 @@ class OrderController extends Controller
       return view('commission.reportdaterange');
 
     }
+
+    
     
     //This will display list of all order lines between the date range
     //also display the profit chart 
     public function CommissionReportExtract(Request $request){
 
-
-
-//dd($request->order_date_to);
-
         $myfuncs = New Myfunctions;
         $order_date_from = $myfuncs->usDate($request->order_date_from);
         $order_date_to = $myfuncs->usDate($request->order_date_to);
         $order_date_to = $order_date_to.' 23:59:59';
-
-//dd($order_date_to);
 
        $xyz = DB::table('orders')
                     ->join('users','orders.worked_by','=','users.id')
@@ -1148,41 +1132,6 @@ class OrderController extends Controller
                     ->where('orlines.item_notes','!=','advance')
                     ->orderBy('orders.id','desc')
                     ->get();
-
-        /*$xyz = DB::table('orders')
-                      ->join('orlines','orlines.order_id','=','orders.id')
-                      ->join('users','users.id','=','orders.worked_by')
-                      ->join('customers','orders.customer_id','=','customers.id')
-                      ->where('orders.booking_date','>=',$order_date_from)
-                      ->where('orders.booking_date','<=',$order_date_to)
-                      ->where('orlines.item_notes','!=','advance')
-                      ->get();*/
-
-
-        /*$xyz = DB::table('orders')
-                      ->join('orlines','orlines.order_id','=','orders.id')
-                      ->where('orders.booking_date','>=',$order_date_from)
-                      ->where('orders.booking_date','<=',$order_date_to)
-                      ->where('orlines.item_notes','!=','advance')
-                      ->get();  */
-
-
-        
-        /*$xyz =  DB::table('orlines')
-                       ->join('orders',function($join) use($order_date_from, $order_date_to) {
-                          
-                          $join->on('orlines.order_id' , '=','orders.id')
-                               ->where('orders.booking_date','>=',$order_date_from)
-                               ->Where('orders.booking_date','<=',$order_date_to);
-                               
-                            })
-                       ->join('users','users.id','=','orders.worked_by')
-                       ->join('customers','orders.customer_id','=','customers.id') 
-                       ->get();  */
-         
-
-       /*$xyz = Orline::where('created_at','>=',$order_date_from)->get(); */
-
 
         $parts_cost = 0;
         $parts_commission = 0;
@@ -1217,6 +1166,80 @@ class OrderController extends Controller
                  'parts_profit','services_cost','services_commission','services_charge','services_profit'));
 
     } // end of public function CommissionReportExtract
+
+
+    //VAT Report dislay date range 
+    public function VATReport() {
+
+        return view('vat.vatdaterange');
+ 
+    }
+   //This will display VAT report 
+    public function VATReportExtract(Request $request){
+
+        $myfuncs = New Myfunctions;
+        $order_date_from = $myfuncs->usDate($request->order_date_from);
+        $order_date_to = $myfuncs->usDate($request->order_date_to);
+        $order_date_to = $order_date_to.' 23:59:59';
+
+       $xyz = DB::table('orders')
+                    ->join('customers','orders.customer_id','=','customers.id')
+                    ->select('orders.*','customers.first_name','customers.last_name')
+                    ->where('orders.created_at','>=',$order_date_from)
+                    ->where('orders.created_at','<=',$order_date_to)
+                    ->orderBy('orders.id','desc')
+                    ->get();
+
+        $total_beforevat = 0;
+        $vat = 0;
+        $total = 0;
+         
+        foreach ($xyz as $or) {
+            
+            $total_beforevat = $total_beforevat + $or->total_beforevat;
+            $vat = $vat + $or->vat;
+            $total = $total + $or->order_total;
+
+        }
+
+        return view('vat.vat',compact('xyz','order_date_from','order_date_to','total_beforevat','vat','total'));
+
+    } // end of public function VATReportExtract
+
+    public function VATReportExport($order_date_from,$order_date_to){
+        
+        $pathToFile = 'vat.csv';
+        $name = "vat.csv";
+        $headers = array('content-type' => 'text/csv',);
+        $file_handle = fOpen($pathToFile,'w+');
+        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','TOTALBEFOREVAT','VAT','TOTAL']);
+
+        $xyz = DB::table('orders')
+                    ->join('customers','orders.customer_id','=','customers.id')
+                    ->select('orders.*','customers.first_name','customers.last_name')
+                    ->where('orders.created_at','>=',$order_date_from)
+                    ->where('orders.created_at','<=',$order_date_to)
+                    ->orderBy('orders.id','desc')
+                    ->get();
+
+          foreach ($xyz as $o) {
+              
+            fputcsv($file_handle, [
+                $o->id,
+                DateTime::createFromFormat('Y-m-d H:i:s',$o->created_at)->format('d.m.Y'),
+                $o->first_name.' '.$o->last_name,
+                $o->total_beforevat,
+                $o->vat,
+                $o->order_total
+            ]);
+          }
+
+          fclose($file_handle);
+
+          return response()->download($pathToFile, $name, $headers);
+
+    }
+
 
 
     // Device Testing Functions 

@@ -11,10 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
 
-
-
                       <a href="{{url('quote/'.$qline->quote_id.'/editdetail')}}" class="btn btn-primary pull-right">Back</a>
-                       
 
                         <h4><small>Edit Quote Line No</small> {{$qline->id}}</h4>
 
@@ -25,7 +22,6 @@
 
                         <form method="POST" action="{{url('qline/'.$qline->id.'/update')}}">
                             {!! csrf_field() !!}
-
 
                                <div class="form-group">
                                     <label for="item_type">Item type</label>
@@ -54,8 +50,12 @@
                                         <label for="Cost">Cost</label>
                                         <input type="number" class="form-control" step="0.01" name="cost" value="{{ $qline->cost }}" required>
                                     </div>
-
-                                
+                                    <div class="form-group col-md-3">
+                                        <label for="Cost">Cost VAT</label>
+                                        <input type="number" class="form-control" step="0.01" name="cost_vat" value="{{ $qline->cost_vat }}" required>
+                                    </div>
+                                    
+                                    
                                     <div class="form-group col-md-3">
                                         <label for="Cost">Commission</label>
                                         <input type="number" class="form-control" step="0.01" name="commission" value="{{ $qline->commission }}" required>

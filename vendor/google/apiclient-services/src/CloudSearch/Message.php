@@ -56,10 +56,6 @@ class Message extends \Google\Collection
    * @var bool
    */
   public $deletedByVault;
-  /**
-   * @var string
-   */
-  public $dlpScanOutcome;
   protected $dlpScanSummaryType = DlpScanSummary::class;
   protected $dlpScanSummaryDataType = '';
   /**
@@ -124,6 +120,10 @@ class Message extends \Google\Collection
   protected $reportsDataType = 'array';
   protected $retentionSettingsType = AppsDynamiteSharedRetentionSettings::class;
   protected $retentionSettingsDataType = '';
+  /**
+   * @var string
+   */
+  public $richTextFormattingType;
   /**
    * @var string
    */
@@ -320,20 +320,6 @@ class Message extends \Google\Collection
   public function getDeletedByVault()
   {
     return $this->deletedByVault;
-  }
-  /**
-   * @param string
-   */
-  public function setDlpScanOutcome($dlpScanOutcome)
-  {
-    $this->dlpScanOutcome = $dlpScanOutcome;
-  }
-  /**
-   * @return string
-   */
-  public function getDlpScanOutcome()
-  {
-    return $this->dlpScanOutcome;
   }
   /**
    * @param DlpScanSummary
@@ -642,6 +628,20 @@ class Message extends \Google\Collection
   public function getRetentionSettings()
   {
     return $this->retentionSettings;
+  }
+  /**
+   * @param string
+   */
+  public function setRichTextFormattingType($richTextFormattingType)
+  {
+    $this->richTextFormattingType = $richTextFormattingType;
+  }
+  /**
+   * @return string
+   */
+  public function getRichTextFormattingType()
+  {
+    return $this->richTextFormattingType;
   }
   /**
    * @param string

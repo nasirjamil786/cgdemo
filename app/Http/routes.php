@@ -179,6 +179,7 @@ Route::post('/order/{quoteid}/createfromquote','OrderController@createOrderFromQ
 Route::get('ordreport','OrderController@OrderReport'); 
 Route::post('ordreport','OrderController@OrderReportSummary');
 Route::get('/orderreportexport/{booking_date_from}/{booking_date_to}','OrderController@OrderReportExport');
+Route::get('/vatreportexport/{booking_date_from}/{booking_date_to}','OrderController@VATReportExport');
 Route::get('/order/{order}/deviceFixedNotifPreview','OrderController@DeviceFixedNotifPreview');
 Route::get('/order/{order}/deviceFixedNotifEmail','OrderController@DeviceFixedNotifEmail');
 //get order signature
@@ -204,6 +205,16 @@ Route::get('commissionreport','OrderController@CommissionReport');
 //Commission Report Extract 
 //This link will display a list all order lines within selected date range from date range view
 Route::post('commissionreportextract','OrderController@CommissionReportExtract');
+
+
+//VAT Report 
+//This link will display date range to extract orline table
+Route::get('vatreport','OrderController@VATReport');
+
+//VAT Report Extract 
+//This link will display a list all order lines within selected date range from date range view
+Route::post('vatreportextract','OrderController@VATReportExtract');
+
 
  
 //Order Print and Email

@@ -55,12 +55,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
   protected $pblockType = QualityShoppingShoppingAttachmentPBlock::class;
   protected $pblockDataType = '';
   /**
+   * @var int[]
+   */
+  public $productBrowseonomyIds;
+  /**
    * @var string
    */
   public $productClusterMid;
   public $productPopularity;
   protected $relevanceEmbeddingType = QualityRankembedMustangMustangRankEmbedInfo::class;
   protected $relevanceEmbeddingDataType = 'array';
+  /**
+   * @var string
+   */
+  public $weakGlobalProductClusterId;
 
   /**
    * @param ShoppingWebentityShoppingAnnotationProductRating
@@ -217,6 +225,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
     return $this->pblock;
   }
   /**
+   * @param int[]
+   */
+  public function setProductBrowseonomyIds($productBrowseonomyIds)
+  {
+    $this->productBrowseonomyIds = $productBrowseonomyIds;
+  }
+  /**
+   * @return int[]
+   */
+  public function getProductBrowseonomyIds()
+  {
+    return $this->productBrowseonomyIds;
+  }
+  /**
    * @param string
    */
   public function setProductClusterMid($productClusterMid)
@@ -251,6 +273,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
   public function getRelevanceEmbedding()
   {
     return $this->relevanceEmbedding;
+  }
+  /**
+   * @param string
+   */
+  public function setWeakGlobalProductClusterId($weakGlobalProductClusterId)
+  {
+    $this->weakGlobalProductClusterId = $weakGlobalProductClusterId;
+  }
+  /**
+   * @return string
+   */
+  public function getWeakGlobalProductClusterId()
+  {
+    return $this->weakGlobalProductClusterId;
   }
 }
 

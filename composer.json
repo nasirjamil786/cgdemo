@@ -11,17 +11,18 @@
         "google/apiclient": "^2.2",
         "laravel/ui": "^3.0",
         "nunomaduro/collision": "^6.1",
-        "doctrine/dbal": "^2.10",
+        "doctrine/dbal": "^2.0",
         "spatie/laravel-google-calendar": "^3.5.1",
         "intervention/image": "^2.7",
         "barryvdh/laravel-dompdf": "^1.0",
         "ramytalal/label-printer": "^1.1",
-        "guzzlehttp/guzzle": "^7.5"
+        "guzzlehttp/guzzle": "^7.5",
+        "laravel/telescope": "^4.14"
     },
 
     "require-dev": {
         "mockery/mockery": "1.0.*",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "symfony/css-selector": "2.8.*|3.1.*",
         "symfony/dom-crawler": "2.8.*|3.1.*",
         "filp/whoops":"~2.0"

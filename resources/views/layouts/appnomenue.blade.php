@@ -65,14 +65,12 @@
                             <ul class="dropdown-menu" role="menu">
                                 <!-- <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>  -->
 
-
                                  <form role="form" name="signoutform" method="POST" action="{{ url('/logout') }}" >
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                              <!-- <a type="submit"><i class="fa fa-btn fa-sign-out"></i>Logout</a> -->
                                              <button type="submit" >Logout</button>
                                     
-                                    </form>
-
+                                </form>
                             </ul>
                         </li>
                     @endif

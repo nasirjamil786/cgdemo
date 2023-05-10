@@ -21,6 +21,7 @@ class ScienceCitation extends \Google\Collection
 {
   protected $collection_key = 'unioncatalog';
   protected $internal_gapi_mappings = [
+        "abstractCitationSource" => "AbstractCitationSource",
         "abstractDisplay" => "AbstractDisplay",
         "abstractHtml" => "AbstractHtml",
         "abstractHtmlLeftOver" => "AbstractHtmlLeftOver",
@@ -40,6 +41,7 @@ class ScienceCitation extends \Google\Collection
         "citationSource" => "CitationSource",
         "citationSourceUrl" => "CitationSourceUrl",
         "citationSrc" => "CitationSrc",
+        "clearedReason" => "ClearedReason",
         "clusterDiscoveryDate" => "ClusterDiscoveryDate",
         "conferenceId" => "ConferenceId",
         "conferenceNumber" => "ConferenceNumber",
@@ -119,6 +121,10 @@ class ScienceCitation extends \Google\Collection
         "worldViewable" => "WorldViewable",
   ];
   /**
+   * @var int
+   */
+  public $abstractCitationSource;
+  /**
    * @var string
    */
   public $abstractDisplay;
@@ -192,6 +198,10 @@ class ScienceCitation extends \Google\Collection
    * @var string
    */
   public $citationSrc;
+  /**
+   * @var string
+   */
+  public $clearedReason;
   /**
    * @var string
    */
@@ -522,6 +532,20 @@ class ScienceCitation extends \Google\Collection
   protected $unioncatalogDataType = 'array';
 
   /**
+   * @param int
+   */
+  public function setAbstractCitationSource($abstractCitationSource)
+  {
+    $this->abstractCitationSource = $abstractCitationSource;
+  }
+  /**
+   * @return int
+   */
+  public function getAbstractCitationSource()
+  {
+    return $this->abstractCitationSource;
+  }
+  /**
    * @param string
    */
   public function setAbstractDisplay($abstractDisplay)
@@ -786,6 +810,20 @@ class ScienceCitation extends \Google\Collection
   public function getCitationSrc()
   {
     return $this->citationSrc;
+  }
+  /**
+   * @param string
+   */
+  public function setClearedReason($clearedReason)
+  {
+    $this->clearedReason = $clearedReason;
+  }
+  /**
+   * @return string
+   */
+  public function getClearedReason()
+  {
+    return $this->clearedReason;
   }
   /**
    * @param string

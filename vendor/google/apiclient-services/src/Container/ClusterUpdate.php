@@ -20,6 +20,8 @@ namespace Google\Service\Container;
 class ClusterUpdate extends \Google\Collection
 {
   protected $collection_key = 'desiredLocations';
+  protected $additionalPodRangesConfigType = AdditionalPodRangesConfig::class;
+  protected $additionalPodRangesConfigDataType = '';
   protected $desiredAddonsConfigType = AddonsConfig::class;
   protected $desiredAddonsConfigDataType = '';
   protected $desiredAuthenticatorGroupsConfigType = AuthenticatorGroupsConfig::class;
@@ -40,6 +42,14 @@ class ClusterUpdate extends \Google\Collection
   protected $desiredDefaultSnatStatusDataType = '';
   protected $desiredDnsConfigType = DNSConfig::class;
   protected $desiredDnsConfigDataType = '';
+  /**
+   * @var bool
+   */
+  public $desiredEnablePrivateEndpoint;
+  protected $desiredFleetType = Fleet::class;
+  protected $desiredFleetDataType = '';
+  protected $desiredGatewayApiConfigType = GatewayAPIConfig::class;
+  protected $desiredGatewayApiConfigDataType = '';
   protected $desiredGcfsConfigType = GcfsConfig::class;
   protected $desiredGcfsConfigDataType = '';
   protected $desiredIdentityServiceConfigType = IdentityServiceConfig::class;
@@ -106,11 +116,35 @@ class ClusterUpdate extends \Google\Collection
   protected $desiredServiceExternalIpsConfigDataType = '';
   protected $desiredShieldedNodesType = ShieldedNodes::class;
   protected $desiredShieldedNodesDataType = '';
+  /**
+   * @var string
+   */
+  public $desiredStackType;
   protected $desiredVerticalPodAutoscalingType = VerticalPodAutoscaling::class;
   protected $desiredVerticalPodAutoscalingDataType = '';
   protected $desiredWorkloadIdentityConfigType = WorkloadIdentityConfig::class;
   protected $desiredWorkloadIdentityConfigDataType = '';
+  /**
+   * @var string
+   */
+  public $etag;
+  protected $removedAdditionalPodRangesConfigType = AdditionalPodRangesConfig::class;
+  protected $removedAdditionalPodRangesConfigDataType = '';
 
+  /**
+   * @param AdditionalPodRangesConfig
+   */
+  public function setAdditionalPodRangesConfig(AdditionalPodRangesConfig $additionalPodRangesConfig)
+  {
+    $this->additionalPodRangesConfig = $additionalPodRangesConfig;
+  }
+  /**
+   * @return AdditionalPodRangesConfig
+   */
+  public function getAdditionalPodRangesConfig()
+  {
+    return $this->additionalPodRangesConfig;
+  }
   /**
    * @param AddonsConfig
    */
@@ -236,6 +270,48 @@ class ClusterUpdate extends \Google\Collection
   public function getDesiredDnsConfig()
   {
     return $this->desiredDnsConfig;
+  }
+  /**
+   * @param bool
+   */
+  public function setDesiredEnablePrivateEndpoint($desiredEnablePrivateEndpoint)
+  {
+    $this->desiredEnablePrivateEndpoint = $desiredEnablePrivateEndpoint;
+  }
+  /**
+   * @return bool
+   */
+  public function getDesiredEnablePrivateEndpoint()
+  {
+    return $this->desiredEnablePrivateEndpoint;
+  }
+  /**
+   * @param Fleet
+   */
+  public function setDesiredFleet(Fleet $desiredFleet)
+  {
+    $this->desiredFleet = $desiredFleet;
+  }
+  /**
+   * @return Fleet
+   */
+  public function getDesiredFleet()
+  {
+    return $this->desiredFleet;
+  }
+  /**
+   * @param GatewayAPIConfig
+   */
+  public function setDesiredGatewayApiConfig(GatewayAPIConfig $desiredGatewayApiConfig)
+  {
+    $this->desiredGatewayApiConfig = $desiredGatewayApiConfig;
+  }
+  /**
+   * @return GatewayAPIConfig
+   */
+  public function getDesiredGatewayApiConfig()
+  {
+    return $this->desiredGatewayApiConfig;
   }
   /**
    * @param GcfsConfig
@@ -588,6 +664,20 @@ class ClusterUpdate extends \Google\Collection
     return $this->desiredShieldedNodes;
   }
   /**
+   * @param string
+   */
+  public function setDesiredStackType($desiredStackType)
+  {
+    $this->desiredStackType = $desiredStackType;
+  }
+  /**
+   * @return string
+   */
+  public function getDesiredStackType()
+  {
+    return $this->desiredStackType;
+  }
+  /**
    * @param VerticalPodAutoscaling
    */
   public function setDesiredVerticalPodAutoscaling(VerticalPodAutoscaling $desiredVerticalPodAutoscaling)
@@ -614,6 +704,34 @@ class ClusterUpdate extends \Google\Collection
   public function getDesiredWorkloadIdentityConfig()
   {
     return $this->desiredWorkloadIdentityConfig;
+  }
+  /**
+   * @param string
+   */
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  /**
+   * @return string
+   */
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param AdditionalPodRangesConfig
+   */
+  public function setRemovedAdditionalPodRangesConfig(AdditionalPodRangesConfig $removedAdditionalPodRangesConfig)
+  {
+    $this->removedAdditionalPodRangesConfig = $removedAdditionalPodRangesConfig;
+  }
+  /**
+   * @return AdditionalPodRangesConfig
+   */
+  public function getRemovedAdditionalPodRangesConfig()
+  {
+    return $this->removedAdditionalPodRangesConfig;
   }
 }
 
