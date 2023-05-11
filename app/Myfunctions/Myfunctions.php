@@ -41,12 +41,13 @@ class myfunctions
 
         $line_total = 0;
         $service_total = 0;
+        $cost_vat = 0;
         foreach($orlines As $ol){
             
             $line_total = $line_total + $ol->value;
+            $cost_vat = $cost_vat + $ol->cost_vat;
 
             if ($ol->item_notes != NULL && $ol->item_notes == "labour") {
-
                 $service_total = $service_total + $ol->value;
             }
         }
@@ -55,6 +56,7 @@ class myfunctions
         $order->discount = ($order->discount_percent * $service_total / 100);
         $order->total_beforevat = $line_total + $order->delivery_charge - $order->discount;
         $order->vat = $order->total_beforevat * $settings->vat_rate / 100;
+        $order->cost_vat = $cost_vat;
         $order->order_total = $order->total_beforevat + $order->vat;
         $order->save();
 
@@ -89,6 +91,7 @@ class myfunctions
 
           $qtotal = 0.00;
           $total_beforevat = 0.00;
+          $cost_vat = 0.00;
           foreach ($qlines as $ql) {
 
               //Becuae in the qline model we have used number_format therefore 
@@ -97,11 +100,13 @@ class myfunctions
 
               //$qtotal = $qtotal + (float) str_replace(',', '', $ql->value);
               $total_beforevat = $total_beforevat + $ql->value;
+              $cost_vat = $cost_vat + $ql->cost_vat;
               
           }
 
           $quote->total_beforevat = $total_beforevat;
           $quote->vat = $total_beforevat * $settings->vat_rate / 100 ;
+          $quote->cost_vat = $cost_vat;
           $quote->quote_total = $total_beforevat + ($total_beforevat * $settings->vat_rate / 100);
           $quote->save();
 

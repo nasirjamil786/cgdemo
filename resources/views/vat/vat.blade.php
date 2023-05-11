@@ -43,7 +43,8 @@
                                     <th>Customer</th>
                                     <th>Total Before VAT</th>
                                     <th>VAT Rate%</th>
-                                    <th>VAT</th>
+                                    <th>Cost VAT</th>
+                                    <th>Sales VAT</th>
                                     <th>TOTAL</th>
                                 </tr>
                                 @foreach($xyz AS $o)
@@ -55,6 +56,7 @@
                                         
                                         <td>{{$o->total_beforevat}}</td>
                                         <td> {{$o->vat_rate}}%</td>
+                                        <td> {{$o->cost_vat}} </td>
                                         <td>{{$o->vat}}</td>
                                         <td>{{$o->order_total}}</td>
                                         

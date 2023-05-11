@@ -987,6 +987,10 @@
                                                                 <label for="cost" class="control-label">Cost</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value=""placeholder="£0.00" required>
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="cost" class="control-label">Cost VAT</label>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" placeholder="£0.00" required>
+                                                            </div>
 
                                                             
                                                              <div class="form-group">
