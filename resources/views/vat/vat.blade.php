@@ -42,7 +42,7 @@
                                     <th>Date</th>
                                     <th>Customer</th>
                                     <th>Total Before VAT</th>
-                                    <th>VAT Rate</th>
+                                    <th>VAT Rate%</th>
                                     <th>VAT</th>
                                     <th>TOTAL</th>
                                 </tr>
@@ -54,7 +54,7 @@
                                         <td>{{$o->first_name}} {{$o->last_name}}</td>
                                         
                                         <td>{{$o->total_beforevat}}</td>
-                                        <td> {{$o->vat_rate}}</td>
+                                        <td> {{$o->vat_rate}}%</td>
                                         <td>{{$o->vat}}</td>
                                         <td>{{$o->order_total}}</td>
                                         

@@ -1187,6 +1187,8 @@ class OrderController extends Controller
                     ->select('orders.*','customers.first_name','customers.last_name')
                     ->where('orders.created_at','>=',$order_date_from)
                     ->where('orders.created_at','<=',$order_date_to)
+                    ->where('orders.total_beforevat','!=','NULL')
+                    ->where('orders.total_beforevat','!=',0)
                     ->orderBy('orders.id','desc')
                     ->get();
 
@@ -1219,6 +1221,8 @@ class OrderController extends Controller
                     ->select('orders.*','customers.first_name','customers.last_name')
                     ->where('orders.created_at','>=',$order_date_from)
                     ->where('orders.created_at','<=',$order_date_to)
+                    ->where('orders.total_beforevat','!=','NULL')
+                    ->where('orders.total_beforevat','!=',0)
                     ->orderBy('orders.id','desc')
                     ->get();
 
