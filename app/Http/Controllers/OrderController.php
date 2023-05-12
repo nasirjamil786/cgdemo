@@ -202,7 +202,7 @@ class OrderController extends Controller
         $cust = Customer::findorfail($custid);
         $engineers = User::all();
         $devices = Device::orderby('device_type')->get();
-        $makes = Make::all();
+        $makes = Make::orderby('make')->get();
         
         return view('order.orderCreate',compact('cust','engineers','devices','makes'));
     }
@@ -1194,17 +1194,19 @@ class OrderController extends Controller
 
         $total_beforevat = 0;
         $vat = 0;
+        $cost_vat = 0;
         $total = 0;
          
         foreach ($xyz as $or) {
             
             $total_beforevat = $total_beforevat + $or->total_beforevat;
             $vat = $vat + $or->vat;
+            $cost_vat = $cost_vat + $or->cost_vat;
             $total = $total + $or->order_total;
 
         }
 
-        return view('vat.vat',compact('xyz','order_date_from','order_date_to','total_beforevat','vat','total'));
+        return view('vat.vat',compact('xyz','order_date_from','order_date_to','total_beforevat','vat','cost_vat','total'));
 
     } // end of public function VATReportExtract
 
@@ -1214,7 +1216,7 @@ class OrderController extends Controller
         $name = "vat.csv";
         $headers = array('content-type' => 'text/csv',);
         $file_handle = fOpen($pathToFile,'w+');
-        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','TOTALBEFOREVAT','VAT','TOTAL']);
+        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','TOTALBEFOREVAT','COSTVAT','VAT','TOTAL']);
 
         $xyz = DB::table('orders')
                     ->join('customers','orders.customer_id','=','customers.id')
@@ -1233,6 +1235,7 @@ class OrderController extends Controller
                 DateTime::createFromFormat('Y-m-d H:i:s',$o->created_at)->format('d.m.Y'),
                 $o->first_name.' '.$o->last_name,
                 $o->total_beforevat,
+                $o->cost_vat,
                 $o->vat,
                 $o->order_total
             ]);
