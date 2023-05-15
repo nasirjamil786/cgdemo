@@ -15,12 +15,11 @@
                      
                      <a href="{{url('exportcustnewsletteronly')}}">Download Customers Who Signed up for Newsletter</a>
                      <br>
+                     <a href="{{url('exportbuscust')}}">Download Business Customers Only</a>
+                     <br>
                      <a href="{{url('exportcustomers')}}">Download All Customers</a>
                      <br>
                      <a href="{{url('exportconstituents')}}">Download Customers in Southborough and St John's Wards</a>
-
-                     
-
                 </div>
             </div>
         </div>

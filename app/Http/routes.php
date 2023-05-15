@@ -146,6 +146,7 @@ Route::get('custreports','CustomerController@custReports');
 Route::get('exportcustomers','CustomerController@exportCustomers');
 Route::get('exportconstituents','CustomerController@exportconstituents');
 Route::get('exportcustnewsletteronly','CustomerController@exportcustnewsletteronly'); 
+Route::get('exportbuscust','CustomerController@exportBusinessCustomers'); 
 Route::get('exportsearchresult','CustomerController@ExportSearchResult');
 Route::get('custsearch1/{id}','CustomerController@search1');
 Route::get('custsearch/{id}','CustomerController@search');

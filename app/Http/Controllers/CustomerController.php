@@ -405,8 +405,7 @@ dd('here');
     }
 
     public function exportcustnewsletteronly()
-        {
-
+    {
           $pathToFile = 'CustomersNewsletterOnly.csv';
           $name = "CustomersNewsletterOnly.csv";
           $headers = array('content-type' => 'text/csv',);
@@ -438,7 +437,44 @@ dd('here');
 
           return response()->download($pathToFile, $name, $headers);
 
-        }
+    }
+
+    public function exportBusinessCustomers()
+    {
+          $pathToFile = 'BusCustomersOnly.csv';
+          $name = "BusCustomersOnly.csv.csv";
+          $headers = array('content-type' => 'text/csv',);
+
+          $file_handle = fOpen($pathToFile,'w+');
+          fputcsv($file_handle,['CUSTNUM','BUSNAME','FNAME','LNAME','EMAIL','ADD1','ADD2','TOWN','PCODE','NLETTER']);
+
+          //$customers = Customer::all();
+          $customers = Customer::where('company','!=',null)
+                                 ->where('company','!=','')
+                                 ->orderBy('id','desc')
+                                 ->get();
+
+          foreach ($customers as $c) {
+              
+            fputcsv($file_handle, [
+                $c->id,
+                $c->company,
+                $c->first_name,
+                $c->last_name,
+                $c->email,
+                $c->address1,
+                $c->address2,
+                $c->town,
+                $c->postcode,
+                $c->newsletter,
+            ]);
+          }
+
+          fclose($file_handle);
+
+          return response()->download($pathToFile, $name, $headers);
+
+    }
 
 
     public function exportCustomers()
