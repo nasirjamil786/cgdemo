@@ -55,9 +55,17 @@ class myfunctions
         $order->line_total = $line_total;
         $order->discount = ($order->discount_percent * $service_total / 100);
         $order->total_beforevat = $line_total + $order->delivery_charge - $order->discount;
-        $order->vat = $order->total_beforevat * $settings->vat_rate / 100;
-        $order->cost_vat = $cost_vat;
-        $order->order_total = $order->total_beforevat + $order->vat;
+
+        if($order->vat_exempt == 0) {
+            $order->vat = $order->total_beforevat * $settings->vat_rate / 100;
+            $order->cost_vat = $cost_vat;
+            $order->order_total = $order->total_beforevat + $order->vat;
+        } else {
+            $order->vat = 0;
+            $order->cost_vat = 0;
+            $order->order_total = $order->total_beforevat;
+        }
+        
         $order->save();
 
         $this->custBalance($cust_id);

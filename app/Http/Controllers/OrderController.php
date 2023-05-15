@@ -589,6 +589,7 @@ class OrderController extends Controller
         $order->password = $request->password;
         $order->discount_percent = $request->discount_percent;
         $order->vat_rate = $settings->vat_rate;
+        $order->vat_exempt = $request->vat_exempt;
         $order->worked_by = $request->worked_by;
         $order->updated_by = Auth::user()->id;
         $order->add_event = ($request->add_event) ? 1 : 0;
@@ -1189,6 +1190,7 @@ class OrderController extends Controller
                     ->where('orders.created_at','<=',$order_date_to)
                     ->where('orders.total_beforevat','!=','NULL')
                     ->where('orders.total_beforevat','!=',0)
+                    ->where('orders.vat','!=',0)
                     ->orderBy('orders.id','desc')
                     ->get();
 
@@ -1225,6 +1227,7 @@ class OrderController extends Controller
                     ->where('orders.created_at','<=',$order_date_to)
                     ->where('orders.total_beforevat','!=','NULL')
                     ->where('orders.total_beforevat','!=',0)
+                    ->where('orders.vat','!=',0)
                     ->orderBy('orders.id','desc')
                     ->get();
 

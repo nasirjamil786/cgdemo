@@ -649,7 +649,8 @@
                         <br>
                         Phone : {{$settings->phone}} @if($settings->web != NULL)| <a href="http://{{$settings->web}}">{{$settings->web}}</a> @endif
                         
-                         @if($settings->reg_no != NULL) | Reg No: {{$settings->reg_no}} @endif  @if($settings->vat_no != " ") | VAT No: {{$settings->vat_no}} @endif 
+                         @if($settings->reg_no != NULL) | Reg No: {{$settings->reg_no}} @endif  
+                         @if($settings->vat_no != " " && $order->vat_exempt == 0) | VAT No: {{$settings->vat_no}} @endif 
                         <br>
                         
                         <!--

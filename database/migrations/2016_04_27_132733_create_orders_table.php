@@ -50,6 +50,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total_beforevat',10,2)->nullable();
             $table->decimal('vat_rate',10,2)->nullable();
             $table->decimal('vat',10,2)->nullable();
+            $table->boolean('vat_exempt')->nullable()->default(0);
             $table->decimal('order_total',10,2)->nullable();
             $table->date('payment_date')->nullable();
             $table->decimal('payment',10,2)->nullable();

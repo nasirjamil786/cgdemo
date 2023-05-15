@@ -667,6 +667,11 @@
 
                                 <div id="parts" class="tab-pane fade">
 
+                                <div class="checkbox">
+                                          <label>
+                                            <input type="checkbox" name="vat_exempt" id="vat_exempt" value="1" {{ $order->vat_exempt == 1 ? 'checked' : '' }} onchange="this.form.submit()">vat exempt
+                                          </label>
+                                        </div>
                                 @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))   
                                     @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
                                     <button type="button" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModal"  data-backdrop="static"      >
@@ -718,14 +723,14 @@
                                         <div class="col-md-4">
                                             <table class="table">
                                                 <tr>
-                                                    <td>Line Total without VAT</td>
+                                                    <td>Lines Total</td>
                                                     <td>{{$order->line_total}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <div class="form-group">
                                                             <label for="discount_percent">Services Discount% </label>
-                                                            <select class="form-control" name="discount_percent" id="discount_percent">
+                                                            <select class="form-control" name="discount_percent" id="discount_percent" onchange="this.form.submit()">
                                                                 <option value="0" @if($order->discount_percent == "0") selected @endif>0</option>
                                                                 <option value="5" @if($order->discount_percent == '5') selected @endif>5</option>
                                                                 <option value="10"@if($order->discount_percent == '10') selected @endif>10</option>
@@ -737,10 +742,16 @@
                                                                 <option value="40"@if($order->discount_percent == '40') selected @endif>40</option>
                                                                 <option value="45"@if($order->discount_percent == '45') selected @endif>45</option>
                                                                 <option value="50"@if($order->discount_percent == '50') selected @endif>50</option>
-                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>60</option>
-                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>70</option>
-                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>80</option>
-                                                                <option value="50"@if($order->discount_percent == '50') selected @endif>100</option>
+                                                                <option value="55"@if($order->discount_percent == '55') selected @endif>55</option>
+                                                                <option value="60"@if($order->discount_percent == '60') selected @endif>60</option>
+                                                                <option value="65"@if($order->discount_percent == '65') selected @endif>65</option>
+                                                                <option value="70"@if($order->discount_percent == '70') selected @endif>70</option>
+                                                                <option value="75"@if($order->discount_percent == '75') selected @endif>75</option>
+                                                                <option value="80"@if($order->discount_percent == '80') selected @endif>80</option>
+                                                                <option value="85"@if($order->discount_percent == '85') selected @endif>85</option>
+                                                                <option value="90"@if($order->discount_percent == '90') selected @endif>90</option>
+                                                                <option value="95"@if($order->discount_percent == '95') selected @endif>95</option>
+                                                                <option value="100"@if($order->discount_percent == '100') selected @endif>100</option>
                                                             </select>
                                                         </div></td>
                                                     <td>{{$order->discount}}</td>
