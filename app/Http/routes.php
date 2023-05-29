@@ -42,16 +42,16 @@ Route::get('symlink',function() {
 //All AJAX routes here 
 
 Route::get('/ajax-cust',function(){
-
-
 	$cust_id = Request::get('cust_id');
-
 	$customer = App\Customer::findorfail($cust_id);
-
 	return response()->json($customer);
-
 });
 
+Route::get('/ajax-supp',function(){
+	$supp_id = Request::get('supp_id');
+	$supplier = App\Supplier::findorfail($supp_id);
+	return response()->json($supplier);
+});
 
 /*
 Route::get('/etemp', function () {
@@ -317,5 +317,21 @@ Route::get('/suppliers/{supplier}/delete','SupplierController@destroy')->name('s
 
 Route::get('image/{id}','ImageController@getImage');
 
+//Invoice Routes
+
+Route::get('/invoices','InvoiceController@index');
+Route::get('/invoices/create','InvoiceController@create')->name('invoices.create');
+Route::post('/invoices/store','InvoiceController@store');
+Route::get('/invoices/{invid}/edit','InvoiceController@edit');
+Route::post('/invoices/{invid}/update','InvoiceController@update');
+Route::get('/invoices/{invid}/delete','InvoiceController@deleteConfirm');
+Route::post('/invoices/{invid}/delete','InvoiceController@delete');
+Route::get('/invoices/export/{from?}/{to?}','InvoiceController@export');
+// Files
+Route::get('/invoices/{invid}/uploadfile','InvoiceController@uploadFile');
+Route::post('/invoices/{invid}/storefile','InvoiceController@storefile');
+Route::get('/invoices/{invid}/downloadfile','InvoiceController@downloadfile');
+
+Route::post('/invoices/search','InvoiceController@search');
 
 

@@ -157,9 +157,7 @@
 @endsection
 @section('script')
 <script>
-    
     //AJAX and jQuery Script 
-
     $('#cust_list').on('change',function(e){
 
         id = e.target.value;
@@ -172,15 +170,7 @@
                 $( "#town" ).val( data.town);
                 $( "#postcode" ).val( data.postcode);
                 $( "#email" ).val( data.email);
-
-
         })
-
     })
-
-
-
 </script>
-
-
 @endsection

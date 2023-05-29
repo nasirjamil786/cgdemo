@@ -65,6 +65,7 @@ class SupplierController extends Controller
         $supp->account = $request->account;
         $supp->notes = $request->notes;
         $supp->currency = 'GBP';
+        $supp->vatno = $request->vatno;
         $supp->updated_by = Auth::user()->id;
 
         $supp->save();
@@ -119,6 +120,7 @@ class SupplierController extends Controller
         $supp->account = $request->account;
         $supp->notes = $request->notes;
         $supp->currency = 'GBP';
+        $supp->vatno = $request->vatno;
         $supp->updated_by = Auth::user()->id;
 
         $supp->save();

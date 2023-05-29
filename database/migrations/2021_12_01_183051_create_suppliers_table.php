@@ -37,6 +37,7 @@ class CreateSuppliersTable extends Migration
             $table->string('account');
             $table->string('notes');
             $table->string('currency');
+            $table->string('vatno');
 
             $table->string('updated_by');
             $table->timestamps();

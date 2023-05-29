@@ -131,6 +131,12 @@
                                     <textarea class="form-control" rows="4" name="notes" id="notes"></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"  >VAT#</label>
+                                <div class="col-md-6">
+                                    <input  type="text" class="form-control" name="vatno" id="vat" >
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <div class="col-md-6">

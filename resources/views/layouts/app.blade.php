@@ -73,6 +73,8 @@
                     <li><a href="{{ url('booking') }}">Bookings</a></li>
                     <li><a href="{{ url('order') }}">Orders</a></li>
                     <li><a href="{{ url('quote') }}">Quotes</a></li>
+
+                    <li><a href="{{ url('invoices') }}">Invoice</a></li>
                     <li><a href="{{ url('orlinesSearch') }}">Order Enquiry</a></li>
 
 

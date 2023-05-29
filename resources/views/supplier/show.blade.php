@@ -140,6 +140,13 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"  >VAT#</label>
+                                <div class="col-md-6">
+                                    <input  type="text" class="form-control" name="vatno" id="vat" value="{{$supp->vatno}}" disabled>
+                                </div>
+                            </div>
+
 
                         </form>
                     </div>

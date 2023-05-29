@@ -14,6 +14,7 @@ use App\Quote;
 use App\Qline;
 use App\Setting;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class myfunctions
 {
@@ -27,7 +28,6 @@ class myfunctions
             $usDate = $parts[2].'-'.$parts[1].'-'.$parts[0];  //e.g 2015-01-23
             return $usDate;
         }
-        
         return $ukDate;
     }
 
@@ -122,7 +122,6 @@ class myfunctions
 
     public function storeSignature($orderid,$signature){
 
-
       //Validation ordeid and signature must not be null
       if($orderid != null && $orderid != 0 && $signature != NULL) {
 
@@ -149,7 +148,6 @@ class myfunctions
         return NULL;
       }
 
-
       $folderPath = public_path('upload/');
     
       $image_parts = explode(";base64,", $request->signed);
@@ -163,10 +161,19 @@ class myfunctions
       $file = $folderPath . uniqid() . '.'.$image_type;
       file_put_contents($file, $image_base64);
 
+    }
 
+    public function uploadImage($invid,$suppname,$img){
+        if ($invid <> 0 && $invid <> null && $suppname <> '' && $suppname <> NULL && $img <> null){
 
+            $filename = Str::of($suppname)->substr(0, 5).$invid;
+            Storage::put($filename,File::get($file));
 
+        $path = Storage::url($name);
 
+            return $string;
+
+        }
     }
 
 }
