@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('supp_id');
+            $table->unsignedBigInteger('supp_id');
 
             $table->string('invno')->nullable();
             $table->date('inv_date')->nullable();
