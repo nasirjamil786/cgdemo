@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-
-
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -41,36 +39,7 @@
                          </form>
                     </div>
                 </div>
-                <!-- A new Order Panel -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-3">
-                                Order# <br>
-                                1098
-                                </div>
-                                <div class="col-md-6">
-                                2 of 3 (wider)
-                                </div>
-                                <div class="col-md-3">
-                                3 of 3
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                                This is body 
-                    </div>
-                </div>
-
-
-
-
-
-                <!-- end  of new order panel -->
-
-
+                
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="table-responsive">

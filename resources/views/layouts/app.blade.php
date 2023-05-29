@@ -77,11 +77,6 @@
                     <li><a href="{{ url('invoices') }}">Invoice</a></li>
                     <li><a href="{{ url('orlinesSearch') }}">Order Enquiry</a></li>
 
-
-                    <!-- <li><a href="{{ url('/invoices') }}">Invoices</a></li> -->
-                    <!-- <li><a href="{{ url('/reports') }}">Reports</a></li> -->
-
-                    <li><a href="{{ url('/support') }}">Support</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -93,7 +88,7 @@
                     @else
                         {{-- only Admin can do that --}}
                         @can('update-settings') <!-- update-settings is a permission name if it exist -->
-                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-expanded="false" >Admin Reports <span class="caret"></span></a>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-expanded="false" >Reports <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{url('/custreports')}}">Customers</a></li>
                                     <!-- <li><a href="{{url('/ordreport')}}">Orders</a></li> -->

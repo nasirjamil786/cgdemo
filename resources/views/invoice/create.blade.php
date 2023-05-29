@@ -47,31 +47,31 @@
                                 </div>
                                 <!-- lines total -->
                                 <div class="form-group">
-                                    <label for="value" class="control-label">Lines Total</label>
+                                    <label for="linetotal" class="control-label">Lines Total</label>
                                     <input type="number" onblur="totals()" class="form-control"  min="0" max="90000" step="0.01" 
                                     name="linetotal" id="linetotal" value="{{old('linetotal')}}" required >
                                 </div>
                                 <!-- Delivery -->
                                 <div class="form-group">
-                                    <label for="value" class="control-label">Delivery</label>
-                                    <input type="number" onblur="totals()" class="form-control" min="0" max="90000" step="0.01" 
+                                    <label for="delivery" class="control-label">Delivery</label>
+                                    <input type="number" onblur="totals()" class="form-control" min="0" max="90000" step="0.01" placeholder="0.00"
                                     name="delivery" id="delivery" value="{{old('delivery')}}" >
                                 </div>
                                 <!-- Total before vat -->
                                 <div class="form-group">
-                                    <label for="value" class="control-label">Total Before VAT</label>
+                                    <label for="subtotal" class="control-label">Total Before VAT</label>
                                     <input type="number" class="form-control"  max="90000" step="0.01" 
                                     name="subtotal" id="subtotal" value="{{old('subtotal')}}" >
                                 </div>
                                 <!-- VAT -->
                                 <div class="form-group">
-                                    <label for="value" class="control-label">VAT @ {{$vatrate}}%</label>
+                                    <label for="vat" class="control-label">VAT @ {{$vatrate}}%</label>
                                     <input type="number" class="form-control"  max="90000" step="0.01"  
                                     name="vat" id="vat" value="{{old('vat')}}" >
                                 </div>
                                 <!-- total -->
                                 <div class="form-group">
-                                    <label for="value" class="control-label">Total</label>
+                                    <label for="total" class="control-label">Total</label>
                                     <input type="number" class="form-control"  max="90000" step="0.01" 
                                     name="total" id="total" value="{{old('total')}}" >
                                 </div>
@@ -97,6 +97,7 @@
 
     <script type="text/javascript">
         function totals(){
+
             var linetotal = document.getElementById("linetotal");
             var delivery = document.getElementById("delivery");
             var lTot = 0;
@@ -112,7 +113,7 @@
                  del = parseFloat(parseFloat(delivery.value).toFixed(2));
             
             subtot = lTot + del;
-            vat = (vatrate * subtot / 100).round(2);
+            vat = (vatrate * subtot / 100);
             total = subtot + vat;
 
             document.getElementById('subtotal').value = subtot;

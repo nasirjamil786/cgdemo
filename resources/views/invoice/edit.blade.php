@@ -121,7 +121,7 @@
                  del = parseFloat(parseFloat(delivery.value).toFixed(2));
             
             subtot = lTot + del;
-            vat = (vatrate * subtot / 100).round(2);
+            vat = (vatrate * subtot / 100);
             total = subtot + vat;
 
             document.getElementById('subtotal').value = subtot;

@@ -101,7 +101,8 @@ class InvoiceController extends Controller
         $inv->suppname = $supp->name;
         $inv->linetotal = $request->linetotal;
         $inv->delivery = $request->delivery;
-        $inv->subtotal = $request->delivery + $request->linetotal;
+
+        $inv->subtotal = $inv->delivery + $inv->linetotal;
         $inv->vatrate = $settings->vat_rate;
         $inv->vat = $inv->subtotal * $inv->vatrate  / 100;
         $inv->total = $inv->subtotal + $inv->vat ;
