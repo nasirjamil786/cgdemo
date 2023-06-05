@@ -80,7 +80,7 @@
 
                                         <div class="form-group">
                                             <label for="order_status">Order Status</label>
-                                            <select class="form-control" name="order_status" required>
+                                            <select class="form-control" name="order_status" id="order_status" required>
                                                 @include('partials.orderstatuslist')
                                             </select>
                                         </div>
@@ -95,7 +95,7 @@
 
                                         <div class="form-group">
                                             <label for="booking_time">Job Time</label>
-                                            <select class="form-control" name="booking_time" required>
+                                            <select class="form-control" name="booking_time" id="booking_time" required>
                                                 @include('partials.timelist')
                                             </select>
                                         </div>
@@ -105,8 +105,8 @@
                                           </label>
                                         </div>
                                         <div class="form-group">
-                                            <label form="location">Job Location</label>
-                                            <select class="form-control" name="location" required>
+                                            <label for="location">Job Location</label>
+                                            <select class="form-control" name="location" id="location" required>
                                                 <option value="0" @if($order->location == 0) selected @endif>Drop In</option>
                                                 <option value="1" @if($order->location == 1) selected @endif>Home/Office Visit</option>
                                                 <option value="2" @if($order->location == 2) selected @endif>Remote Support Call</option>
@@ -120,7 +120,7 @@
 
                                         <div class="form-group">
                                             <label for="created_at">Booked at</label>
-                                            <input type="text" class="form-control" name="created_at" value="{{$order->created_at}}">
+                                            <input type="text" class="form-control" name="created_at" id="created_at" value="{{$order->created_at}}">
                                             
                                         </div>
 
@@ -150,7 +150,7 @@
 
                                         <div class="form-group">
                                             <label for="worked_by">Engineer</label>
-                                            <select class="form-control" name="worked_by" required>
+                                            <select class="form-control" name="worked_by" id="worked_by" required>
                                                 @foreach($engineers as $eng)
                                                    <option value="{{$eng->id}}" @if($order->worked_by == $eng->id) selected @endif>{{$eng->first_name}} </option>
                                                 @endforeach
@@ -161,15 +161,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="order_notes">Work Detail(<span style="color: red">This will be printed on Booking Form</span>)</label>
-                                            <textarea class="form-control" name="order_notes" rows="10" >{{$order->order_notes}}</textarea>
+                                            <textarea class="form-control" name="order_notes" id="order_notes" rows="10" >{{$order->order_notes}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="recommendations">Notes for Customer(<span style="color: red">This will be printed on Invoice/Receipt</span>)</label>
-                                            <textarea class="form-control" name="recommendations" rows="5">{{$order->recommendations}}</textarea>
+                                            <textarea class="form-control" name="recommendations" id="recommendations" rows="5">{{$order->recommendations}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="private_notes">Private Notes (Not for customer)</label>
-                                            <textarea class="form-control" name="private_notes" rows="10" >{{$order->private_notes}}</textarea>
+                                            <textarea class="form-control" name="private_notes" id="private_notes" rows="10" >{{$order->private_notes}}</textarea>
                                         </div>
                                     </div>
                                     @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))
@@ -184,7 +184,7 @@
                                     <div class="col-md-6">
 
                                         <label for="device_id">Device Type</label>
-                                        <select class="form-control" name="device_id" required>
+                                        <select class="form-control" name="device_id" id="device_id" required>
 
                                             @foreach($devices as $device)
                                                 <option value="{{$device->id}}" @if($order->device_id == $device->id) selected @endif>{{$device->device_type}}</option>
@@ -194,7 +194,7 @@
 
                                         <div class="form-group">
                                             <label for="make_id">Make</label>
-                                            <select class="form-control" name="make_id" required>
+                                            <select class="form-control" name="make_id" id="make_id" required>
 
 
                                                 @foreach($makes as $make)
@@ -205,26 +205,26 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="model">Model</label>
-                                            <input type="text" class="form-control" name="model" value="{{$order->model}}" >
+                                            <input type="text" class="form-control" name="model" id="model" value="{{$order->model}}" >
                                         </div>
                                         <div class="form-group">
                                             <label for="serial_no">Serial No</label>
-                                            <input type="text" class="form-control" name="serial_no" value="{{$order->serial_no}}" >
+                                            <input type="text" class="form-control" name="serial_no"  id="serial_no" value="{{$order->serial_no}}" >
                                         </div>
                                         <div class="form-group">
                                             <label for="operating_system">Operating System</label>
-                                            <input type="text" class="form-control" name="operating_system" value="{{$order->operating_system}}" >
+                                            <input type="text" class="form-control" name="operating_system" id="operating_system" value="{{$order->operating_system}}" >
                                         </div>
                                     </div>
                                      <div class="col-md-6">
 
                                         <div class="form-group">
                                             <label for="condition">Condition</label>
-                                            <input type="text" class="form-control" name="condition" value="{{$order->condition}}" >
+                                            <input type="text" class="form-control" name="condition" id="condition" value="{{$order->condition}}" >
                                         </div>
                                         <div class="form-group">
                                             <label for="colour">Charger Present</label>
-                                            <select class="form-control" name="colour" required >
+                                            <select class="form-control" name="colour" id="colour" required >
                                                 <option value="" @if($order->colour == NULL) selected @endif ></option>
                                                 <option value="No" @if($order->colour == 'No') selected @endif>No</option>
                                                 <option value="Yes" @if($order->colour == 'Yes') selected @endif>Yes</option>
@@ -236,16 +236,16 @@
                                         </div> -->
                                         <div class="form-group">
                                             <label for="data_backup">Databackup</label>
-                                            <input type="text" class="form-control" name="data_backup" value="{{$order->data_backup}}" >
+                                            <input type="text" class="form-control" name="data_backup" id="data_backup" value="{{$order->data_backup}}" >
                                         </div>
                                         <div class="form-group">
                                             <label for="username">Username</label>
-                                            <input type="text" class="form-control" name="username" value="{{$order->username}}" >
+                                            <input type="text" class="form-control" name="username" id="username" autocomplete="username" value="{{$order->username}}" >
                                         </div>
 
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="text" class="form-control" name="password" value="{{$order->password}}" >
+                                            <input type="text" class="form-control" name="password" id="password" value="{{$order->password}}" >
                                         </div>
 
                                      </div>
@@ -697,7 +697,7 @@
                                                 <td>
                                                     @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
                                                         <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
-                                                        <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
+                                                        <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-cost_vat="{{$ol->cost_vat}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
                                                     @else
                                                         <small style="color: red"> INVOICED <br> 
                                                         {{DateTime::createFromFormat('Y-m-d H:i:s',$order->inv_emailed)->format('d/m/Y')}}</small> 
@@ -912,7 +912,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="cost" class="control-label">Cost VAT</label>
+                                                <label for="cost_vat" class="control-label">Cost VAT</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" placeholder="£0.00" required>
                                             </div>
 
@@ -924,7 +924,7 @@
                                             
                                             <div class="form-group">
                                                <label for="supp_id">Supplier</label>
-                                               <select class="form-control" name="supp_id">
+                                               <select class="form-control" name="supp_id" id="supp_id">
                                                     <option value="0">Select....</option>
                                                     @foreach($suppliers as $supp)
                                                         <option value="{{$supp->id}}">{{$supp->name}}
@@ -996,11 +996,11 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="cost" class="control-label">Cost</label>
-                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value=""placeholder="£0.00" required>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value="" placeholder="£0.00" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="cost" class="control-label">Cost VAT</label>
-                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" placeholder="£0.00" required>
+                                                                <label for="cost_vat" class="control-label">Cost VAT</label>
+                                                                <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" value="" placeholder="£0.00" required>
                                                             </div>
 
                                                             
@@ -1070,7 +1070,7 @@
                                             <!-- Payment Amount -->
                                             <div class="form-group">
                                                 <label for="amount">Balance Due on Order £{{$order->order_total - $order->payment}}</label>
-                                                <input type="number" step="0.01"    class="form-control" name="amount" value="{{}}" required>
+                                                <input type="number" step="0.01"    class="form-control" name="amount" id="amount" value="" required>
                                             </div>
 
                                             <!-- Payment Date -->
@@ -1096,7 +1096,7 @@
                                             <!-- Payment Reference -->
                                             <div class="form-group">
                                                 <label for="payment_ref">Payment Reference(card last 4 digits/cheque no/bank name etc)</label>
-                                                <input type="text" class="form-control" name="payment_ref" value="" placeholder="Cheque detail">
+                                                <input type="text" class="form-control" name="payment_ref" id="payment_ref" value="" placeholder="Cheque detail">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -1137,10 +1137,10 @@
             var item_detail = button.data('item_detail')
             var value = button.data('value')
             var cost = button.data('cost')
+            var cost_vat = button.data('cost_vat')
             var commission = button.data('commission')
             var supp_ref = button.data('supp_ref')
             var supp_id = button.data('supp_id')
-
 
                 // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
                 // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -1151,6 +1151,7 @@
                 modal.find('.modal-body #item_notes').val(item_notes)
                 modal.find('.modal-body #value').val(value)
                 modal.find('.modal-body #cost').val(cost)
+                modal.find('.modal-body #cost_vat').val(cost_vat)
                 modal.find('.modal-body #commission').val(commission)
                 modal.find('.modal-body #supp_ref').val(supp_ref)
                 modal.find('.modal-body #supp_id').val(supp_id)
