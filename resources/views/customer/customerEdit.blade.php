@@ -196,6 +196,13 @@
                                     sbeast,sbwest,sbnorth,stjohns
                                 </div>
                             </div>
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label" for="reviewed">Review Date </label> 
+                                    <div class="col-md-6 input-group date">
+                                        <input type="text" class="form-control" name="reviewed" value="{{$cust->reviewed}}" id="reviewed">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                </div>
 
                             <div class="form-group">
                                 

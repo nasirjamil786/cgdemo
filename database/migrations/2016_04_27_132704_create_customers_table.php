@@ -44,6 +44,8 @@ class CreateCustomersTable extends Migration
             $table->string('subscription_status')->nullable();
             $table->string('updated_by');
             $table->boolean('send_email');
+            $table->datetime('rereqsent')->nullable();
+            $table->datetime('reviewed')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

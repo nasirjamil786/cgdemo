@@ -31,6 +31,14 @@
                            @if ($order->quote_id != NULL) 
                                 <span> <small> Quote Ref: {{$order->quote_id}} </small> </span> 
                            @endif
+                           @if($order->customer->reviewed != NULL)
+                             <small>Reviewed {{$order->customer->reviewed}} </small>
+                
+                           @elseif($order->customer->revreqsent != NULL)
+                                  <small>Review Request Sent {{DateTime::createFromFormat('Y-m-d H:i:s',$order->customer->revreqsent)->format('d/m/Y')}} </small>
+                                @else
+                                     "Not Reviewd"
+                           @endif
                         </h4>
                         @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))
                            <button type="submit" class="btn btn-primary"  >Save</button>
@@ -49,7 +57,9 @@
                         @endif
 
                         <a href="{{url('printlabel/'.$order->id)}}" class="btn btn-primary" target="_self">Print Label</a>
-                        <a href="{{url('/order/'.$order->id.'/reviewrequestpreview')}}" class="btn btn-primary" target="_self">Review Request</a>
+                        @if($order->customer->reviewed == NULL)
+                          <a href="{{url('/order/'.$order->id.'/reviewrequestpreview')}}" class="btn btn-primary" target="_self">Review Request</a>
+                        @endif
 
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         
