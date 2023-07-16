@@ -181,8 +181,13 @@ Route::get('ordreport','OrderController@OrderReport');
 Route::post('ordreport','OrderController@OrderReportSummary');
 Route::get('/orderreportexport/{booking_date_from}/{booking_date_to}','OrderController@OrderReportExport');
 Route::get('/vatreportexport/{booking_date_from}/{booking_date_to}','OrderController@VATReportExport');
+
 Route::get('/order/{order}/deviceFixedNotifPreview','OrderController@DeviceFixedNotifPreview');
 Route::get('/order/{order}/deviceFixedNotifEmail','OrderController@DeviceFixedNotifEmail');
+
+Route::get('/order/{order}/reviewrequestpreview','OrderController@ReviewRequestPreview');
+Route::get('/order/{order}/reviewrequestemail','OrderController@ReviewRequestEmail');
+
 //get order signature
 Route::get('/order/{order}/getSignature','OrderController@getSignature');
 
