@@ -4,13 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DateTime;
+use Carbon\Carbon;
 
 class Customer extends Model
 {
     protected $fillable = ['cust_title','first_name','last_name','company','address1','address2',
     'town','postcode','county','country','email','ccemail','phone','mobile','recommended_by','recommended_name',
     'cust_type','outstand_balance','account_total','discount','status','newsletter','notes','updated_by',
-    'old_ref','user_id','belongs_to','subscription_status','send_email'
+    'old_ref','user_id','belongs_to','subscription_status','send_email','revreqsent','reviewed'
     ];
 
     use SoftDeletes;
@@ -81,6 +83,14 @@ class Customer extends Model
     public function getPOSTCODEAttribute($value){
 
         return strtoupper($value);
+    }
+    public function getReviewedAttribute($value)
+    {
+        //database date 2016-05-15
+        if($value != null)
+           $value = DateTime::createFromFormat('Y-m-d H:i:s', $value)->format('d/m/Y');
+
+        return $value; //return  15/05/2016
     }
     
 }

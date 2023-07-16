@@ -1399,6 +1399,9 @@ class OrderController extends Controller
     public function ReviewRequestEmail($id){
 
         $order = Order::with('customer')->where('id',$id)->first();
+
+    
+        $customer = Customer::findorfail($order->customer_id);
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
@@ -1413,8 +1416,8 @@ class OrderController extends Controller
            }
         });
 
-        $order->fixednotif_emailed = Carbon::now();
-        $order->save();
+        $customer->revreqsent = Carbon::now();
+        $customer->save();
 
         Session::flash('status','Notification emailed to customer successfully!');
         return redirect::back();

@@ -12,6 +12,8 @@ use App\User;
 Use Auth;
 use Mail;
 use DB;
+use App\Myfunctions\Myfunctions;
+
 class CustomerController extends Controller
 {
     /**
@@ -331,6 +333,9 @@ dd('here');
 
         $customer = Customer::findorfail($id);
 
+        $myfuncs = New Myfunctions;
+        $review_date = $myfuncs->usDate($request->reviewed);
+
 
         $customer->cust_title = $request->cust_title;
         $customer->first_name = $request->first_name;
@@ -354,6 +359,7 @@ dd('here');
         $customer->subscription_status = $request->subscription_status ;
         $customer->old_ref = $request->old_ref;
         $customer->notes = $request->notes;
+        $customer->reviewed = $review_date;
         $customer->updated_by = Auth::user()->id;
         $customer->save();
 

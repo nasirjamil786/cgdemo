@@ -80,6 +80,7 @@
                             <h5>craeted_at <small>{{$customer->created_at}}</small></h5>
                             <h5>updated_at <small>{{$customer->updated_at}}</small></h5>
                             <h5>Updated_by <small>{{$customer->updated_by}}</small></h5>
+                            <h5>Reviewed <small>{{$customer->reviewed}}</small></h5>
                             {{$customer->country}} <br>
                         </div>
 
