@@ -49,6 +49,7 @@
                         @endif
 
                         <a href="{{url('printlabel/'.$order->id)}}" class="btn btn-primary" target="_self">Print Label</a>
+                        <a href="{{url('/order/'.$order->id.'/reviewrequestpreview')}}" class="btn btn-primary" target="_self">Review Request</a>
 
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         

@@ -1386,6 +1386,41 @@ class OrderController extends Controller
 
     }
 
+    //Review Request Emails 
+
+    public function ReviewRequestPreview($id) {
+
+        $order = Order::findorfail($id);
+        $settings = Setting::findorfail(1);
+
+        return view('emails.reviewrequestpreview',compact('order','settings'));
+    }
+
+    public function ReviewRequestEmail($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+        $user = Auth::user();
+        $settings = Setting::findorfail(1);
+
+        Mail::send('emails.reviewrequestemail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Please Write a Review');
+           if ($user->bcc != null)
+               $m->bcc($user->bcc, $name = 'Review Request');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+
+        $order->fixednotif_emailed = Carbon::now();
+        $order->save();
+
+        Session::flash('status','Notification emailed to customer successfully!');
+        return redirect::back();
+
+    }
+
 
     //oneoff
     public function OneOffCompleteDate() {
