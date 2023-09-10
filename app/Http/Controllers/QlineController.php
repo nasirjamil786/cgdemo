@@ -203,6 +203,7 @@ class QlineController extends Controller
         $file = $request->file('item_image');
 
         $img = Images::make($file);
+
         Response::make($img->encode('jpeg'));
 
         // create new row in the iMages table

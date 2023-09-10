@@ -35,7 +35,7 @@
                                                             
                                                               {{-- <img alt="item_image" src="<?php echo $message->embed(ltrim($ql->item_image,'/')); ?>"  width="250" style="display: block;"> --}}
 
-                                                              <img alt="item_image" src="<?php echo $message->embedData($ql->item_image,'image.jpeg'); ?>"  width="250" style="display: block;">
+                                                              <img alt="item_image" src="<?php echo $message->embedData($ql->item_image,'image'.$ql->id.'.jpeg'); ?>"  width="250" style="display: block;">
                                                             
                                                         </td>
                                                     </tr>
