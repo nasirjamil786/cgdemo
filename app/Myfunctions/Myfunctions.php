@@ -41,10 +41,12 @@ class myfunctions
 
         $line_total = 0;
         $service_total = 0;
+        $cost_total = 0;
         $cost_vat = 0;
         foreach($orlines As $ol){
             
             $line_total = $line_total + $ol->value;
+            $cost_total = $cost_total + $ol->cost;
             $cost_vat = $cost_vat + $ol->cost_vat;
 
             if ($ol->item_notes != NULL && $ol->item_notes == "labour") {
@@ -58,6 +60,7 @@ class myfunctions
 
         if($order->vat_exempt == 0) {
             $order->vat = $order->total_beforevat * $settings->vat_rate / 100;
+            $order->cost_total = $cost_total;
             $order->cost_vat = $cost_vat;
             $order->order_total = $order->total_beforevat + $order->vat;
         } else {
