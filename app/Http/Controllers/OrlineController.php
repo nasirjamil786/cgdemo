@@ -121,7 +121,8 @@ class OrlineController extends Controller
         $orline->quantity = 1;
         $orline->price = $request->value;
         $orline->cost = $request->cost;
-        $orline->cost_vat = $request->cost_vat;
+        $orline->cost_vat_exempt = $request->cost_vat_exempt;
+        $orline->cost_vat = $request->cost_vat_exempt == 1 ? 0 : ($request->cost * $settings->vat_rate / 100);
         $orline->value = $request->value;
         $orline->vat_rate = $settings->vat_rate;
         $orline->vat = $request->value * $settings->vat_rate / 100;
@@ -166,7 +167,8 @@ class OrlineController extends Controller
         $orline->price = $request->value;
         $orline->value = $request->value;
         $orline->cost = $request->cost;
-        $orline->cost_vat = $request->cost_vat;
+        $orline->cost_vat_exempt = $request->cost_vat_exempt;
+        $orline->cost_vat = $request->cost_vat_exempt == 1 ? 0 : ($request->cost * $settings->vat_rate / 100);
         $orline->vat = $request->value * $settings->vat_rate / 100;
         $request->total_withvat = $request->value + ($request->value * $settings->vat_rate / 100);
         

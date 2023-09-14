@@ -418,6 +418,8 @@ class QuoteController extends Controller
            $qline->quantity = $qtl->quantity;
            $qline->price = $qtl->value;
            $qline->cost = $qtl->cost;
+           $qline->cost_vat_exempt = $qtl->cost_vat_exempt;
+           $qline->cost_vat = $qtl->cost_vat;
            $qline->commission = $qtl->commission;
            $qline->value = $qtl->value;
            $qline->vat_rate = $qtl->vat_rate;

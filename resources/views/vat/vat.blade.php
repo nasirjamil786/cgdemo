@@ -28,22 +28,22 @@
                                     <th>Order#</th>
                                     <th>Date</th>
                                     <th>Customer</th>
-                                    <th>Total Before VAT</th>
                                     <th>VAT Rate%</th>
-                                    <th>Cost Excluding VAT </th>
-                                    <th>Cost VAT</th>
-                                    <th>Sales VAT</th>
-                                    <th>TOTAL</th>
+                                    <th>Cost (Exc VAT) </th>
+                                    <th>VAT on Cost</th>
+                                    <th>Sale (Exc VAT)</th>
+                                    <th>VAT on Sale</th>
+                                    <th>Sale Total</th>
                                 </tr>
                                     @foreach($xyz AS $o)
                                         <tr>
                                             <td> <a href="{{url('order/'.$o->id.'/edit/1')}}"> {{$o->id}} </a>   </td>
                                             <td> {{DateTime::createFromFormat('Y-m-d H:i:s',$o->created_at)->format('d.m.Y') }}</td>
                                             <td>{{$o->first_name}} {{$o->last_name}}</td>
-                                            <td>{{$o->total_beforevat}}</td>
                                             <td> {{$o->vat_rate}}%</td>
                                             <td>{{$o->cost_total}} </td>
                                             <td> {{$o->cost_vat}} </td>
+                                            <td>{{$o->total_beforevat}}</td>
                                             <td>{{$o->vat}}</td>
                                             <td>{{$o->order_total}}</td>
                                         </tr>
@@ -52,9 +52,10 @@
                                     <th></th>
                                     <th></th>
                                     <th>Total</th>
-                                    <th>{{$total_beforevat}}</th>
-                                    <th></th>
+                                    <th> </th>
+                                    <th>{{$cost_total}}</th>
                                     <th>{{$cost_vat}}</th>
+                                    <th>{{$total_beforevat}}</th>
                                     <th>{{$vat}}</th>
                                     <th>{{$total}}</th>
                                 </tr>

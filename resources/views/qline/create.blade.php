@@ -45,13 +45,22 @@
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label for="value">Unit Price</label>
+                                        <label for="value">Unit Price(without VAT)</label>
                                         <input type="number" class="form-control" step="0.01" name="value" value="{{ old('value') }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                         <label for="cost">cost</label>
+                                         <label for="cost">cost(without VAT)</label>
                                          <input type="number" class="form-control" step="0.01" name="cost" value="{{ old('cost') }}" required>
                                     </div>
+                                    <div class="form-group col-md-3 checkbox">
+                                        <label>
+                                        <input type="checkbox" name="cost_vat_exempt" id="cost_vat_exempt" value="1" >Cost VAT exempt
+                                        </label>
+                                    </div>
+                                </div>   
+                                <div class="clearfix"></div>
+                                <div class="form-row">
+                                    <!-- 
                                     <div class="form-group col-md-3">
                                          <label for="cost">cost VAT</label>
                                          <input type="number" class="form-control" step="0.01" name="cost_vat" value="{{ old('cost_vat') }}" required>
@@ -61,6 +70,7 @@
                                          <label for="cost">Commission</label>
                                          <input type="number" class="form-control" step="0.01" name="commission" value="{{ old('commission') }}" required>
                                     </div>
+                                     -->
 
                                     <div class="form-group col-md-3">
                                         <label for="supp_id">Supplier</label>

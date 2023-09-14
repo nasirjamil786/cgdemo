@@ -41,6 +41,7 @@ class CreateQlinesTable extends Migration
             $table->string('line_status')->nullable();
             $table->integer('quantity')->nullable();
             $table->decimal('cost',10,2)->nullable();
+            $table->boolean('cost_vat_exempt')->nullable()->default(0);
             $table->decimal('cost_vat',10,2)->nullable();
             $table->decimal('commission',10,2)->nullable();
             $table->decimal('price',10,2)->nullable();
@@ -51,6 +52,7 @@ class CreateQlinesTable extends Migration
             $table->integer('supp_id')->nullable();
             $table->string('supp_name')->nullable();
             $table->string('supp_ref')->nullable();
+
 
             $table->string('updated_by')->nullable();
             $table->timestamps();

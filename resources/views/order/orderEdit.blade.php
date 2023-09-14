@@ -682,7 +682,7 @@
                                           <label>
                                             <input type="checkbox" name="vat_exempt" id="vat_exempt" value="1" {{ $order->vat_exempt == 1 ? 'checked' : '' }} onchange="this.form.submit()">vat exempt
                                           </label>
-                                        </div>
+                                </div>
                                 @if(!in_array($order->order_status,['Closed','Cancelled']) || Auth::user()->hasRole('Admin'))   
                                     @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
                                     <button type="button" class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModal"  data-backdrop="static"      >
@@ -708,7 +708,7 @@
                                                 <td>
                                                     @if($order->inv_emailed == NULL || Auth::user()->hasRole('Admin'))
                                                         <a href="{{url('orline/'.$ol->id.'/delete')}}">Delete|</a>
-                                                        <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-cost_vat="{{$ol->cost_vat}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
+                                                        <a href="#" data-toggle="modal" data-target="#amendModal" data-id="{{$ol->id}}" data-item_notes="{{$ol->item_notes}}" data-item_detail="{{$ol->item_detail}}" data-value="{{$ol->value}}" data-cost="{{$ol->cost}}" data-cost_vat="{{$ol->cost_vat}}" data-commission="{{$ol->commission}}" data-supp_id="{{$ol->supp_id}}" data-cost_vat_exempt="{{$ol->cost_vat_exempt}}"  data-supp_ref="{{$ol->supp_ref}}">Edit</a> 
                                                     @else
                                                         <small style="color: red"> INVOICED <br> 
                                                         {{DateTime::createFromFormat('Y-m-d H:i:s',$order->inv_emailed)->format('d/m/Y')}}</small> 
@@ -910,18 +910,22 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="value" class="control-label">Price</label>
+                                                <label for="value" class="control-label">Price <small>(Excluding VAT)</small></label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="value" id="value" placeholder="£0.00" required>
                                             </div>
 
-                                            
-
-
                                             <div class="form-group">
-                                                <label for="cost" class="control-label">Cost</label>
+                                                <label for="cost" class="control-label">Cost<small>(Excluding VAT)</small></label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" placeholder="£0.00" required>
                                             </div>
 
+                                            <div class="form-group checkbox">
+                                                <label>
+                                                <input type="checkbox" name="cost_vat_exempt" id="cost_vat_exempt" value="1" >Cost VAT exempt
+                                                </label>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <!--
                                             <div class="form-group">
                                                 <label for="cost_vat" class="control-label">Cost VAT</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" placeholder="£0.00" required>
@@ -932,7 +936,7 @@
                                                 <label for="commission" class="control-label">Commission</label>
                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" placeholder="£0.00" required>
                                             </div>
-                                            
+                                            -->
                                             <div class="form-group">
                                                <label for="supp_id">Supplier</label>
                                                <select class="form-control" name="supp_id" id="supp_id">
@@ -1002,13 +1006,22 @@
                                                                 <input type="text" class="form-control" name="item_detail"  id="item_detail"  value="" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="value" class="control-label">Price</label>
+                                                                <label for="value" class="control-label">Price<small>(Excluding VAT)</small></label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="value" id="value"  value="" placeholder="£0.00" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="cost" class="control-label">Cost</label>
+                                                                <label for="cost" class="control-label">Cost<small>(Excluding VAT)</small></label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost" id="cost" value="" placeholder="£0.00" required>
+                                                                <small id="cost_vat"> </small> 
                                                             </div>
+
+                                                            <div class="form-group checkbox">
+                                                                <label>
+                                                                <input type="checkbox" name="cost_vat_exempt" id="cost_vat_exempt" value="1">Cost VAT exempt
+                                                                </label>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <!--
                                                             <div class="form-group">
                                                                 <label for="cost_vat" class="control-label">Cost VAT</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="cost_vat" id="cost_vat" value="" placeholder="£0.00" required>
@@ -1019,7 +1032,7 @@
                                                                 <label for="commission" class="control-label">Commission</label>
                                                                 <input type="number" class="form-control"  max="90000" step="0.01"  name="commission" id="commission" value="" placeholder="£0.00" required>
                                                             </div>
-                                                            
+                                                            -->
 
                                                             <div class="form-group">
                                                                 <label for="supp_id">Supplier</label>
@@ -1148,8 +1161,9 @@
             var item_detail = button.data('item_detail')
             var value = button.data('value')
             var cost = button.data('cost')
+            var vat_cost_exempt = button.data('vat_cost_exempt')
             var cost_vat = button.data('cost_vat')
-            var commission = button.data('commission')
+            //var commission = button.data('commission')
             var supp_ref = button.data('supp_ref')
             var supp_id = button.data('supp_id')
 
@@ -1162,8 +1176,10 @@
                 modal.find('.modal-body #item_notes').val(item_notes)
                 modal.find('.modal-body #value').val(value)
                 modal.find('.modal-body #cost').val(cost)
-                modal.find('.modal-body #cost_vat').val(cost_vat)
-                modal.find('.modal-body #commission').val(commission)
+                //modal.find('.modal-body #cost_vat_exempt').val(cost_vat_exempt)
+                modal.find('.modal-body #cost_vat').text('VAT' + cost_vat)
+                //modal.find('.modal-body #cost_vat').innerhtml(cost_vat)
+                //modal.find('.modal-body #commission').val(commission)
                 modal.find('.modal-body #supp_ref').val(supp_ref)
                 modal.find('.modal-body #supp_id').val(supp_id)
         })

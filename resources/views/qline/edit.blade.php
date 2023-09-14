@@ -43,13 +43,23 @@
                                         <input type="number" class="form-control" name="quantity" value="{{ $qline->quantity }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="value">Price</label>
+                                        <label for="value">Price (without VAT)</label>
                                         <input type="number" class="form-control" step="0.01" name="value" value="{{ $qline->value }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="Cost">Cost</label>
+                                        <label for="Cost">Cost (Without VAT)</label>
                                         <input type="number" class="form-control" step="0.01" name="cost" value="{{ $qline->cost }}" required>
+                                        <small>VAT {{$qline->cost_vat}} </small>
                                     </div>
+                                    <div class="form-group col-md-3 checkbox">
+                                        <label>
+                                        <input type="checkbox" name="cost_vat_exempt" id="cost_vat_exempt" value="1" {{ $qline->cost_vat_exempt == 1 ? 'checked' : '' }}>Cost VAT exempt
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-row">
+                                    <!--
                                     <div class="form-group col-md-3">
                                         <label for="Cost">Cost VAT</label>
                                         <input type="number" class="form-control" step="0.01" name="cost_vat" value="{{ $qline->cost_vat }}" required>
@@ -61,7 +71,7 @@
                                         <input type="number" class="form-control" step="0.01" name="commission" value="{{ $qline->commission }}" required>
                                     </div>
 
-                    
+                                    -->
                                     
                                     <div class="form-group col-md-3">
                                         <label for="supp_id">Supplier</label>

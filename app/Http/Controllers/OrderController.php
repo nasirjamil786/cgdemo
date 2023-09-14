@@ -438,6 +438,7 @@ class OrderController extends Controller
             $orline->quantity = $ql->quantity;
             $orline->price = $ql->price;
             $orline->cost = $ql->cost;
+            $orline->cost_vat_exempt = $ql->cost_vat_exempt;
             $orline->cost_vat = $ql->cost_vat;
             $orline->value = $ql->value;
             $orline->vat_rate = $ql->vat_rate;
@@ -1197,6 +1198,7 @@ class OrderController extends Controller
         $total_beforevat = 0;
         $vat = 0;
         $cost_vat = 0;
+        $cost_total = 0;
         $total = 0;
          
         foreach ($xyz as $or) {
@@ -1205,10 +1207,11 @@ class OrderController extends Controller
             $vat = $vat + $or->vat;
             $cost_vat = $cost_vat + $or->cost_vat;
             $total = $total + $or->order_total;
+            $cost_total = $cost_total + $or->cost_total;
 
         }
 
-        return view('vat.vat',compact('xyz','order_date_from','order_date_to','total_beforevat','vat','cost_vat','total'));
+        return view('vat.vat',compact('xyz','order_date_from','order_date_to','total_beforevat','vat','cost_vat','cost_total','total'));
 
     } // end of public function VATReportExtract
 
@@ -1218,7 +1221,7 @@ class OrderController extends Controller
         $name = "vat.csv";
         $headers = array('content-type' => 'text/csv',);
         $file_handle = fOpen($pathToFile,'w+');
-        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','TOTALBEFOREVAT','COSTVAT','VAT','TOTAL']);
+        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','COST','COST VAT','SALE','SALE VAT','SALE TOTAL']);
 
         $xyz = DB::table('orders')
                     ->join('customers','orders.customer_id','=','customers.id')
@@ -1237,10 +1240,11 @@ class OrderController extends Controller
                 $o->id,
                 DateTime::createFromFormat('Y-m-d H:i:s',$o->created_at)->format('d.m.Y'),
                 $o->first_name.' '.$o->last_name,
-                $o->total_beforevat,
-                $o->cost_vat,
-                $o->vat,
-                $o->order_total
+                $o->cost_total, //COST
+                $o->cost_vat,   //VAT on COST
+                $o->total_beforevat, //Sale 
+                $o->vat,  //vat on sale
+                $o->order_total  // sale invoice total
             ]);
           }
 

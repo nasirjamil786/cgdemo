@@ -70,7 +70,8 @@ class QlineController extends Controller
        $qline->quantity = $request->quantity;
        $qline->price = $request->value;
        $qline->cost = $request->cost;
-       $qline->cost_vat = $request->cost_vat;
+       $qline->cost_vat_exempt = $request->cost_vat_exempt;
+       $qline->cost_vat = $request->cost_vat_exempt == 1 ? 0 : ($request->cost * $settings->vat_rate / 100);
        $qline->commission = $request->commission;
        $qline->value = $request->value;
        $qline->vat_rate = $settings->vat_rate;
@@ -82,10 +83,8 @@ class QlineController extends Controller
        $qline->supp_name = ($supp_id != 0) ? $supplier->name : ''; 
        $qline->supp_ref = $request->supp_ref;
         
-
        $qline->save();
-    
-       
+
        //update quote total
        $myfunctions = New Myfunctions;
        $myfunctions->updateQuoteTotals($quote->id);
@@ -127,7 +126,6 @@ class QlineController extends Controller
             $supplier = Supplier::findorfail($supp_id);
        }
 
-
        $qline->item_no = 1;
        $qline->item_detail = $request->item_detail;
        $qline->spec1 = $request->spec1;
@@ -138,7 +136,8 @@ class QlineController extends Controller
        $qline->quantity = $request->quantity;
        $qline->price = $request->value;
        $qline->cost = $request->cost;
-       $qline->cost_vat = $request->cost_vat;
+       $qline->cost_vat_exempt = $request->cost_vat_exempt;
+       $qline->cost_vat = $request->cost_vat_exempt == 1 ? 0 : ($request->cost * $settings->vat_rate / 100);
        $qline->commission = $request->commission;
        $qline->supp_id = $request->supp_id;
        $qline->supp_name = ($supp_id != 0) ? $supplier->name : '';
