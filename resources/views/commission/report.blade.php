@@ -92,17 +92,29 @@
                                         
                                     </tr>
                                 @endforeach
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th> 
+                                    <th></th>
+                                    <th></th>
+                                    <th>Totals</th>
+                                    <th>{{$total_cost}}</th>
+                                    <th>{{$total_costvat}}</th>
+                                    <th>{{$total_sale}}</th>
+                                    <th>{{$total_salevat}}</th>
+                                    <th>{{$total_vatdiff}}</th>
+                                    <th>{{$total_profit}}</th>
+                                </tr>
                                 
                             </table>
                         </div>
-
-
                     </div>
 
                     <div class="panel-footer">
                         
                     </div>
-
 
                 </div>
             </div>

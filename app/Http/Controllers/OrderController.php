@@ -1148,6 +1148,13 @@ class OrderController extends Controller
         $services_charge = 0;
         $services_profit = 0;
 
+        $total_cost = 0;
+        $total_costvat = 0;
+        $total_sale = 0;
+        $total_salevat = 0;
+        $total_vatdiff = 0;
+        $total_profit = 0;
+
         foreach ($xyz as $orl) {
             
             if ($orl->item_notes == 'parts') {
@@ -1159,16 +1166,25 @@ class OrderController extends Controller
                 $services_commission = $services_commission + $orl->commission;
                 $services_charge = $services_charge + $orl->value;
             }
+
+            $total_cost = $total_cost + $orl->cost;
+            $total_costvat = $total_costvat + $orl->linecostvat;
+            $total_sale = $total_sale + $orl->value;
+            $total_salevat = $total_salevat + $orl->linesalevat;
+            $total_vatdiff = $total_vatdiff + ($orl->linesalevat - $orl->linecostvat);
+            $total_profit = $total_profit + ($orl->value - $orl->cost);
+
         }
 
-
-        
         $parts_profit = $parts_charge - $parts_cost - $parts_commission;
         $services_profit = $services_charge - $services_cost - $services_commission;
 
         
-        return view('commission.report',compact('xyz','order_date_from','order_date_to','parts_cost','parts_commission','parts_charge',
-                 'parts_profit','services_cost','services_commission','services_charge','services_profit'));
+        return view('commission.report',compact('xyz','order_date_from',
+                   'order_date_to','parts_cost','parts_commission','parts_charge',
+                 'parts_profit','services_cost','services_commission',
+                 'services_charge','services_profit','total_cost','total_costvat',
+                 'total_sale','total_salevat','total_vatdiff','total_profit'));
 
     } // end of public function CommissionReportExtract
 
