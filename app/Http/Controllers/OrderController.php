@@ -1057,7 +1057,8 @@ class OrderController extends Controller
         $name = "Orders.csv";
         $headers = array('content-type' => 'text/csv',);
         $file_handle = fOpen($pathToFile,'w+');
-        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','ORDERVALUE','COST','TYPE','ORDERSTATUS','ENGINEER','COMM']);
+        fputcsv($file_handle,['Order#','Order Date','Customer','Item','Cost','Cost VAT','Sales',
+        'Sales VAT','Diff VAT']);
 
     
 
@@ -1065,7 +1066,7 @@ class OrderController extends Controller
                     ->join('users','orders.worked_by','=','users.id')
                     ->join('customers','orders.customer_id','=','customers.id')
                     ->join('orlines','orlines.order_id','=','orders.id')
-                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orlines.cost_vat AS linecostvat','orlines.vat as linesalevat','orders.*')
                     ->where('orders.booking_date','>=',$booking_date_from)
                     ->where('orders.booking_date','<=',$booking_date_to)
                     ->where('orlines.item_notes','!=','advance')
@@ -1078,12 +1079,16 @@ class OrderController extends Controller
                 $o->order_id,
                 DateTime::createFromFormat('Y-m-d H:i:s',$o->booking_date)->format('d.m.Y'),
                 $o->first_name.' '.$o->last_name,
-                $o->value,
+                $o->item_detail,
                 $o->cost,
-                $o->item_notes,
-                $o->order_status,
-                $o->user_first_name,
-                $o->commission
+                $o->linecostvat,
+                $o->value,
+                $o->linesalevat,
+                $o->linesalevat - $o->linecostvat
+                //$o->item_notes,
+                //$o->order_status,
+                //$o->user_first_name,
+                //$o->commission
             ]);
           }
 
@@ -1128,7 +1133,7 @@ class OrderController extends Controller
                     ->join('users','orders.worked_by','=','users.id')
                     ->join('customers','orders.customer_id','=','customers.id')
                     ->join('orlines','orlines.order_id','=','orders.id')
-                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orlines.cost_vat AS linecostvat','orlines.vat as linesalevat','orders.*')
                     ->where('orders.created_at','>=',$order_date_from)
                     ->where('orders.created_at','<=',$order_date_to)
                     ->where('orlines.item_notes','!=','advance')

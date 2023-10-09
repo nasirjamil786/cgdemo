@@ -66,8 +66,10 @@
                                     <th>Item</th>
                                     <th>Type</th>
                                     <th>Cost</th>
-                                    <th>Price</th>
-                                    <th>Comm</th>
+                                    <th>Cost VAT</th>
+                                    <th>Sales</th>
+                                    <th>Sales VAT</th>
+                                    <th>VAT Diff</th>
                                     <th>Profit</th>
                                 </tr>
                                 @foreach($xyz AS $o)
@@ -82,8 +84,10 @@
                                         <td>{{$o->item_detail}}</td>
                                         <td>{{$o->item_notes}}</td>
                                         <td>{{$o->cost}}</td>
+                                        <td>{{$o->linecostvat}}</td>
                                         <td>{{$o->value}}</td>
-                                        <td>{{$o->commission}}</td>
+                                        <td>{{$o->linesalevat}}</td>
+                                        <td>{{$o->linesalevat - $o->linecostvat}}</td>
                                         <td>{{$o->value - $o->cost - $o->commission}}</td>
                                         
                                     </tr>
