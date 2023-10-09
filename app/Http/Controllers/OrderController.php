@@ -1060,15 +1060,13 @@ class OrderController extends Controller
         fputcsv($file_handle,['Order#','Order Date','Customer','Item','Cost','Cost VAT','Sales',
         'Sales VAT','Diff VAT']);
 
-    
-
         $orders = DB::table('orders')
                     ->join('users','orders.worked_by','=','users.id')
                     ->join('customers','orders.customer_id','=','customers.id')
                     ->join('orlines','orlines.order_id','=','orders.id')
                     ->select('users.first_name as user_first_name','customers.*','orlines.*','orlines.cost_vat AS linecostvat','orlines.vat as linesalevat','orders.*')
-                    ->where('orders.booking_date','>=',$booking_date_from)
-                    ->where('orders.booking_date','<=',$booking_date_to)
+                    ->where('orders.created_at','>=',$booking_date_from)
+                    ->where('orders.created_at','<=',$booking_date_to)
                     ->where('orlines.item_notes','!=','advance')
                     ->orderBy('orders.id','desc')
                     ->get();
