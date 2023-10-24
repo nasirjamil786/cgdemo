@@ -66,8 +66,10 @@
                                     <th>Item</th>
                                     <th>Type</th>
                                     <th>Cost</th>
-                                    <th>Price</th>
-                                    <th>Comm</th>
+                                    <th>Cost VAT</th>
+                                    <th>Sales</th>
+                                    <th>Sales VAT</th>
+                                    <th>VAT Diff</th>
                                     <th>Profit</th>
                                 </tr>
                                 @foreach($xyz AS $o)
@@ -82,23 +84,37 @@
                                         <td>{{$o->item_detail}}</td>
                                         <td>{{$o->item_notes}}</td>
                                         <td>{{$o->cost}}</td>
+                                        <td>{{$o->linecostvat}}</td>
                                         <td>{{$o->value}}</td>
-                                        <td>{{$o->commission}}</td>
+                                        <td>{{$o->linesalevat}}</td>
+                                        <td>{{$o->linesalevat - $o->linecostvat}}</td>
                                         <td>{{$o->value - $o->cost - $o->commission}}</td>
                                         
                                     </tr>
                                 @endforeach
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th> 
+                                    <th></th>
+                                    <th></th>
+                                    <th>Totals</th>
+                                    <th>{{$total_cost}}</th>
+                                    <th>{{$total_costvat}}</th>
+                                    <th>{{$total_sale}}</th>
+                                    <th>{{$total_salevat}}</th>
+                                    <th>{{$total_vatdiff}}</th>
+                                    <th>{{$total_profit}}</th>
+                                </tr>
                                 
                             </table>
                         </div>
-
-
                     </div>
 
                     <div class="panel-footer">
                         
                     </div>
-
 
                 </div>
             </div>

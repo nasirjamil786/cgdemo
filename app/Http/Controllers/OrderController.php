@@ -1057,17 +1057,16 @@ class OrderController extends Controller
         $name = "Orders.csv";
         $headers = array('content-type' => 'text/csv',);
         $file_handle = fOpen($pathToFile,'w+');
-        fputcsv($file_handle,['ORDERNO','BOOKINGDATE','CUSTOMER','ORDERVALUE','COST','TYPE','ORDERSTATUS','ENGINEER','COMM']);
-
-    
+        fputcsv($file_handle,['Order#','Order Date','Customer','Item','Cost','Cost VAT','Sales',
+        'Sales VAT','Diff VAT']);
 
         $orders = DB::table('orders')
                     ->join('users','orders.worked_by','=','users.id')
                     ->join('customers','orders.customer_id','=','customers.id')
                     ->join('orlines','orlines.order_id','=','orders.id')
-                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
-                    ->where('orders.booking_date','>=',$booking_date_from)
-                    ->where('orders.booking_date','<=',$booking_date_to)
+                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orlines.cost_vat AS linecostvat','orlines.vat as linesalevat','orders.*')
+                    ->where('orders.created_at','>=',$booking_date_from)
+                    ->where('orders.created_at','<=',$booking_date_to)
                     ->where('orlines.item_notes','!=','advance')
                     ->orderBy('orders.id','desc')
                     ->get();
@@ -1078,12 +1077,16 @@ class OrderController extends Controller
                 $o->order_id,
                 DateTime::createFromFormat('Y-m-d H:i:s',$o->booking_date)->format('d.m.Y'),
                 $o->first_name.' '.$o->last_name,
-                $o->value,
+                $o->item_detail,
                 $o->cost,
-                $o->item_notes,
-                $o->order_status,
-                $o->user_first_name,
-                $o->commission
+                $o->linecostvat,
+                $o->value,
+                $o->linesalevat,
+                $o->linesalevat - $o->linecostvat
+                //$o->item_notes,
+                //$o->order_status,
+                //$o->user_first_name,
+                //$o->commission
             ]);
           }
 
@@ -1128,7 +1131,7 @@ class OrderController extends Controller
                     ->join('users','orders.worked_by','=','users.id')
                     ->join('customers','orders.customer_id','=','customers.id')
                     ->join('orlines','orlines.order_id','=','orders.id')
-                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orders.*')
+                    ->select('users.first_name as user_first_name','customers.*','orlines.*','orlines.cost_vat AS linecostvat','orlines.vat as linesalevat','orders.*')
                     ->where('orders.created_at','>=',$order_date_from)
                     ->where('orders.created_at','<=',$order_date_to)
                     ->where('orlines.item_notes','!=','advance')
@@ -1145,6 +1148,13 @@ class OrderController extends Controller
         $services_charge = 0;
         $services_profit = 0;
 
+        $total_cost = 0;
+        $total_costvat = 0;
+        $total_sale = 0;
+        $total_salevat = 0;
+        $total_vatdiff = 0;
+        $total_profit = 0;
+
         foreach ($xyz as $orl) {
             
             if ($orl->item_notes == 'parts') {
@@ -1156,16 +1166,25 @@ class OrderController extends Controller
                 $services_commission = $services_commission + $orl->commission;
                 $services_charge = $services_charge + $orl->value;
             }
+
+            $total_cost = $total_cost + $orl->cost;
+            $total_costvat = $total_costvat + $orl->linecostvat;
+            $total_sale = $total_sale + $orl->value;
+            $total_salevat = $total_salevat + $orl->linesalevat;
+            $total_vatdiff = $total_vatdiff + ($orl->linesalevat - $orl->linecostvat);
+            $total_profit = $total_profit + ($orl->value - $orl->cost);
+
         }
 
-
-        
         $parts_profit = $parts_charge - $parts_cost - $parts_commission;
         $services_profit = $services_charge - $services_cost - $services_commission;
 
         
-        return view('commission.report',compact('xyz','order_date_from','order_date_to','parts_cost','parts_commission','parts_charge',
-                 'parts_profit','services_cost','services_commission','services_charge','services_profit'));
+        return view('commission.report',compact('xyz','order_date_from',
+                   'order_date_to','parts_cost','parts_commission','parts_charge',
+                 'parts_profit','services_cost','services_commission',
+                 'services_charge','services_profit','total_cost','total_costvat',
+                 'total_sale','total_salevat','total_vatdiff','total_profit'));
 
     } // end of public function CommissionReportExtract
 

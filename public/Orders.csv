@@ -1,35 +1,5 @@
-ORDERNO,BOOKINGDATE,CUSTOMER,ORDERVALUE,COST,TYPE,ORDERSTATUS,ENGINEER,COMM
-1301,28.08.2020,"Alok Basu",50.00,0.00,labour,Booked,Nasir,0.00
-1300,26.08.2020,"Nasir Jamil",60.00,0.00,labour,Booked,Nasir,0.00
-1294,16.08.2020,"Nasir Jamil",400.00,300.00,parts,"Waiting for Parts",Nasir,0.00
-1294,16.08.2020,"Nasir Jamil",80.00,0.00,labour,"Waiting for Parts",Nasir,0.00
-1293,15.08.2020,"Nasir Jamil",400.00,0.00,labour,Booked,Nasir,0.00
-1290,15.08.2020,"Nasir Jamil",500.00,400.00,parts,Booked,Nasir,
-1290,15.08.2020,"Nasir Jamil",60.00,0.00,parts,Booked,Nasir,30.00
-1289,14.08.2020,"James Hollands",190.00,80.00,parts,Booked,Nasir,
-1288,14.08.2020,"James Hollands",190.00,80.00,parts,Booked,Nasir,
-1285,07.08.2020,"Faisal Jalal",250.00,250.00,parts,"Payment Receipt Sent",Nasir,
-1285,07.08.2020,"Faisal Jalal",100.00,10.00,labour,"Payment Receipt Sent",Nasir,50.00
-1284,08.08.2020,"Peter Day",50.00,0.00,labour,Invoiced,Nasir,
-1284,08.08.2020,"Peter Day",200.00,120.00,labour,Invoiced,Nasir,80.00
-1281,05.08.2020,"Tim Dauncey",30.00,0.00,labour,Invoiced,Nasir,
-1280,06.08.2020,"Badar Jamil",77.00,77.00,parts,"Waiting for Parts",Nasir,
-1280,06.08.2020,"Badar Jamil",28.79,28.79,parts,"Waiting for Parts",Nasir,
-1279,06.08.2020,"Alex Medhurst",40.00,30.00,parts,Booked,Jansher,
-1279,06.08.2020,"Alex Medhurst",40.00,10.00,labour,Booked,Jansher,30.00
-1278,05.08.2020,"Nick Tarry",30.00,0.00,labour,Booked,Nasir,
-1277,05.08.2020,"Malcolm Harris",100.00,0.00,labour,Closed,Nasir,
-1276,04.08.2020,"Nicholas Fuller",100.00,0.00,labour,"Payment Receipt Sent",Nasir,
-1275,05.08.2020,"Susan Arnold",25.00,0.00,labour,Closed,Nasir,
-1274,05.08.2020,"Patricia Kreyer",50.00,22.98,parts,Closed,Nasir,
-1274,05.08.2020,"Patricia Kreyer",50.00,22.98,parts,Closed,Nasir,
-1274,05.08.2020,"Patricia Kreyer",50.00,0.00,labour,Closed,Nasir,
-1273,03.08.2020,"Kevin Evans",45.00,30.00,parts,Invoiced,Nasir,
-1273,03.08.2020,"Kevin Evans",0.00,0.00,parts,Invoiced,Nasir,
-1273,03.08.2020,"Kevin Evans",50.00,0.00,labour,Invoiced,Nasir,
-1272,03.08.2020,"Peter Collins",50.00,39.00,parts,Closed,Nasir,
-1271,07.08.2020,"Kate Marshall",50.00,0.00,labour,"Payment Receipt Sent",Nasir,
-1270,02.08.2020,"Johns Sellens",20.00,0.00,labour,Closed,Nasir,
-1269,02.08.2020,"Vikas Kumar",25.00,0.00,labour,"Payment Receipt Sent",Nasir,
-1268,01.08.2020,"Christopher Fenly",25.00,0.00,labour,Closed,Nasir,
-1267,01.08.2020,"Gillian Ham",50.00,0.00,labour,Closed,Nasir,
+Order#,"Order Date",Customer,Item,Cost,"Cost VAT",Sales,"Sales VAT","Diff VAT"
+3229,14.09.2023,"Nasir Jamil","New desktop pc",100.00,20.00,200.00,40.00,20
+3229,14.09.2023,"Nasir Jamil","service charges",0.00,0.00,50.00,10.00,10
+3229,14.09.2023,"Nasir Jamil","cover ",20.00,4.00,40.00,8.00,4
+3229,14.09.2023,"Nasir Jamil","New screen old",250.00,50.00,300.00,60.00,10
