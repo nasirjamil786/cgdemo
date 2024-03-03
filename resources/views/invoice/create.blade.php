@@ -48,7 +48,7 @@
                                 <!-- lines total -->
                                 <div class="form-group">
                                     <label for="linetotal" class="control-label">Lines Total</label>
-                                    <input type="number" onblur="totals()" class="form-control"  min="0" max="90000" step="0.01" 
+                                    <input type="number" onblur="totals()" class="form-control"  min="0" max="90000" step="0.01" placeholder="0.00"
                                     name="linetotal" id="linetotal" value="{{old('linetotal')}}" required >
                                 </div>
                                 <!-- Delivery -->
@@ -60,19 +60,19 @@
                                 <!-- Total before vat -->
                                 <div class="form-group">
                                     <label for="subtotal" class="control-label">Total Before VAT</label>
-                                    <input type="number" class="form-control"  max="90000" step="0.01" 
+                                    <input type="number" class="form-control"  max="90000" step="0.01"  placeholder="0.00"
                                     name="subtotal" id="subtotal" value="{{old('subtotal')}}" >
                                 </div>
                                 <!-- VAT -->
                                 <div class="form-group">
                                     <label for="vat" class="control-label">VAT @ {{$vatrate}}%</label>
-                                    <input type="number" class="form-control"  max="90000" step="0.01"  
+                                    <input type="number" class="form-control"  max="90000" step="0.01"  placeholder="0.00"
                                     name="vat" id="vat" value="{{old('vat')}}" >
                                 </div>
                                 <!-- total -->
                                 <div class="form-group">
                                     <label for="total" class="control-label">Total</label>
-                                    <input type="number" class="form-control"  max="90000" step="0.01" 
+                                    <input type="number" class="form-control"  max="90000" step="0.01"  placeholder="0.00"
                                     name="total" id="total" value="{{old('total')}}" >
                                 </div>
                                 
