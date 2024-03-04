@@ -237,7 +237,7 @@ class InvoiceController extends Controller
     public function storefile(Request $request,$id){
 
         $request->validate([
-            'file' => 'required|mimes:pdf,xlx,csv|max:3072',
+            'file' => 'required|mimes:pdf,xlx,csv,jpg,png|max:3072',
         ]);
 
         $inv = Invoice::findorfail($id);
