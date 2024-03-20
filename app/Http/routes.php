@@ -187,6 +187,8 @@ Route::get('/order/{order}/deviceFixedNotifEmail','OrderController@DeviceFixedNo
 
 Route::get('/order/{order}/reviewrequestpreview','OrderController@ReviewRequestPreview');
 Route::get('/order/{order}/reviewrequestemail','OrderController@ReviewRequestEmail');
+Route::get('/order/{order}/partsorderedpreview','OrderController@PartsOrderedEmailPreview');
+Route::get('/order/{order}/partsorderedemail','OrderController@PartsOrderedEmail');
 
 //get order signature
 Route::get('/order/{order}/getSignature','OrderController@getSignature');

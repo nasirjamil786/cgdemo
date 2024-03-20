@@ -60,7 +60,7 @@
                         @if($order->customer->reviewed == NULL)
                           <a href="{{url('/order/'.$order->id.'/reviewrequestpreview')}}" class="btn btn-primary" target="_self">Review Request</a>
                         @endif
-
+                        <a href="{{url('/order/'.$order->id.'/partsorderedpreview')}}" class="btn btn-primary" target="_self">Parts Ordered</a>
                         <a href="{{ url('order') }}" class="btn btn-primary">Back</a>
                         
                     </div>
