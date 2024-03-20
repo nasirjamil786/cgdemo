@@ -1447,6 +1447,41 @@ class OrderController extends Controller
 
     }
 
+    // Parts Ordered Email
+    public function PartsOrderedEmailPreview($id) {
+
+        $order = Order::findorfail($id);
+        $settings = Setting::findorfail(1);
+
+        return view('emails.partsorderedpreview',compact('order','settings'));
+    }
+
+    public function PartsOrderedEmail($id){
+
+        $order = Order::with('customer')->where('id',$id)->first();
+
+        $customer = Customer::findorfail($order->customer_id);
+        $user = Auth::user();
+        $settings = Setting::findorfail(1);
+
+        Mail::send('emails.partsorderedemail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+           
+           $m->from($user->email, $user->name);
+           $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Parts Ordred');
+           if ($user->bcc != null)
+               $m->bcc($user->bcc, $name = 'Parts Ordered');
+           if ($order->customer->ccemail != null) {
+               $m->cc($order->customer->ccemail);
+           }
+        });
+
+        $customer->revreqsent = Carbon::now();
+        $customer->save();
+
+        Session::flash('status','Notification emailed to customer successfully!');
+        return redirect::back();
+
+    }
 
     //oneoff
     public function OneOffCompleteDate() {
