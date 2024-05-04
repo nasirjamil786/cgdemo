@@ -91,6 +91,7 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Svg\\' => 4,
+            'Stripe\\' => 7,
             'Spatie\\LaravelIgnition\\' => 23,
             'Spatie\\Ignition\\' => 16,
             'Spatie\\GoogleCalendar\\' => 22,
@@ -345,6 +346,10 @@ class ComposerStaticInit7cb9f90c2743e874370ba3b7a536a208
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (

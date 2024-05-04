@@ -179,4 +179,8 @@ class myfunctions
         }
     }
 
+    public function StripePaymentLink() {
+
+    }
+
 }

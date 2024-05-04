@@ -30,6 +30,7 @@ use Talal\LabelPrinter\Printer;
 use Talal\LabelPrinter\Mode\Template;
 use Talal\LabelPrinter\Command;
 use Talal\LabelPrinter\Mode\Escp; 
+use Stripe\Stripe;
 
 class OrderController extends Controller
 {
@@ -755,7 +756,30 @@ class OrderController extends Controller
         $settings = Setting::findorfail(1);
         $user = Auth::user();
 
-        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user'));
+
+        $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
+        $product = $stripe->products->create(['name' => 'Gold Plan']);
+        $PRODUCT_ID = $product->id;
+
+        $price = $stripe->prices->create([
+                        'currency' => 'GBP',
+                        'unit_amount' => 1000,
+                        'product' => $PRODUCT_ID,
+                        ]);
+
+        $PRICE_ID = $price->id;
+
+        $link =  $stripe->paymentLinks->create([
+                        'line_items' => [
+                        [
+                            'price' => $PRICE_ID,
+                            'quantity' => 1,
+                        ],
+                        ],
+                    ]);
+
+        $payurl = $link->url;
+        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user','payurl'));
 
     }
 
