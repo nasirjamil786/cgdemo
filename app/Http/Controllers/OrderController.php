@@ -30,7 +30,7 @@ use Talal\LabelPrinter\Printer;
 use Talal\LabelPrinter\Mode\Template;
 use Talal\LabelPrinter\Command;
 use Talal\LabelPrinter\Mode\Escp; 
-use Stripe\Stripe;
+
 
 class OrderController extends Controller
 {
@@ -756,29 +756,10 @@ class OrderController extends Controller
         $settings = Setting::findorfail(1);
         $user = Auth::user();
 
+        $myfuncs = New Myfunctions();
+        $payurl = $myfuncs->payUrl($order->id);
 
-        $stripe = new \Stripe\StripeClient('sk_test_26PHem9AhJZvU623DfE1x4sd');
-        $product = $stripe->products->create(['name' => 'Gold Plan']);
-        $PRODUCT_ID = $product->id;
-
-        $price = $stripe->prices->create([
-                        'currency' => 'GBP',
-                        'unit_amount' => 1000,
-                        'product' => $PRODUCT_ID,
-                        ]);
-
-        $PRICE_ID = $price->id;
-
-        $link =  $stripe->paymentLinks->create([
-                        'line_items' => [
-                        [
-                            'price' => $PRICE_ID,
-                            'quantity' => 1,
-                        ],
-                        ],
-                    ]);
-
-        $payurl = $link->url;
+        
         return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user','payurl'));
 
     }
@@ -794,8 +775,8 @@ class OrderController extends Controller
         $inv_date = $order->complete_date;
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
-        
-        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings','reminder'));
+        $payurl = '#';
+        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings','payurl','reminder'));
     }
     public function invEmail($id,$reminder){
 
@@ -807,10 +788,12 @@ class OrderController extends Controller
         $inv_date = $order->complete_date;
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
+        $myfuncs = New Myfunctions();
+        $payurl = $myfuncs->payUrl($order->id);
 
         $remindLabel = ($reminder > 0) ? '[Reminder]':'';
 
-        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'reminder' => $reminder,'user' => $user], function ($m) use ($user,$order,$remindLabel) {
+        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'payurl' => $payurl,'reminder' => $reminder,'user' => $user], function ($m) use ($user,$order,$remindLabel) {
            
            $m->from($user->email, $user->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name);

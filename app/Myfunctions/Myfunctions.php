@@ -15,6 +15,7 @@ use App\Qline;
 use App\Setting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Stripe\Stripe;
 
 class myfunctions
 {
@@ -179,8 +180,28 @@ class myfunctions
         }
     }
 
-    public function StripePaymentLink() {
+    public function payUrl($id) {
+        $order = Order::findorfail($id);
+        $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
+        $product = $stripe->products->create(['name' => 'Order Total']);
+        $PRODUCT_ID = $product->id;
+        $price = $stripe->prices->create([
+                        'currency' => 'GBP',
+                        'unit_amount' => (($order->order_total - $order->payment) * 100),
+                        'product' => $PRODUCT_ID,
+                        ]);
+        $PRICE_ID = $price->id;
+        $link =  $stripe->paymentLinks->create([
+                        'line_items' => [
+                        [
+                            'price' => $PRICE_ID,
+                            'quantity' => 1,
+                        ],
+                        ],
+                    ]);
 
+        $payurl =  $link->url;
+        return $payurl;
     }
 
 }
