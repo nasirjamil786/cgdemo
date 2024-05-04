@@ -757,7 +757,7 @@ class OrderController extends Controller
         $user = Auth::user();
 
         $myfuncs = New Myfunctions();
-        $payurl = $myfuncs->payUrl($order->id);
+        $payurl = $myfuncs->payUrl($order->id,'order');
 
         
         return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user','payurl'));
@@ -789,7 +789,7 @@ class OrderController extends Controller
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
         $myfuncs = New Myfunctions();
-        $payurl = $myfuncs->payUrl($order->id);
+        $payurl = $myfuncs->payUrl($order->id,'order');
 
         $remindLabel = ($reminder > 0) ? '[Reminder]':'';
 

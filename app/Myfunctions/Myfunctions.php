@@ -180,14 +180,26 @@ class myfunctions
         }
     }
 
-    public function payUrl($id) {
-        $order = Order::findorfail($id);
+    public function payUrl($id,$type) {
+        
         $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
-        $product = $stripe->products->create(['name' => 'Order Total']);
+
+        if($type == 'order'){
+            $order = Order::findorfail($id);
+            $amount  = (($order->order_total - $order->payment) * 100);
+            $name    = "Total for Order#".$order->id;
+        }
+        else {
+            $quote = Quote::findorfail($id);
+            $amount  = (($quote->quote_total) * 100);
+            $name    = "Total for Quote#".$quote->id;
+        }
+        
+        $product = $stripe->products->create(['name' => $name]);
         $PRODUCT_ID = $product->id;
         $price = $stripe->prices->create([
                         'currency' => 'GBP',
-                        'unit_amount' => (($order->order_total - $order->payment) * 100),
+                        'unit_amount' =>  $amount,
                         'product' => $PRODUCT_ID,
                         ]);
         $PRICE_ID = $price->id;
