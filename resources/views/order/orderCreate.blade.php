@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label for="booking_date">Booking Date </label> 
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" name="booking_date" value="{{ today()}}" id="booking_date" required>
+                                        <input type="text" class="form-control" name="booking_date" value="{{ $today}}" id="booking_date" required>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                         <select class="form-control" name="worked_by" required>
                                           <option value=""></option>
                                            @foreach($engineers AS $eng)
-                                             <option value="{{$eng->id}}">{{$eng->first_name}} {{$eng->last_name}}</option>
+                                             <option value="{{$eng->id}}" @if($eng->id == $loginid) SELECTED @endif >{{$eng->first_name}} {{$eng->last_name}}</option>
                                            @endforeach   
                                         </select>
 

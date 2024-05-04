@@ -204,8 +204,10 @@ class OrderController extends Controller
         $engineers = User::all();
         $devices = Device::orderby('device_type')->get();
         $makes = Make::orderby('make')->get();
-        
-        return view('order.orderCreate',compact('cust','engineers','devices','makes'));
+        $today = DateTime::createFromFormat('Y-m-d H:i:s', Carbon::now())->format('d/m/Y');
+        $loginid = Auth::user()->id;
+
+        return view('order.orderCreate',compact('cust','engineers','devices','today','loginid','makes'));
     }
 
     /**
@@ -501,6 +503,7 @@ class OrderController extends Controller
     {
 
         $order = Order::with('customer')->where('orders.id',$id)->first();
+
         $orlines = Orline::where('order_id',$id)->get();
         $payments = Payment::where('order_id',$id)->get();
         $devices = Device::all();
