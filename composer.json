@@ -18,7 +18,8 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "ramytalal/label-printer": "^1.1",
         "guzzlehttp/guzzle": "^7.5",
-        "laravel/telescope": "^4.14"
+        "laravel/telescope": "^4.14",
+        "stripe/stripe-php": "^13.14"
     },
 
     "require-dev": {

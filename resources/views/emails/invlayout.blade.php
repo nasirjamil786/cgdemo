@@ -551,28 +551,35 @@
                                             <td align="left" style="padding: 0 0 10px 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #333333; font-style: italic;border-bottom: 1px dashed #aaaaaa;" class="padding-copy">
 
                                             @if($order->order_total - $order->payment > 0)
+                                                @if($payurl != '#')
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td align="center" style="padding-top: 25px;" class="padding">
+                                                                <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container">
+                                                                    <tr>
+                                                                        <td align="center" style="border-radius: 3px;" bgcolor="#256F9C"><a href="{{$payurl}}" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 15px 25px; border: 1px solid #256F9C; display: inline-block;" class="mobile-button">PAY NOW</a></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                @endif
                                                 Payment Method: <br>
                                                 Bank Transfer(Lloyds):Sortcode: <b>77-63-17</b> Account: <b>74619768</b> <br>
-                                                Cheque Payable To <b>{{$settings->company_name}}:</b> {{$settings->address1}}, @if($settings->address2 != NULL) {{$settings->address2}}, @endif {{$settings->town}}, {{$settings->postcode}}
+                                                Cheque Payable To <b>{{$settings->company_name}}:</b> 
+                                                {{$settings->address1}}, @if($settings->address2 != NULL) 
+                                                {{$settings->address2}}, @endif {{$settings->town}}, {{$settings->postcode}}
                                             @endif
-
                                             </td>
-                                             
                                         </tr>
-
                                         <tr>
                                             <td align="left" style="padding: 10px 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #7ca230; font-style: italic;border-bottom: 1px dashed #aaaaaa;" class="padding-copy">
 
-                                            
-                                             Notes/Recomendations:<br>
+                                                Notes/Recomendations:<br>
                                              <b>{{$order->recommendations}}</b>
 
-
                                             </td>
-                                             
                                         </tr>
-
-                                         
                                     </table>
                                 </td>
                             </tr>
@@ -658,8 +665,6 @@
                         <span style="font-family: Arial, sans-serif; font-size: 12px; color: #444444;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                         <a href="http://litmus.com" target="_blank" style="color: #666666; text-decoration: none;">View this email in your browser</a>
                         -->
-
-
 
                     </td>
                 </tr>

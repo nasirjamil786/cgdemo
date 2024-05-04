@@ -473,14 +473,30 @@
                                                     <li>We guarantee our service, including replacement parts, for 90 days or manufacturer warranty whichever is longer.</li>
                                                     <li>Service is subject to availability of the parts </li>
                                                     <li>This is an estimate of the work instructed by you the actual cost may vary.</li>
-                                                    <li><b>Payment Method:</b></li>
-                                                    <li>Bank Transfer(Lloyds):Sortcode: <b>77-63-17</b> Account: <b>74619768</b> <br>
-                                                        Cheque Payable To <b>{{$settings->company_name}}:</b> {{$settings->address1}}, @if($settings->address2 != NULL) {{$settings->address2}}, @endif {{$settings->town}}, {{$settings->postcode}}
-                                                    </li>
+                                                    <li style="color:red"> <b>Payment Method:</b> </li>
+
+                                                    <li>Bank Transfer(Lloyds):Sortcode: <b>77-63-17</b> Account: <b>74619768</b> <br> </li>
+                                                    <li>Cheque Payable To <b>{{$settings->company_name}}:</b> {{$settings->address1}}, @if($settings->address2 != NULL) {{$settings->address2}}, @endif {{$settings->town}}, {{$settings->postcode}} </li>
+                                                    
                                                 </ul>
 
                                             </td>
                                              
+                                        </tr>
+                                        <tr>
+                                            @if($payurl != '#')
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td align="center" style="padding-top: 25px;" class="padding">
+                                                            <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container">
+                                                                <tr>
+                                                                    <td align="center" style="border-radius: 3px;" bgcolor="#256F9C"><a href="{{$payurl}}" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 15px 25px; border: 1px solid #256F9C; display: inline-block;" class="mobile-button">or Pay By Card</a></td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            @endif
                                         </tr>
 
                                         <!--
@@ -506,51 +522,29 @@
             <![endif]-->
         </td>
     </tr>
-    <!--
+    
     <tr>
+        <!--
         <td bgcolor="#ffffff" align="center" style="padding: 15px;">
             <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
                 <tr>
                     <td>
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr> -->
-                                <!-- COPY -->
-                                <!--
+                            <tr>
                                 <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">How did we do?</td>
                             </tr>
                             <tr>
                                 <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius, leo a ullamcorper feugiat, ante purus sodales justo, a faucibus libero lacus a est. Aenean at mollis ipsum.</td>
                             </tr>
-                            <tr> 
-                                <td align="center"> -->
-                                    <!-- BULLETPROOF BUTTON -->
-                                    <!--
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td align="center" style="padding-top: 25px;" class="padding">
-                                                <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container">
-                                                    <tr>
-                                                        <td align="center" style="border-radius: 3px;" bgcolor="#256F9C"><a href="https://litmus.com" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 15px 25px; border: 1px solid #256F9C; display: inline-block;" class="mobile-button">Let Us Know</a></td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
+                            
                         </table>
                     </td>
                 </tr>
-            </table> -->
-            <!--[if (gte mso 9)|(IE)]>
-            </td>
-            </tr>
             </table>
-            <![endif]-->
-            <!--
         </td>
+        -->
     </tr>
-    -->
+
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 20px 0px;">
             <!--[if (gte mso 9)|(IE)]>
@@ -571,14 +565,6 @@
                          @if($settings->reg_no != NULL) | Reg No: {{$settings->reg_no}} @endif  @if($settings->vat_no != " ") | VAT No: {{$settings->vat_no}} @endif 
                         <br>
                         
-                        <!--
-                        <a href="http://litmus.com" target="_blank" style="color: #666666; text-decoration: none;">Unsubscribe</a>
-                        <span style="font-family: Arial, sans-serif; font-size: 12px; color: #444444;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                        <a href="http://litmus.com" target="_blank" style="color: #666666; text-decoration: none;">View this email in your browser</a>
-                        -->
-
-
-
                     </td>
                 </tr>
             </table>

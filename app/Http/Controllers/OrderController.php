@@ -31,6 +31,7 @@ use Talal\LabelPrinter\Mode\Template;
 use Talal\LabelPrinter\Command;
 use Talal\LabelPrinter\Mode\Escp; 
 
+
 class OrderController extends Controller
 {
 
@@ -755,7 +756,11 @@ class OrderController extends Controller
         $settings = Setting::findorfail(1);
         $user = Auth::user();
 
-        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user'));
+        $myfuncs = New Myfunctions();
+        $payurl = $myfuncs->payUrl($order->id,'order');
+
+        
+        return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user','payurl'));
 
     }
 
@@ -770,8 +775,8 @@ class OrderController extends Controller
         $inv_date = $order->complete_date;
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
-        
-        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings','reminder'));
+        $payurl = '#';
+        return view('emails.invprint',compact('order','orlines','payments','inv_date','settings','payurl','reminder'));
     }
     public function invEmail($id,$reminder){
 
@@ -783,10 +788,12 @@ class OrderController extends Controller
         $inv_date = $order->complete_date;
         //$inv_date = $inv_date->format('j M Y');
         $settings = Setting::findorfail(1);
+        $myfuncs = New Myfunctions();
+        $payurl = $myfuncs->payUrl($order->id,'order');
 
         $remindLabel = ($reminder > 0) ? '[Reminder]':'';
 
-        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'reminder' => $reminder,'user' => $user], function ($m) use ($user,$order,$remindLabel) {
+        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'payurl' => $payurl,'reminder' => $reminder,'user' => $user], function ($m) use ($user,$order,$remindLabel) {
            
            $m->from($user->email, $user->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name);

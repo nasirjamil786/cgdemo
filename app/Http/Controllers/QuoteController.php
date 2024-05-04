@@ -272,23 +272,23 @@ class QuoteController extends Controller
         $settings = Setting::findorfail(1);
         $user = Auth::user();
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
-
-        return view('quote.print',compact('quote','settings','qlines','user'));
+        $payurl = '#';
+        return view('quote.print',compact('quote','settings','qlines','payurl','user'));
 
     }
     
-
     public function emailPreview($quoteid){
-
+        
         $quote = Quote::findorfail($quoteid);
         $settings = Setting::findorfail(1);
         $user = Auth::user();
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
+        $myfuncs = New Myfunctions;
+        $payurl = $myfuncs->payUrl($quote->id,'quote');
 
-        return view('quote.emailpreview',compact('quote','settings','qlines','user'));
+        return view('quote.emailpreview',compact('quote','settings','qlines','payurl','user'));
 
     }
-
 
     public function email($id){
 
@@ -297,7 +297,10 @@ class QuoteController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines], function ($m) use ($user,$quote) {
+        $myfuncs = New Myfunctions;
+        $payurl = $myfuncs->payUrl($quote->id,'quote');
+
+        Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines,'payurl' => $payurl], function ($m) use ($user,$quote) {
            
            $m->from($user->email, $user->name);
            $m->to($quote->customer->email, $quote->customer->first_name.' '.$quote->customer->last_name)->subject('Computer Gurus Quote# '.$quote->id);
