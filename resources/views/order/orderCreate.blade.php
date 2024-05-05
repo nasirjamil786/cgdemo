@@ -27,11 +27,10 @@
                                 <div class="form-group">
                                     <label for="booking_date">Booking Date </label> 
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" name="booking_date" value="{{ $today}}" id="booking_date" required>
+                                        <input type="text" class="form-control" name="booking_date" value="{{$today}}" id="booking_date" required>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="booking_time">Booking Time</label>
                                     <select class="form-control" name="booking_time" required>
