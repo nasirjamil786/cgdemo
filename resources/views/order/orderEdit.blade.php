@@ -839,6 +839,7 @@
                                                         <th>Amount</th>
                                                         <th>Date</th>
                                                         <th>Method</th>
+                                                        <th>Card System</th>
                                                         <th>Ref</th>
                                                         <th>Detail</th>
                                                         <th>Action</th>
@@ -849,6 +850,7 @@
                                                             <td>{{$pay->amount}}</td>
                                                             <td>{{$pay->payment_date}}</td>
                                                             <td>{{$pay->payment_method}}</td>
+                                                            <td>{{$pay->card_system}}</td>
                                                             <td>{{$pay->payment_ref}}</td>
                                                             <td>{{$pay->detail}}</td>
                                                             <td>
@@ -1115,6 +1117,17 @@
                                                     <option value="Bank Transfer" >Bank Transfer</option>
                                                     <option value="Card Payment">Card Payment</option>
                                                     <option value="Paypal">Paypal</option>
+                                                </select>
+                                            </div>
+                                            <!-- Card System -->
+                                            <div class="form-group">
+                                                <label for="card_system">Card System (if paid by card)</label>
+                                                <select class="form-control" name="card_system" id="card_system" required>
+                                                    <option value=""></option>
+                                                    <option value="TYL" >Natwest-TYL</option>
+                                                    <option value="Stripe">Stripe</option>
+                                                    <option value="other">Others</option>
+            
                                                 </select>
                                             </div>
                                             <!-- Payment Reference -->

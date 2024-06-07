@@ -42,6 +42,7 @@ class PaymentController extends Controller
         $payment->payment_date = $payment_date;
         $payment->amount = $request->amount;
         $payment->payment_method = $request->payment_method;
+        $payment->card_system = $request->card_system;
         $payment->payment_ref = $request->payment_ref;
         $payment->payment_type = ($request->amount < 0) ? 'refund' : 'payment';
         $payment->currency = 'GBP';
