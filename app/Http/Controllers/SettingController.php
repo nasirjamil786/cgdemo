@@ -61,6 +61,8 @@ class SettingController extends Controller
             'currency_symbol' => 'required',
         ]);
 
+        //dd($request->payment_button);
+
         //After Validation passed now save in to database
 
         $settings = App\Setting::find($id);
@@ -81,6 +83,7 @@ class SettingController extends Controller
         $settings->logo_file = $request->logo_file;
         $settings->currency = $request->currency;
         $settings->currency_symbol = $request->currency_symbol;
+        $settings->payment_button = $request->payment_button;
 
         $settings->updated_by = Auth::user()->id;
         

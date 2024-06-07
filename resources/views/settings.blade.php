@@ -107,8 +107,17 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control text-uppercase" name="currency_symbol" id="currency_symbol" value="{{$settings->currency_symbol}}" required>
                                 </div>
-
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Show Payment Button</label>
+                                <div class="col-md-6">
+                                    <input type="checkbox" class="form-control text-uppercase" name="payment_button" id="payment_button" value="1" @if($settings->payment_button == '1') checked @endif>
+                                </div>
+                            </div>
+
+
+
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Logo File Name</label>
                                 <div class="col-md-6">

@@ -368,8 +368,6 @@
 
                 @endif
 
-
-
                 <tr>
                     <td>
                         <!-- TWO COLUMNS -->
@@ -484,7 +482,7 @@
                                              
                                         </tr>
                                         <tr>
-                                            @if($payurl != '#')
+                                            @if($payurl != '#' && $settings->payment_button == 1)
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td align="center" style="padding-top: 25px;" class="padding">

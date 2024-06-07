@@ -551,7 +551,7 @@
                                             <td align="left" style="padding: 0 0 10px 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #333333; font-style: italic;border-bottom: 1px dashed #aaaaaa;" class="padding-copy">
 
                                             @if($order->order_total - $order->payment > 0)
-                                                @if($payurl != '#')
+                                                @if($payurl != '#' && $settings->payment_button == 1)
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td align="center" style="padding-top: 25px;" class="padding">
