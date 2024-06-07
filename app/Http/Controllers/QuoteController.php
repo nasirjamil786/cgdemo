@@ -284,7 +284,8 @@ class QuoteController extends Controller
         $user = Auth::user();
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
         $myfuncs = New Myfunctions;
-        $payurl = $myfuncs->payUrl($quote->id,'quote');
+    
+        $payurl = ($settings->payment_button == 1) ? $myfuncs->payUrl($quote->id,'quote') : '#';
 
         return view('quote.emailpreview',compact('quote','settings','qlines','payurl','user'));
 

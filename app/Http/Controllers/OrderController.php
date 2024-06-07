@@ -760,9 +760,8 @@ class OrderController extends Controller
         $user = Auth::user();
 
         $myfuncs = New Myfunctions();
-        $payurl = $myfuncs->payUrl($order->id,'order');
+        $payurl = ($settings->payment_button == 1) ? $myfuncs->payUrl($order->id,'order') : '#';
 
-        
         return view('emails.invpreview',compact('order','orlines','payments','inv_date','settings','reminder','user','payurl'));
 
     }
