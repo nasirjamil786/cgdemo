@@ -210,7 +210,7 @@ class QuoteController extends Controller
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
 
         
-        return view('quote.quoteDetail',compact('cust','quote','qlines'));
+        return view('quote.quoteDetail',compact('cust','quote','qlines','settings'));
 
     }
 
@@ -218,8 +218,9 @@ class QuoteController extends Controller
 
     	$quote = Quote::findorfail($id);
         $cust = Customer::findorfail($quote->customer_id);
+        $settings = Setting::findorfail(1);
 
-        return view('quote.quoteEdit',compact('quote','cust'));
+        return view('quote.quoteEdit',compact('quote','cust','settings'));
 
     }
 
@@ -261,8 +262,10 @@ class QuoteController extends Controller
         $quote = Quote::findorfail($id);
         $cust = Customer::findorfail($quote->customer_id);
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
+        $settings = Setting::findorfail(1);
+
         
-        return view('quote.quoteDetail',compact('cust','quote','qlines'));
+        return view('quote.quoteDetail',compact('cust','quote','qlines','settings'));
 
     }
 

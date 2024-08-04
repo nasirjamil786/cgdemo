@@ -69,6 +69,7 @@ class SettingController extends Controller
 
         $settings->company_name = $request->company_name;
         $settings->reg_no = $request->reg_no;
+        $settings->vat = ($request->vat != 1) ? 0:1;
         $settings->vat_no = $request->vat_no;
         $settings->vat_rate = $request->vat_rate;
         $settings->address1 = $request->address1;
@@ -83,7 +84,7 @@ class SettingController extends Controller
         $settings->logo_file = $request->logo_file;
         $settings->currency = $request->currency;
         $settings->currency_symbol = $request->currency_symbol;
-        $settings->payment_button = $request->payment_button;
+        $settings->payment_button = ($request->payment_button != 1) ? 0:1;
 
         $settings->updated_by = Auth::user()->id;
         

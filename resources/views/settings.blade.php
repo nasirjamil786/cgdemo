@@ -115,8 +115,12 @@
                                     <input type="checkbox" class="form-control text-uppercase" name="payment_button" id="payment_button" value="1" @if($settings->payment_button == '1') checked @endif>
                                 </div>
                             </div>
-
-
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Show VAT</label>
+                                <div class="col-md-6">
+                                    <input type="checkbox" class="form-control text-uppercase" name="vat" id="vat" value="1" @if($settings->vat == '1') checked @endif>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Logo File Name</label>

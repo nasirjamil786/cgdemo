@@ -85,14 +85,16 @@
                                       <td><a href="{{url('qline/'.$ql->id.'/delete')}}">Delete</a></td>
                                   </tr>
                                 @endforeach
+                                @if($settings->vat == 1)
                                 <tr>
                                   <td></td>
                                   <td></td>
-                                  <td>Total without VAT</td>
+                                  <td>Total  without VAT </td>
                                   <td>{{$quote->total_beforevat}}</td>
                                   <td></td>
                                   <td></td>
                                 </tr>
+                                
                                 <tr>
                                   <td></td>
                                   <td></td>
@@ -101,6 +103,7 @@
                                   <td></td>
                                   <td></td>
                                 </tr>
+                                @endif
                                 <tr>
                                   <td></td>
                                   <td></td>

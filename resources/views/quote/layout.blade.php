@@ -342,7 +342,7 @@
                                             <td style="padding: 0 0 10px 0;">
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                     <tr>
-                                                        <td align="left" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">VAT @ {{$quote->vat_rate}} %</td>
+                                                        <td align="left" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">@if($settings->vat == 1) VAT @ {{$quote->vat_rate}} % @endif</td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -354,7 +354,7 @@
                                             <td style="padding: 0 0 10px 0;">
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                     <tr>
-                                                        <td align="right" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">£ {{$quote->vat}} </td>
+                                                        <td align="right" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">@if($settings->vat == 1) £ {{$quote->vat}} @endif</td>
                                                     </tr>
                                                 </table>
                                             </td>

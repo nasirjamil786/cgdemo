@@ -513,7 +513,7 @@
                                             <td>
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                     <tr>
-                                                        <td align="right" style="font-family: Arial, sans-serif; color: #7ca230; font-size: 16px; font-weight: bold;">£{{$order->order_total - $order->payment}}</td>
+                                                        <td align="right" style="font-family: Arial, sans-serif; color: #7ca230; font-size: 16px; font-weight: bold;">£{{ number_format($order->order_total - $order->payment,2,'.',',') }}</td>
                                                     </tr>
                                                 </table>
                                             </td>

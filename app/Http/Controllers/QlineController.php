@@ -34,7 +34,7 @@ class QlineController extends Controller
        $quote = Quote::findorfail($quoteid);
        $suppliers = Supplier::all();
 
-       return view('qline.create',compact('quote','suppliers','vatRate'));
+       return view('qline.create',compact('quote','suppliers','vatRate','settings'));
 
     }
 
@@ -94,7 +94,7 @@ class QlineController extends Controller
        $qlines = Qline::where('quote_id','=',$quote->id)->get();
 
 
-        return view('quote.quoteDetail',compact('cust','quote','qlines'));
+        return view('quote.quoteDetail',compact('cust','quote','qlines','settings'));
 
     }
 
@@ -102,8 +102,10 @@ class QlineController extends Controller
 
     	$qline = Qline::findorfail($qlineid);
         $suppliers = Supplier::all();
+        $settings = Setting::findorfail(1);
 
-    	return view('qline.edit',compact('qline','suppliers'));
+
+    	return view('qline.edit',compact('qline','suppliers','settings'));
 
     }
 
@@ -160,13 +162,14 @@ class QlineController extends Controller
        $cust = Customer::findorfail($quote->customer_id);
        $qlines = Qline::where('quote_id','=',$quote->id)->get();
 
-        return view('quote.quoteDetail',compact('cust','quote','qlines'));
+        return view('quote.quoteDetail',compact('cust','quote','qlines','settings'));
 
     }
 
     public function delete($qlineid){
     	$qline = Qline::findorFail($qlineid);
     	$quoteid = $qline->quote_id;
+        $settings = Setting::findorfail(1);
 
     	$qline->delete();
         
@@ -178,7 +181,7 @@ class QlineController extends Controller
         $cust = Customer::findorfail($quote->customer_id);
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
 
-        return view('quote.quoteDetail',compact('cust','quote','qlines'));
+        return view('quote.quoteDetail',compact('cust','quote','qlines','settings'));
 
     }
 

@@ -45,18 +45,20 @@
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label for="value">Unit Price(without VAT)</label>
+                                        <label for="value">Unit Price @if($settings->vat == 1) (without VAT) @endif</label>
                                         <input type="number" class="form-control" step="0.01" name="value" value="{{ old('value') }}" required>
                                     </div>
                                     <div class="form-group col-md-3">
-                                         <label for="cost">cost(without VAT)</label>
+                                         <label for="cost">cost @if($settings->vat== 1) (without VAT) @endif</label>
                                          <input type="number" class="form-control" step="0.01" name="cost" value="{{ old('cost') }}" required>
                                     </div>
-                                    <div class="form-group col-md-3 checkbox">
-                                        <label>
-                                        <input type="checkbox" name="cost_vat_exempt" id="cost_vat_exempt" value="1" >Cost VAT exempt
-                                        </label>
-                                    </div>
+                                    @if($settings->vat == 1)
+                                        <div class="form-group col-md-3 checkbox">
+                                            <label>
+                                            <input type="checkbox" name="cost_vat_exempt" id="cost_vat_exempt" value="1" >Cost VAT exempt
+                                            </label>
+                                        </div>
+                                    @endif
                                 </div>   
                                 <div class="clearfix"></div>
                                 <div class="form-row">
