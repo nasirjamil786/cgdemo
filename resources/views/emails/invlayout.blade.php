@@ -465,7 +465,7 @@
                                             <td style="padding: 0 0 10px 0;">
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                     <tr>
-                                                        <td align="right" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">£{{ -1 * $pay->amount}}</td>
+                                                        <td align="right" style="font-family: Arial, sans-serif; color: #333333; font-size: 16px;">@if((-1 * $pay->amount) < 0 ) - @endif £{{ number_format(abs($pay->amount),2,'.',',')}}</td>
                                                     </tr>
                                                 </table>
                                             </td>
