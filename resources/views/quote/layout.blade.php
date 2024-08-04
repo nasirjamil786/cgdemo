@@ -161,7 +161,7 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 15px;" class="padding-copy">
-                                                ESTIMATION
+                                            ESTIMATION
                     </td>
                 </tr>
             </table>

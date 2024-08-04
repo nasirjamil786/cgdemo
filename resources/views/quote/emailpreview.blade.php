@@ -9,7 +9,7 @@
     <!-- send email buttons -->
     <div>
         <div>
-           <a href="{{url('quote/'.$quote->id.'/email')}}" class="button">Email to Customers</a>
+           <a href="{{url('quote/'.$quote->id.'/'.$reminder.'/email')}}" class="button">Email to Customers</a>
            <a href="{{url('quote/'.$quote->id.'/editdetail')}}" class="button">Go Back</a>
         </div>
          <div class="divclear"></div>

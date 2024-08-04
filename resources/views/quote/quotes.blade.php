@@ -93,6 +93,9 @@
                                             {{-- <a href="{{url('quote/'.$quote->id.'/deleteconfirm')}}">Delete</a>  --}}
 
                                               <a href="{{url('quote/'.$quote->id.'/delete')}}">Delete</a>
+                                              @if($quote->email_sent != NULL)
+                                                <a href="{{url('quote/'.$quote->id.'/1/emailpreview')}}">|Reminder</a>
+                                              @endif
 
                                             {{-- @endif --}}
                                         </td>

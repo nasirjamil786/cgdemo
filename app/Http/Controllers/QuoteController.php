@@ -269,45 +269,48 @@ class QuoteController extends Controller
 
     }
 
-    public function print($quoteid){
+    public function print($quoteid,$reminder){
 
         $quote = Quote::findorfail($quoteid);
         $settings = Setting::findorfail(1);
         $user = Auth::user();
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
         $payurl = '#';
-        return view('quote.print',compact('quote','settings','qlines','payurl','user'));
+        return view('quote.print',compact('quote','settings','qlines','payurl','user','reminder'));
 
     }
     
-    public function emailPreview($quoteid){
+    public function emailPreview($quoteid,$reminder){
         
         $quote = Quote::findorfail($quoteid);
         $settings = Setting::findorfail(1);
         $user = Auth::user();
         $qlines = Qline::where('quote_id','=',$quote->id)->get();
         $myfuncs = New Myfunctions;
+        $reminder = $reminder;
     
         $payurl = ($settings->payment_button == 1) ? $myfuncs->payUrl($quote->id,'quote') : '#';
 
-        return view('quote.emailpreview',compact('quote','settings','qlines','payurl','user'));
+        return view('quote.emailpreview',compact('quote','settings','qlines','payurl','user','reminder'));
 
     }
 
-    public function email($id){
+    public function email($id,$reminder){
 
         $quote = Quote::with('customer')->where('id',$id)->first();
         $qlines = Qline::where('quote_id','=',$id)->get();
         $user = Auth::user();
         $settings = Setting::findorfail(1);
+        $reminder = $reminder;
 
         $myfuncs = New Myfunctions;
         $payurl = $myfuncs->payUrl($quote->id,'quote');
 
-        Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines,'payurl' => $payurl], function ($m) use ($user,$quote) {
+        Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines,'payurl' => $payurl, 'reminder' => $reminder], function ($m) use ($user,$quote) {
            
            $m->from($user->email, $user->name);
-           $m->to($quote->customer->email, $quote->customer->first_name.' '.$quote->customer->last_name)->subject('Computer Gurus Quote# '.$quote->id);
+           $m->to($quote->customer->email, $quote->customer->first_name.' '.$quote->customer->last_name)
+                ->subject(($reminder = 1) ? 'Reminder:Computer Gurus Quote# '.$quote->id : 'Computer Gurus Quote# '.$quote->id );
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Quote to Customer');
            if ($quote->customer->ccemail != null) {

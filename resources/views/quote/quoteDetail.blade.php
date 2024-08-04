@@ -119,9 +119,12 @@
                          
                     </div>
                     <div class="panel-footer">
-                         <a href="{{url('quote/'.$quote->id.'/print')}}" class="btn btn-primary">Print</a>
-                        
-                        <a href="{{url('quote/'.$quote->id.'/emailpreview')}}" class="btn btn-primary">Email</a>
+                         <a href="{{url('quote/'.$quote->id.'/0/print')}}" class="btn btn-primary">Print</a>
+                        @if($quote->email_sent == NULL)
+                            <a href="{{url('quote/'.$quote->id.'/0/emailpreview')}}" class="btn btn-primary">Email</a>
+                          @else
+                            <a href="{{url('quote/'.$quote->id.'/1/emailpreview')}}" class="btn btn-primary">Send Email Reminder</a>
+                        @endif
                         <a href="{{url('quote/'.$quote->id.'/copy')}}" class="btn btn-primary">Copy</a>
                         @if($quote->order_id == NULL)
                           <a href="{{url('quote/'.$quote->id.'/convorder')}}" class="btn btn-primary">Convert to Order</a>

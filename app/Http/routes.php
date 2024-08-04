@@ -83,7 +83,7 @@ Route::get('/', function () {
 });
 
  
-Route::get('quote/{quoteid}/emailpreview','QuoteController@emailPreview');
+
 
 Route::get('/label', function () {
     return view('labels.label');
@@ -280,9 +280,10 @@ Route::get('quote/{id}/editdetail','QuoteController@editDetail');
 //Route::get('quote/{quoteid}/emailpreview','QuoteController@emailPreview');
 
 
-
-Route::get('quote/{quoteid}/email','QuoteController@email');
-Route::get('quote/{quoteid}/print','QuoteController@print');
+Route::get('quote/{quoteid}/{reminder}/emailpreview','QuoteController@emailPreview');
+/*Reminder will be 0 or 1 */
+Route::get('quote/{quoteid}/{reminder}/email','QuoteController@email');
+Route::get('quote/{quoteid}/{reminder}/print','QuoteController@print');
 Route::get('quote/{quoteid}/deleteconfirm','QuoteController@deleteConfirm');
 
 //Route::post('quote/{quoteid}/delete','QuoteController@delete');
