@@ -183,8 +183,10 @@ class OrderController extends Controller
          }
 
          $today = Carbon::now()->toDateString();
+
+         $quote_count = Quote::where('quote_status','!=','ordered')->count();
              
-        return view('order.orders',compact('orders','checked_state','sortby','today'));
+        return view('order.orders',compact('orders','checked_state','sortby','today','quote_count'));
     }
 
     /**

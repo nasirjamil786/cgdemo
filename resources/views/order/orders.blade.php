@@ -8,6 +8,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
+                @if($quote_count > 0)
+                <div class="signaturealert" role="alert">
+                     <h4>Warning: There @if($quote_count > 1) are @else is a @endif  {{$quote_count}} @if($quote_count > 1) quotations @else quotation @endif needs your attension!</h4>
+                </div>
+                @endif
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <form class="form-inline" method="GET" action="{{url('/order')}}">
