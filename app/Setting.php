@@ -14,7 +14,7 @@ class Setting extends Model
     protected $fillable = [
         'company_name', 'reg_no','vat','vat_no','vat_rate','address1',
         'address2','area','town','postcode','country','phone',
-        'mobile','email','web','logo_file','updated_by'
+        'mobile','email','name','web','logo_file','updated_by'
     ];
 
 }

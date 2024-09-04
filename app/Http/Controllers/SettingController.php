@@ -56,6 +56,7 @@ class SettingController extends Controller
             'postcode' => 'required',
             'phone' => 'required',
             'email' => 'required|email|max:255',
+            'name' => 'required',
             'vat_rate' => 'numeric',
             'currency' => 'required',
             'currency_symbol' => 'required',
@@ -80,6 +81,7 @@ class SettingController extends Controller
         $settings->phone = $request->phone;
         $settings->mobile = $request->mobile;
         $settings->email = $request->email;
+        $settings->name = $request->name;
         $settings->web = $request->web;
         $settings->logo_file = $request->logo_file;
         $settings->currency = $request->currency;

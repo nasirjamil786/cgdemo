@@ -306,9 +306,10 @@ class QuoteController extends Controller
         $myfuncs = New Myfunctions;
         $payurl = $myfuncs->payUrl($quote->id,'quote');
 
-        Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines,'payurl' => $payurl, 'reminder' => $reminder], function ($m) use ($user,$quote) {
+        Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines,'payurl' => $payurl, 'reminder' => $reminder], 
+        function ($m) use ($settings,$user,$quote) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($quote->customer->email, $quote->customer->first_name.' '.$quote->customer->last_name)
                 ->subject(($reminder = 1) ? 'Reminder:Computer Gurus Quote# '.$quote->id : 'Computer Gurus Quote# '.$quote->id );
            if ($user->bcc != null)

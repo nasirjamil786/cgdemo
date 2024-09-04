@@ -286,8 +286,8 @@ dd('here');
 
         $user = Auth::user();
         
-        Mail::send('emails.custWelcome', ['customer' => $customer], function ($m) use ($user,$customer) {
-            $m->from($user->email, $user->name);
+        Mail::send('emails.custWelcome', ['customer' => $customer], function ($m) use ($user,$settings,$customer) {
+            $m->from($settings->email, $settings->name);
             $m->to($customer->email, $customer->first_name.' '.$customer->last_name)->subject('Welcome to Computer Gurus!');
             if ($user->bcc != NULL)
                $m->bcc($user->bcc, $user->name);

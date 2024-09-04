@@ -143,8 +143,8 @@ class BookingController extends Controller
        
 
 
-        Mail::send('emails.engBookingNotification', ['booking' => $booking,'bdate' => $booking_date], function ($m) use ($user,$booking,$engineer) {
-           $m->from($user->email, $user->name);
+        Mail::send('emails.engBookingNotification', ['booking' => $booking,'bdate' => $booking_date], function ($m) use ($user,$settings,$booking,$engineer) {
+           $m->from($settings->email, $settings->name);
            $m->to($engineer->email, $engineer->name)->subject('New Repair Booking#'.$booking->id.' for '.$booking->name);
         });
 

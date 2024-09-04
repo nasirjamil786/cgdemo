@@ -320,16 +320,16 @@ class OrderController extends Controller
         //send an email to customer
 
         $user = Auth::user();
-        Mail::send('emails.bookingCustConfirmation', ['customer' => $cust], function ($m) use ($user,$cust) {
-            $m->from($user->email, $user->name);
+        Mail::send('emails.bookingCustConfirmation', ['customer' => $cust], function ($m) use ($settings,$user,$cust) {
+            $m->from($settings->email, $settings->name);
             $m->to($cust->email, $cust->first_name.' '.$cust->last_name)->subject('Booking Confirmation with Computer Gurus');
         });
 
         //send an email to assigned engineer
 
         $eng = User::findorfail($order->worked_by) ;
-        Mail::send('emails.bookingEngNotification', ['order' => $order,'engineer' => $eng], function ($m) use ($user,$eng,$order) {
-            $m->from($user->email, $user->name);
+        Mail::send('emails.bookingEngNotification', ['order' => $order,'engineer' => $eng], function ($m) use ($settings,$user,$eng,$order) {
+            $m->from($settings->email, $settings->name);
             $m->to($eng->email, $eng->name)->subject('New Booking Confirmation No '.$order->id);
         });
 
@@ -797,9 +797,11 @@ class OrderController extends Controller
 
         $remindLabel = ($reminder > 0) ? '[Reminder]':'';
 
-        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,'orlines' => $orlines,'payments' => $payments,'payurl' => $payurl,'reminder' => $reminder,'user' => $user], function ($m) use ($user,$order,$remindLabel) {
+        Mail::send('emails.invoice', ['order' => $order,'inv_date' => $inv_date,'settings' => $settings,
+        'orlines' => $orlines,'payments' => $payments,'payurl' => $payurl,'reminder' => $reminder,'user' => $user], 
+        function ($m) use ($settings,$user,$order,$remindLabel) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name);
            $m->subject($remindLabel.'Computer Gurus Invoice #'.$order->id);
            if ($user->bcc != null)
@@ -871,9 +873,10 @@ class OrderController extends Controller
         $inv_date =  $order->payment_date;
         $settings = Setting::findorfail(1);
 
-        Mail::send('emails.receipt', ['order' => $order,'orlines' => $orlines,'payments' => $payments,'inv_date' => $inv_date,'settings' => $settings], function ($m) use ($user,$order) {
+        Mail::send('emails.receipt', ['order' => $order,'orlines' => $orlines,'payments' => $payments,'inv_date' => $inv_date,'settings' => $settings], 
+        function ($m) use ($settings,$user,$order) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Payment Receipt# '.$order->id);
            if ($user->bcc != null)
               $m->bcc($user->bcc, $name = 'Receipt to Customer');
@@ -989,9 +992,9 @@ class OrderController extends Controller
         Mail::send('order.email', ['order' => $order,'settings' => $settings,'olines' => $olines], 
 
 
-            function ($m) use ($user,$order) {
+            function ($m) use ($settings,$user,$order) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Booking# '.$order->id);
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Booking Confirmation');
@@ -1369,9 +1372,9 @@ class OrderController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('devicetest.email', ['order' => $order,'settings' => $settings], function ($m) use ($user,$order) {
+        Mail::send('devicetest.email', ['order' => $order,'settings' => $settings], function ($m) use ($settings,$user,$order) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Computer Gurus Device Test Report#'.$order->id);
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Device Test Report');
@@ -1401,9 +1404,10 @@ class OrderController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('emails.deviceFixedNotifEmail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+        Mail::send('emails.deviceFixedNotifEmail', ['order' => $order,'settings' => $settings,], 
+        function ($m) use ($settings,$user,$order) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Your device has been fixed order# '.$order->id);
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Device Fixed Notification');
@@ -1439,9 +1443,10 @@ class OrderController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('emails.reviewrequestemail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+        Mail::send('emails.reviewrequestemail', ['order' => $order,'settings' => $settings,],
+        function ($m) use ($settings,$user,$order) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Please Write a Review');
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Review Request');
@@ -1475,9 +1480,10 @@ class OrderController extends Controller
         $user = Auth::user();
         $settings = Setting::findorfail(1);
 
-        Mail::send('emails.partsorderedemail', ['order' => $order,'settings' => $settings,], function ($m) use ($user,$order) {
+        Mail::send('emails.partsorderedemail', ['order' => $order,'settings' => $settings,], 
+        function ($m) use ($settings,$user,$order) {
            
-           $m->from($user->email, $user->name);
+           $m->from($settings->email, $settings->name);
            $m->to($order->customer->email, $order->customer->first_name.' '.$order->customer->last_name)->subject('Parts Ordred');
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Parts Ordered');
