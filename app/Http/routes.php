@@ -137,7 +137,13 @@ Route::post('/settings/{id}', 'SettingController@update');
 //Customers
 
 Route::get('/customer', 'CustomerController@index');
-Route::get('/customer/create', 'CustomerController@create');
+
+//Customer Question Address required or not 
+Route::get('/customer/question', 'CustomerController@question');
+Route::get('/customer/create', 'CustomerController@create');  //address required
+Route::get('/customer/createnoaddress', 'CustomerController@createNoAddress'); //no address 
+
+Route::post('/customerstorenoadd', 'CustomerController@storeNoAddress');
 Route::post('/customer', 'CustomerController@store');
 Route::get('/customer/{id}', 'CustomerController@show')->name('customer.show');
 Route::get('/customer/{id}/edit', 'CustomerController@edit')->name('customer.edit');

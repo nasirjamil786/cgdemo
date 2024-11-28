@@ -233,9 +233,19 @@ dd('here');
 
     }
 
+    public function question()
+    {
+      return view('customer.question');
+    }
+
     public function create()
     {
-        return view('customer.customerCreate');
+      return view('customer.customerCreate');
+    }
+
+    public function createNoAddress()
+    {
+      return view('customer.createNoAddress');
     }
 
     public function store(Request $request)
@@ -271,6 +281,62 @@ dd('here');
         $customer->mobile     = $request->mobile;
         $customer->recommended_by = $request->recommended_by;
         $customer->recommended_name = $request->recommended_name;
+        $customer->newsletter = $request->newsletter;
+        $customer->notes = $request->notes;
+        $customer->status = "Active";
+        $customer->user_id = Auth::user()->id;
+        $customer->updated_by = Auth::user()->id;
+        $customer->save();
+
+        //Send a welcome email to customer
+        //Mail:: is a Fascad and send is a function
+        //send can take three parameter (view,array of data to use in view, closure function
+        //we can add 'use' as an annoymouse function to pass parameters inside enclosue function
+        //which are outside of its scope.
+
+        $user = Auth::user();
+        
+        Mail::send('emails.custWelcome', ['customer' => $customer], function ($m) use ($user,$settings,$customer) {
+            $m->from($settings->email, $settings->name);
+            $m->to($customer->email, $customer->first_name.' '.$customer->last_name)->subject('Welcome to Computer Gurus!');
+            if ($user->bcc != NULL)
+               $m->bcc($user->bcc, $user->name);
+        });
+        // end 
+
+        return redirect('custsearch1/'.$customer->id)->with('status','New customer was adedd and welcome email was sent successfully!');
+
+    }
+
+    public function storeNoAddress(Request $request)
+    {
+        $this->validate($request,[
+
+            'cust_title' => 'required',
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'email'   => 'required|email',
+            'phone'   => 'required|digits:11',
+            'recommended_by' => 'required',
+        ]);
+
+        $settings = Setting::findOrFail(1);
+        $customer = New Customer;
+
+        $customer->cust_title = $request->cust_title;
+        $customer->first_name = $request->first_name;
+        $customer->last_name  = $request->last_name;
+        $customer->company    = ".";
+        $customer->address1   = ".";
+        $customer->address2   = "";
+        $customer->town       = ".";
+        $customer->postcode   = ".";
+        $customer->country    = $settings->country;
+        $customer->email      = $request->email;
+        $customer->phone      = $request->phone;
+        $customer->mobile     = $request->mobile;
+        $customer->recommended_by = $request->recommended_by;
+        $customer->recommended_name = "";
         $customer->newsletter = $request->newsletter;
         $customer->notes = $request->notes;
         $customer->status = "Active";

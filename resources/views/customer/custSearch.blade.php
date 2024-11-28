@@ -54,7 +54,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <button type="submit" class="btn btn-primary">Search</button>
-                            <a href="{{url('customer/create')}}" class="btn btn-primary">New Customer</a>
+                            <a href="{{url('customer/question')}}" class="btn btn-primary">New Customer</a>
                             
                         </form>
                     </div>

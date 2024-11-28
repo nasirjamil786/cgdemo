@@ -14,7 +14,7 @@
                     </div>
                     <div class="panel-body">
                         @include('partials.error')
-                        <form class="form-horizontal" role="form" method="POST" action="{{url('customer')}}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{url('customerstorenoadd')}}">
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label class="col-md-2 control-label"  >Title*</label>
@@ -55,37 +55,6 @@
                                 <label class="col-md-2 control-label"  >Mobile/Phone*</label>
                                 <div class="col-md-6">
                                     <input  type="tel" class="form-control" name="phone" id="phone" value="{{ old('phone') }}"required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Company</label>
-                                <div class="col-md-6">
-                                    <input  type="text" class="form-control "  name="company" id="company" value="{{ old('company') }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Address Line1*</label>
-                                <div class="col-md-6">
-                                    <input  type="text" class="form-control "  name="address1" id="address1" value="{{ old('address1') }}"required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Address Line2</label>
-                                <div class="col-md-6">
-                                    <input  type="text" class="form-control "  name="address2" id="address2" value="{{ old('address2') }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Town*</label>
-                                <div class="col-md-6">
-                                    <input  type="text" class="form-control "  name="town" id="town" value="{{ old('town') }}"required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"  >Postcode*</label>
-                                <div class="col-md-6">
-                                    <input  type="text" class="form-control text-uppercase" name="postcode" id="postcode" value="{{ old('postcode') }}"required>
                                 </div>
                             </div>
                             <div class="form-group">
