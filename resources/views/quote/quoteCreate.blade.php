@@ -39,8 +39,6 @@
                                    
                                 </div>
 
-                                
-                        
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Next</button>
                             </div>
@@ -52,7 +50,6 @@
                     </div>
                     
                 </div>  <!-- end of panel -->
-
 
             </div>
         </div>

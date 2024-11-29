@@ -181,7 +181,7 @@ class QuoteController extends Controller
     	$this->validate($request,[
     		'valid_date' => 'required',
     		'quote_title' => 'required',
-    		'work_detail' => 'required',
+    		//'work_detail' => 'required',
     	]);
 
     	//$request->flash();
@@ -311,7 +311,7 @@ class QuoteController extends Controller
            
            $m->from($settings->email, $settings->name);
            $m->to($quote->customer->email, $quote->customer->first_name.' '.$quote->customer->last_name)
-                ->subject(($reminder = 1) ? 'Reminder:Computer Gurus Quote# '.$quote->id : 'Computer Gurus Quote# '.$quote->id );
+                ->subject(($reminder == 1) ? 'Reminder:Computer Gurus Quote# '.$quote->id : 'Computer Gurus Quote# '.$quote->id );
            if ($user->bcc != null)
                $m->bcc($user->bcc, $name = 'Quote to Customer');
            if ($quote->customer->ccemail != null) {
