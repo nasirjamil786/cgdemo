@@ -307,7 +307,7 @@ class QuoteController extends Controller
         $payurl = $myfuncs->payUrl($quote->id,'quote');
 
         Mail::send('quote.email', ['quote' => $quote,'settings' => $settings,'qlines' => $qlines,'payurl' => $payurl, 'reminder' => $reminder], 
-        function ($m) use ($settings,$user,$quote) {
+        function ($m) use ($settings,$user,$quote,$reminder) {
            
            $m->from($settings->email, $settings->name);
            $m->to($quote->customer->email, $quote->customer->first_name.' '.$quote->customer->last_name)
