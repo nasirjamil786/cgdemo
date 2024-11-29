@@ -87,6 +87,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->cc = $request->cc;
         $user->bcc = $request->bcc;
+        $user->can_settings = $request->can_settings;
+        $user->can_reports = $request->can_reports;
         $user->password = bcrypt($request->password);
         $user->password_hint = $request->password_hint;
         $user->updated_by = Auth::user()->id;
@@ -171,6 +173,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->cc = $request->cc;
         $user->bcc = $request->bcc;
+        $user->can_settings = $request->can_settings;
+        $user->can_reports = $request->can_reports;
         $user->password_hint = $request->password_hint;
         $user->updated_by = Auth::user()->id;
         $user->save();

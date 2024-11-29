@@ -87,15 +87,20 @@
                         {{--  <li><a href="{{ url('/register') }}">Register</a></li> --}}
                     @else
                         {{-- only Admin can do that --}}
-                        @can('update-settings') <!-- update-settings is a permission name if it exist -->
+                        @can('update-settings') && Auth::user()->can_reports <!-- update-settings is a permission name if it exist -->
+                            
+                            @if (Auth::user()->can_reports == 1)
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-expanded="false" >Reports <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{url('/custreports')}}">Customers</a></li>
+                                    <li><a href="{{url('customer')}}">Customers Search</a></li>
+                                    <li><a href="{{url('/custreports')}}">Customers Reports</a></li>
                                     <!-- <li><a href="{{url('/ordreport')}}">Orders</a></li> -->
                                     <li><a href="{{url('/commissionreport')}}">Financial Report</a></li>
                                     <li><a href="{{url('/vatreport')}}">VAT Report</a></li>
                                 </ul>
                             </li>
+                            @endif
+                            @if(Auth::user()->can_settings == 1)
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-expanded="false" >Settings <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{url('/settings')}}">Settings</a></li>
@@ -104,7 +109,7 @@
                                     <li><a href="{{url('/permissions')}}">Permissions</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{url('customer')}}">Customers</a></li>
+                            @endif
                         @endcan
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

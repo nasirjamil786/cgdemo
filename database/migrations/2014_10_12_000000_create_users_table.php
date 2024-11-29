@@ -41,6 +41,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('password_hint')->nullable();
             $table->string('updated_by');
+            $table->tinyInteger('can_settings'); // 0 = not 1 = yes 
+            $table->tinyInteger('can_reports');     // 0 = not 1 = yes 
             $table->rememberToken();
             $table->timestamps();
         });

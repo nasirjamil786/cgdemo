@@ -15,7 +15,7 @@ class User extends Authenticatable
         'user_title', 'first_name', 'last_name','name','position','address1','address2',
         'area', 'town', 'county','postcode','country','phone','mobile','tax_no',
         'user_status', 'notes', 'ipaddress','login_device','email','password',
-        'password_hint', 'updated_by'
+        'password_hint', 'updated_by','can_settings','can_reports',
     ];
 
     /**

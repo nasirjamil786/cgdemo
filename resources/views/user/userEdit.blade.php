@@ -92,6 +92,21 @@
                                     </select>
                                     <a class="btn btn-default" href="{{ URL('roles') }}">Roles</a>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="role">Permissions</label>
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" name="can_settings" id="can_settings" value="1" {{ $user->can_settings == 1 ? 'checked' : '' }}>Can Update Settings
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" name="can_reports" id="can_reports" value="1" {{ $user->can_reports == 1 ? 'checked' : '' }}>Can See Financial Reports 
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
