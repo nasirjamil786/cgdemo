@@ -14,9 +14,14 @@
 <option value="With Phone4Less" @if($order->order_status == 'With Phone4Less') selected @endif>With Phone4Less</option>
 <option value="With Brandlab" @if($order->order_status == 'With Brandlab') selected @endif>With Brandlab</option>
 <option value="With PhoneBooth" @if($order->order_status == 'With PhoneBooth') selected @endif>With PhoneBooth</option>
+<option value="With Nyasha" @if($order->order_status == 'With PhoneBooth') selected @endif>With PhoneBooth</option>
 <option value="Invoiced" @if($order->order_status == 'Invoiced') selected @endif>Invoiced</option>
+
+@if(Auth::user()->can_closeOrder == 1)
+  <option value="Closed" @if($order->order_status == 'Closed') selected @endif>Closed</option>
+@endif
+
 @can('admin-only')
 <option value="Paid" @if($order->order_status == 'Paid') selected @endif>Paid</option>
-<option value="Closed" @if($order->order_status == 'Closed') selected @endif>Closed</option>
 <option value="Cancelled" @if($order->order_status == 'Cancelled') selected @endif>Cancelled</option>
 @endcan

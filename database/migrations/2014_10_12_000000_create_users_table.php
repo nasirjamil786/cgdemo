@@ -43,6 +43,7 @@ class CreateUsersTable extends Migration
             $table->string('updated_by');
             $table->tinyInteger('can_settings'); // 0 = not 1 = yes 
             $table->tinyInteger('can_reports');     // 0 = not 1 = yes 
+            $table->tinyInteger('can_closeOrder');     // 0 = not 1 = yes 
             $table->rememberToken();
             $table->timestamps();
         });
