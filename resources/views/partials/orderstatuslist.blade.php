@@ -14,7 +14,7 @@
 <option value="With Phone4Less" @if($order->order_status == 'With Phone4Less') selected @endif>With Phone4Less</option>
 <option value="With Brandlab" @if($order->order_status == 'With Brandlab') selected @endif>With Brandlab</option>
 <option value="With PhoneBooth" @if($order->order_status == 'With PhoneBooth') selected @endif>With PhoneBooth</option>
-<option value="With Nyasha" @if($order->order_status == 'With PhoneBooth') selected @endif>With PhoneBooth</option>
+<option value="With Nyasha" @if($order->order_status == 'With Nyasha') selected @endif>With Nyasha</option>
 <option value="Invoiced" @if($order->order_status == 'Invoiced') selected @endif>Invoiced</option>
 
 @if(Auth::user()->can_closeOrder == 1)
