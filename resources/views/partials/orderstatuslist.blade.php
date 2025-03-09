@@ -17,6 +17,7 @@
 <option value="With Nyasha" @if($order->order_status == 'With Nyasha') selected @endif>With Nyasha</option>
 <option value="Invoiced" @if($order->order_status == 'Invoiced') selected @endif>Invoiced</option>
 <option value="Drop Off Scheduled" @if($order->order_status == 'Drop Off Scheduled') selected @endif>Drop Off Scheduled</option>
+<option value="Parts Enquired - Waiting Supplier Responce" @if($order->order_status == 'Parts Enquired - Waiting Supplier Responce') selected @endif>Parts Enquired - Waiting Supplier Responce</option>
 
 @if(Auth::user()->can_closeOrder == 1)
   <option value="Closed" @if($order->order_status == 'Closed') selected @endif>Closed</option>
