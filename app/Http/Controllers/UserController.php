@@ -90,6 +90,7 @@ class UserController extends Controller
         $user->can_settings = $request->can_settings;
         $user->can_reports = $request->can_reports;
         $user->can_closeOrder = $request->can_closeOrder;
+        $user->can_delPay = $request->can_delPay;
         $user->password = bcrypt($request->password);
         $user->password_hint = $request->password_hint;
         $user->updated_by = Auth::user()->id;
@@ -177,6 +178,7 @@ class UserController extends Controller
         $user->can_settings = $request->can_settings;
         $user->can_reports = $request->can_reports;
         $user->can_closeOrder = $request->can_closeOrder;
+        $user->can_delPay = $request->can_delPay;
         $user->password_hint = $request->password_hint;
         $user->updated_by = Auth::user()->id;
         $user->save();

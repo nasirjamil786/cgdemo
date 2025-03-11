@@ -110,6 +110,11 @@
                                         <input type="checkbox" name="can_closeOrder" id="can_closeOrder" value="1" {{ $user->can_closeOrder == 1 ? 'checked' : '' }}>Can Close Order 
                                         </label>
                                     </div>
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" name="can_delPay" id="can_delPay" value="1" {{ $user->can_delPay == 1 ? 'checked' : '' }}>Can Delete Payment
+                                        </label>
+                                    </div>
                                 </div>
 
                             </div>

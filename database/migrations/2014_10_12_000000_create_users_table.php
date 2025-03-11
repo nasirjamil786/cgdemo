@@ -44,6 +44,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('can_settings'); // 0 = not 1 = yes 
             $table->tinyInteger('can_reports');     // 0 = not 1 = yes 
             $table->tinyInteger('can_closeOrder');     // 0 = not 1 = yes 
+            $table->tinyInteger('can_delPay');     // 0 = not 1 = yes 
             $table->rememberToken();
             $table->timestamps();
         });

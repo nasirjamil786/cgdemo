@@ -16,6 +16,7 @@ class User extends Authenticatable
         'area', 'town', 'county','postcode','country','phone','mobile','tax_no',
         'user_status', 'notes', 'ipaddress','login_device','email','password',
         'password_hint', 'updated_by','can_settings','can_reports','can_closeOrder',
+        'can_delPay',
     ];
 
     /**
