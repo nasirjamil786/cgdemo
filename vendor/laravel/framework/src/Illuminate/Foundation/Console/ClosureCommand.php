@@ -4,6 +4,7 @@ namespace Illuminate\Foundation\Console;
 
 use Closure;
 use Illuminate\Console\Command;
+use Illuminate\Console\ManuallyFailedException;
 use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Traits\ForwardsCalls;
 use ReflectionFunction;
@@ -29,7 +30,6 @@ class ClosureCommand extends Command
      *
      * @param  string  $signature
      * @param  \Closure  $callback
-     * @return void
      */
     public function __construct($signature, Closure $callback)
     {
@@ -58,9 +58,15 @@ class ClosureCommand extends Command
             }
         }
 
-        return (int) $this->laravel->call(
-            $this->callback->bindTo($this, $this), $parameters
-        );
+        try {
+            return (int) $this->laravel->call(
+                $this->callback->bindTo($this, $this), $parameters
+            );
+        } catch (ManuallyFailedException $e) {
+            $this->components->error($e->getMessage());
+
+            return static::FAILURE;
+        }
     }
 
     /**
