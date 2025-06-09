@@ -105,6 +105,8 @@
                                         <input type="checkbox" name="can_reports" id="can_reports" value="1" {{ $user->can_reports == 1 ? 'checked' : '' }}>Can See Financial Reports 
                                         </label>
                                     </div>
+
+
                                     <div class="checkbox">
                                         <label>
                                         <input type="checkbox" name="can_closeOrder" id="can_closeOrder" value="1" {{ $user->can_closeOrder == 1 ? 'checked' : '' }}>Can Close Order 
@@ -115,6 +117,7 @@
                                         <input type="checkbox" name="can_delPay" id="can_delPay" value="1" {{ $user->can_delPay == 1 ? 'checked' : '' }}>Can Delete Payment
                                         </label>
                                     </div>
+
                                 </div>
 
                             </div>
