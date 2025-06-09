@@ -401,7 +401,8 @@ dd('here');
 
         $myfuncs = New Myfunctions;
         $review_date = $myfuncs->usDate($request->reviewed);
-
+        if($review_date == "")
+            $review_date = NULL;
 
         $customer->cust_title = $request->cust_title;
         $customer->first_name = $request->first_name;

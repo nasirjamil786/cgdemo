@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 use Mailgun\Mailgun;
 
 
-$mgClient = new Mailgun('key-de8f8f419e0ef6bb22e3af2a11383e83');
+$mgClient = new Mailgun('key');
 $domain = "mail.computergurus.co.uk";
 
 

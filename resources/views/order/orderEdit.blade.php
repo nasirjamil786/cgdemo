@@ -854,7 +854,7 @@
                                                             <td>{{$pay->payment_ref}}</td>
                                                             <td>{{$pay->detail}}</td>
                                                             <td>
-                                                                @if(Auth::user()->hasRole('Admin'))
+                                                                @if(Auth::user()->can_delPay == 1)
                                                                 <a href="{{url('payment/'.$pay->id.'/delete')}}">Delete</a>
                                                                 @endif
                                                             </td>
